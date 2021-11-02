@@ -1,0 +1,67 @@
+.pseudo::first-line {
+  color: red;
+  font-size: 20px;
+}
+
+/* :pseudo-class = 다른 상태일 때 */
+/* ::pseudo-element = 내부의 일부분만 스타일을 줄 때 */
+
+/* 1. pseudo-element를 선택하려면 콜론 2개 :: 를 사용
+2. ::first-letter라고 붙이면 안에 있는 글자 중 첫 글자만 스타일을 줄 수 있음
+3. ::first-line이라고 붙이면 안에 있는 글자 중 첫 줄만 스타일을 줄 수 있음
+4. ::after라고 붙이면 내부의 맨 마지막 부분에 특정 글자같은걸 추가해줄 수 있음
+5. ::before라고 붙이면 내부의 맨 앞 부분에 특정 글자같은걸 추가해줄 수 있음. */
+
+
+.product-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+
+/* Pseudo-element로 clear : both 박스 편하게 만들기 */
+.product-container::after {
+  content: '';
+  display: block;
+  clear: both;
+  float: none;
+}
+
+.product-container div {
+  width: 25%;
+  text-align: center;
+  float: left;
+  margin-bottom: 40px;
+}
+
+.product-container i {
+  background-color: burlywood;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  padding-top: 30px;
+  box-sizing: border-box;
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .product-container {
+    max-width: 700px;
+  }
+  .product-container div{
+    width: 50%;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-container {
+    max-width: 500px;
+  }
+  .product-container div {
+    width: 100%;
+    font-size: 10px;
+  }
+}
