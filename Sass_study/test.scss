@@ -1,26 +1,19 @@
-// .sass 파일은 SASS문법을 사용가능하면서 괄호 안써도 됨
-// .sass파일을 쓸건지 .scss파일을 쓸건지 택 1
+// 긴 코드를 다른 파일로 빼는 문법 = use 사용
+@use 'reset';
+// reset.scss에 있던거 가져와달라는 의미 / 확장자는 보통 생략
+// @use '파일경로';
+// 컴파일 하기 싫은 파일(종속되는 파일)은 _파일명.scss로 작명
+
 
 // ✅ nesting 문법
-.main-bg h4 {
-  font-size: 16px;
-}
-.main-bg p {
-  color: rebeccapurple;
-}
-// nestion 문법 사용 하면 아래처럼 가능 
 .main-bg {
   h4 {
-    font-size: 16px;
+    font-size: 32px;
   }
   p {
     color: rebeccapurple;
   }
 }
-// 큰 괄호안에 세부 괄호를 이용하여 사용
-// ❗ nestion 문법을 사용하면 관련있는 class들 묶을때 좋음
-// 네스팅은 두개 이상 중첩 ㄴㄴ 가능은 하지만 웬만해선 하나만
-
 
 // ✅ extend 문법
 %box {
@@ -41,26 +34,38 @@
   @extend %box;
   background-color: blue;
 }
-// %는 임시 클래스라고 생각하면 됨
-// 변수와는 다르게 여러개 가능
-// 중복된 스타일들이 많으면 1. 클래스로 묶어두고 2. @extend로 필요할 때 복사해서 사용
-// extend는 임시클래스 뿐만 아니라, .과 같은 진짜 클래스에도 사용 가능
-// %임시클래스는 단독으로 컴파일되지 않는 특징이 있음
 
 .clear::after {
   content: '';
-  display: block; /* 클리어 보스 박스 만들때 display block 필수 */
+  display: block; 
   clear: both;
   float: none;
 }
 
 
 $메인칼라 : #2a4cb2;
-$main-color : red;
 
 .background {
   background-color: $메인칼라;
 }
 .box {
-  color: $main-color;
+  color: reset.$main-color;   // 다른 파일에 있는 변수 갖다 쓰는법 = @include 파일명.mixin이름
+}
+
+
+// mixin
+@mixin 폰트스타일($인수, $인수2) {
+  font-size: $인수;
+  #{ $인수2 }: 1px;
+}
+
+h2 {
+  @include 폰트스타일(40px, width);
+}
+h3 {
+  @include 폰트스타일(30px, letter-spacing);
+}
+h4 {
+  font-size: 10px;
+  letter-spacing: -1px;
 }
