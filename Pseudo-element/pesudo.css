@@ -12,6 +12,61 @@
 4. ::after라고 붙이면 내부의 맨 마지막 부분에 특정 글자같은걸 추가해줄 수 있음
 5. ::before라고 붙이면 내부의 맨 앞 부분에 특정 글자같은걸 추가해줄 수 있음. */
 
+input[type=file]::-webkit-file-upload-button {
+  background: skyblue;
+  border: none;
+}
+
+input::-webkit-input-placeholder {
+  color: red;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  background-color: #eee;
+}
+input[type=range] {
+  appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;         /* 브라우저 기본 CSS 안보이게 하기 */
+  background-color: red;
+  width: 20px;
+  height: 20px;
+}
+
+progress {
+  /*기본 배경은 없애주는게 좋음*/
+  -webkit-appearance: none;
+  -moz-appearance : none;
+  appearance: none;
+  background: white;
+/* IE10 호환성용 */
+  color: red;
+}
+progress::-webkit-progress-bar {
+  background-color: lightgoldenrodyellow;
+  border-radius: 2px;
+}
+progress::-webkit-progress-value {
+  background: red;
+  border-radius: 2px;
+}
+/*파이어폭스 호환성을 위해*/
+progress::-moz-progress-bar {
+  background-color: red;
+  border-radius: 2px;
+}
+
+/* HTML 개발시 코드가 너무 복잡해지지 않기 위해 숨겨놓은 HTML 요소들이 있는데,
+이걸 Shadow DOM이라고 부름 */
+/* -webkit- 수식어는 크롬, 오페라, 사파리, Edge 브라우저에서만 동작하는 스타일을 만들고 싶을 때
+사용
+파이어 폭스는 -moz-
+익스플로러는 -ms- */
+
+/* 개발자도구에서 셀렉터를 훔쳐서 사용 */
+
+
 
 .product-container {
   width: 80%;
