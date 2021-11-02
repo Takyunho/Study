@@ -1,5 +1,44 @@
-.box {
-  width: 100px;
+@charset "UTF-8";
+.main-bg h4 {
+  font-size: 16px;
+}
+
+.main-bg p {
+  color: rebeccapurple;
+}
+
+.main-bg h4 {
+  font-size: 16px;
+}
+.main-bg p {
+  color: rebeccapurple;
+}
+
+.box-color-blue, .box-color-red, .box-color-green {
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  float: left;
+}
+
+.box-color-green {
+  background-color: green;
+}
+
+.box-color-red {
+  background-color: red;
+}
+
+.box-color-blue {
+  background-color: blue;
+}
+
+.clear::after {
+  content: "";
+  display: block;
+  /* 클리어 보스 박스 만들때 display block 필수 */
+  clear: both;
+  float: none;
 }
 
 .background {

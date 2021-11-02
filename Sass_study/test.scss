@@ -1,30 +1,62 @@
-.box {
-  width: 100px;
+// .sass 파일은 SASS문법을 사용가능하면서 괄호 안써도 됨
+// .sass파일을 쓸건지 .scss파일을 쓸건지 택 1
+
+// ✅ nesting 문법
+.main-bg h4 {
+  font-size: 16px;
+}
+.main-bg p {
+  color: rebeccapurple;
+}
+// nestion 문법 사용 하면 아래처럼 가능 
+.main-bg {
+  h4 {
+    font-size: 16px;
+  }
+  p {
+    color: rebeccapurple;
+  }
+}
+// 큰 괄호안에 세부 괄호를 이용하여 사용
+// ❗ nestion 문법을 사용하면 관련있는 class들 묶을때 좋음
+// 네스팅은 두개 이상 중첩 ㄴㄴ 가능은 하지만 웬만해선 하나만
+
+
+// ✅ extend 문법
+%box {
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  float: left;
+}
+.box-color-green {
+  @extend %box;
+  background-color: green;
+}
+.box-color-red {
+  @extend %box;
+  background-color: red;
+}
+.box-color-blue {
+  @extend %box;
+  background-color: blue;
+}
+// %는 임시 클래스라고 생각하면 됨
+// 변수와는 다르게 여러개 가능
+// 중복된 스타일들이 많으면 1. 클래스로 묶어두고 2. @extend로 필요할 때 복사해서 사용
+// extend는 임시클래스 뿐만 아니라, .과 같은 진짜 클래스에도 사용 가능
+// %임시클래스는 단독으로 컴파일되지 않는 특징이 있음
+
+.clear::after {
+  content: '';
+  display: block; /* 클리어 보스 박스 만들때 display block 필수 */
+  clear: both;
+  float: none;
 }
 
-// .map 파일은 크롬 개발자도구 디버깅용
-// .map 파일이 있으면 크롬에서 CSS가 아니라 SCSS파일로 분석해줌(굳이 신경쓸필요 X)
-
-// Sass는 전처리언어
-// CSS를 조금 더 프로그래밍 언어스럽게 작성할 수 있는 문법들을 제공
-// 변수, 함수, import, 상속 등의 기능을 CSS에서 이용가능하게 함
-
-// 웹브라우저는 CSS 파일밖에 모름 / SASS 이런거 모름 
-// 그래서 SASS 로 코드를 짰으면 그걸 CSS 파일로 변환해주는 변환기를 돌려서
-// 변환된 CSS 파일을 HTML 파일과 써야함 
-// 변환하려면 node.js 설치하고 터미널 켜서 npm init인지 install인지 어쩌구라고 나오는데
-// 그것은 배보다 배꼽이 더 크기 때문에 VScode 에디터의 힘을 빌리는게 좋음
-
-
-
-// SASS 문법 1 : 값을 저장해놓고 쓰는 '변수' 
-// SASS 파일에선 이런 어려운 값들을 예쁜 한글로 치환해서 사용할 수 있음
-// 변수라는 문법을 쓰면 되는데 변수 문법은 어려운 값들을 이쁜 단어에 저장해서
-// 쓸 수 있게 도와주는 문법임
 
 $메인칼라 : #2a4cb2;
 $main-color : red;
-// $ = 변수를 만들겠습니다. 변수 = 데이터 잠깐 보관하는 통이라고 생각
 
 .background {
   background-color: $메인칼라;
@@ -32,15 +64,3 @@ $main-color : red;
 .box {
   color: $main-color;
 }
-
-// 이거 말고도 width, font-size 등 자주 쓰지만 기억하기 어려운 값들을 넣으면 매우 편리
-// $변수이름은 영어도 좋고 한글도 잘 먹음
-// 많은 곳에서 공통적으로 사용하는 값들도 저기 넣으면 좋음 왜냐면 나중에 변경이 쉬워지니까
-
-// 사칙연산도 가능
-// 덧셈뺄셈은 px 단위는 px 단위끼리, % 단위는 % 단위끼리 이렇게 단위 맞춰줘야하고
-// 곱셈 나눗셈은 보통 뒤에 단위를 쓰지 않음. 쓰면 이상한 자료형이 됨
-// 곱셈 나눗셈은 괄호 안에 작성해야 잘됨'
-
-//(참고1) SASS없이 그냥 CSS 파일에도 var() 이걸 이용해서 변수문법을 사용가능
-//(참고2) 그냥 CSS 파일에서도 calc() 라는 함수를 이용하면 사칙연산을 사용가능
