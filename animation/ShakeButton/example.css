@@ -1,0 +1,33 @@
+
+.ani-btn {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: skyblue;
+  padding: 15px;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+.ani-btn:hover {
+  animation-name: 흔들버튼;
+  animation-duration: 0.5s;
+}
+
+
+@keyframes 흔들버튼 {
+  0% {
+  transform: rotate(0);   /* 제자리 */
+  }
+  25% {
+    transform: rotate(-10deg);  /* 좌측회전 */
+  }
+  50% {
+    transform: rotate(10deg); /* 우측회전 */ 
+  }
+  75% {
+    transform: rotate(-10deg);  /* 좌측회전 */
+  }
+  100% {
+    transform: rotate(0);   /*제자리*/
+  }
+}
