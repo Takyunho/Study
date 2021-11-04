@@ -42,3 +42,18 @@
 .grid-content {
   grid-area: 콘텐츠;
 }
+
+@media screen and (max-width: 546px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /*세로칸 갯수&사이즈 fr = 배율 */
+    grid-template-rows: 100px 100px 100px;  /*가로칸 갯수&사이즈*/
+    /* grid-gap: 10px;    격자 간격 */
+  
+    grid-template-areas:
+      "header"
+      "side"
+      "콘텐츠"
+    ;
+}
+}
