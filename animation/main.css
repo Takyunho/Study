@@ -8,6 +8,7 @@
   transform : scale(2);                   확대축소
   transform : skew(30deg);                비틀기
   */
+  
   /*
   transform 두개 이상을 한꺼번에 쓰려면
   transform : rotate(10deg) translateX(30px);
@@ -44,8 +45,8 @@
     transform: translateX(0px);
   }
 }
-/* margin, width, left, 이런거 말고 transform 쓰라는 이유 */
-/*
+/* ✅ margin, width, left, 이런거 말고 transform 쓰라는 이유 
+
 크롬같은 웹브라우저들은 html css를 2D 그래픽으로 바꿔주는 간단한 프로그램입니다.
 근데 html css를 그래픽으로 바꿀 때
 1.Render Tree만들기 -> 2.layout 잡기 -> 3.색칠(paint)하기
@@ -55,8 +56,8 @@ transform이 바뀌면 transform 부분만 다시 렌더링하면 됩니다.
 그래서 뭔가 이동시키고 싶으면 margin 쓰는 것 보다 transform 쓰는게 빠르게 동작합니다.
 */
 
-/* 성능 잡을 수 있는 여러 방법1. will-change 쓰면 됩니다. */
-/*
+/* ✅ 성능 잡을 수 있는 여러 방법1. will-change 쓰면 됩니다. 
+
 .ani-text {
   will-change: transform;
 }
