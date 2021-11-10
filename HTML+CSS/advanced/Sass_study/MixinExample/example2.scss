@@ -1,0 +1,32 @@
+@use '/Sass_study/reset';
+
+// 가로
+@mixin row() {
+  border: 1px solid rgb(211, 200, 214);
+  width: 80%;
+  height: 100px;
+  background-color: rgb(240, 231, 243);
+  margin: 10px auto 20px auto;
+}
+// 세로
+@mixin col() {
+  border: 1px solid rgb(211, 200, 214);
+}
+
+@mixin font() {
+  font-size: 2rem;
+  color: rgb(153, 37, 37);
+  margin-top: 20px;
+}
+
+.row {
+  @include row();
+}
+
+.col-6, .col-4 {
+  @include col();
+}
+
+.row p {
+  @include font();
+}
