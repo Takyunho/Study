@@ -1,0 +1,160 @@
+/* @font-face = 내가 준비한 폰트파일을 CSS에서 사용가능하게 등록하는 과정 */
+@font-face {
+  font-family: '나눔스퀘어'; /* 작명 아무렇게 */
+  src: url(../font/NanumSquare-master/NanumSquareR.woff);
+}
+
+
+div {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  font-family: '나눔스퀘어', 'dotum', 'arial';
+  font-weight: 100;
+}
+/* 위와 같이 두개 써놓고 시작하면 편리함 */
+/* 숙련자들은 CSS 파일 맨 위에 호환성 이슈 해결책부터 첨부하는 경우가 있음 */
+
+/* 폰트 부드럽게 처리하기 (굴림체같은 폰트는 살짝 깨지므로 부드럽게 처리해주는게 좋음) */
+p, h4, h3, h2, h1, span, button {
+  transform: rotate(0.03deg);
+}
+
+.main-background {
+  width: 100%;
+  height: 500px;
+  background-image: linear-gradient( rgba(0,0,0,0.5), rgba(0,0,0,0.5) ), url(/IMG/shoes.jpg);  /* ../ 상위 폴더로 이동하라는 뜻 */
+  background-size: cover;     
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 1px;   /* margin collapse effect현상 방지하기 위해!!*/
+  position: relative;
+}
+/* cover: 배경 짤려도 상관없으니, 빈공간 없이 배경으로 꽉 채워라 라는 뜻
+contain: 여백이 남아도 좋으니까 배경이 짤리지 않게 해주세요 라는 뜻*/
+
+.main-title {
+  color: white;
+  font-size: 50px;
+  margin-top: 200px;
+  margin-left: 20px;  
+}
+
+.main-background p {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+}
+
+.buy-btn {
+  padding: 5px;
+  font-size: 15px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  position: absolute;
+  
+  right: 15px;
+  bottom: 15px;
+}
+/* 
+position: relative = 내 원래 위치를 기준으로 이동하세요 라는 뜻!
+position: relative 특징
+1. 좌표 이동가능하게 해줌 / 내기준점을 잡는 역할
+2. position을 부여하면 공중에 뜸
+*/
+
+/*
+position: static = 좌표이동 하지 말아주세요 라는 뜻
+position: fixed = 화면 고정( 현재 화면이 기준) / 고정이 필요한 메뉴나 버튼 만들때 사용!!
+*/
+
+/*
+position: absolute = 내 부모 태그 중에 position: relative 가진 부모가 기준점이 되는 것
+/ 내 부모를 기준으로 움직이고 싶을때 즉,
+항상 달라 붙는 버튼 등을 만들때 사용
+
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px; 를 사용하여 가운데 정렬 가능
+
+*/
+
+
+.explain-box {
+  background-color: #eee;
+  width: 80%;
+  /* 보통 아래의 max-width와 같이 씀(%로 하면 너무 커지므로) */
+  /* width는 콘텐츠 영역의 너비를 의미한다. 패딩을 주면 박스가 커진다. */
+  max-width: 600px;
+  /* 반응형 레이아웃 만들때 자주 사용!! / min-width와 max,min- height 도 있음! */
+  
+  /* box-sizing: border-box; 위에서 div 태그에 부여*/
+  /* 박스의 폭은 border 까지 포함입니다. / 이러면 width가 padding, border를 포함함 */
+  /* border-content-box: 박스의 폭은 padding 안쪽입니다. / 이러면 포함 안함 */
+  
+  height: 200px;
+  text-align: center;
+  padding: 20px;
+  display: block;         
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: -70px;
+  /* display block을 내장하고 있어서 안써도 된다. => 그냥 margin auto만 써도 된다. */
+  z-index: 5;
+  /* z-index가 높을 수록 앞에 온다. */
+}
+
+/* 배치 쉽게하기 */
+
+.flex-container {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(228, 125, 107);
+  
+}
+  /* justify-content : center;  좌우정렬(박스가 홈페이지 가운데로 오게됨) */
+  /* align-items : center;  상하정렬(높이가 있는경우 상중하 정렬 가능) */
+  /* flex-direction : column; 세로정렬(박스를 가로로 배치할지, 세로로 배치할지) */
+  /* flex-wrap : wrap;  폭이 넘치는 요소 wrap 처리(폭이 커지면 자동으로 아래로 내려옴)  */
+  /* align-content는 박스가 가로로 여러줄일 때 박스들의 상하배치를 조절할 수 있는 속성 */
+.flex-item {
+  width: 100px;
+  margin: 10px;
+  padding: 10px;
+  
+}
+
+.item1 {
+  color: white;
+  font-size: 50px;
+}
+
+.item3, .item4 {
+  color: white;
+  font-size: 20px;
+}
+
+
+/* 박스 좌측 & 우측정렬 동시에 하는 법  */
+/* <div class="flex-container">
+  <div class="box"></div>
+  <div class="box" style="flex-grow : 1"></div>
+  <div class="box"></div>
+</div> */
+/* 그러니까 첫 <div>는 왼쪽,
+
+마지막 <div>는 우측정렬을 하고싶으면 어떻게 하냐는 겁니다.
+
+그건 가운데 임시 <div> 하나 만들어주고 
+
+flex-grow: 1 이런 식으로 사이즈를 크게 키워주면 됩니다.
+
+그럼 알아서 나머지 요소들은 좌측 우측으로 퍼집니다.  */
+
