@@ -11,19 +11,27 @@
 <body>
 
   <h2 id="hello">안녕하세요</h2>
+  <h2 id="hi">올때 메로나</h2>
 
+  <!-- 자바스크립트의 목적 : HTMl 조작과 변경을 위해 사용 -->
   <script>
     document.getElementById("hello").innerHTML = "안녕"; // HTML 변경
-  // document = 웹문서
-  // . = ~의
-  // getElementById = Id에 의해서 HTML요소 가져와줘
-  // "hello" = id는 hello야
-  // innerHTML = 내부 HTML의(내부글자)
+    // document = 웹문서
+    // . = ~의
+    // getElementById = Id에 의해서 HTML요소 가져와줘
+    // "hello" = id는 hello야 (바꾸고싶은 HTML요소의 id 여기에 적으면 됨)
+    // innerHTML = 내부 HTML (뭐 바꿀지 적으면 됨 ex).style.color 이런식으로)
+    // document.getElementById("바꾸고싶은 HTML요소의 id").뭐 바꿀지 = "변경내용";
+    // 큰따옴표, 작은따옴표 둘다 가능
+
+    document.getElementById("hi").innerHTML = "올때바밤바";
+    // = 은 오른쪽꺼를 왼쪽에 집어넣어주세요(대입해주세요 라는 뜻)
+    // 따옴표('')는 문자를 표현하고 싶을때 사용 (문자 자료형이라고 한다.)
+    // document.getElementById("바꾸고싶은 HTML요소의 id") <== 를 셀렉터(selector)라고 부름
+    document.getElementById('hello').style.fontSize = '30px';
   </script>
 
 
 </body>
 
 </html>
-
-<!-- 자바스크립트의 목적 : HTMl 조작과 변경을 위해 사용 -->
