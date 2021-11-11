@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="function2.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="alert-box" id="alert">
+    <h3 id="title">Alert 박스</h3>
+    <button onclick="닫기1('none');">X</button> <!-- 닫기버튼 -->
+  </div>
+
+  <div class="alert-box2" id="alert2">
+    <h3 id="title2">비번을 입력안하셨어요</h3>
+    <button onclick="닫기2('none');">X</button>
+  </div>
+
+  <!-- 열기버튼 -->
+  <button onclick="알림창오픈1('아이디를 입력안하셨어요');">버튼1</button>
+  <button onclick="알림창오픈2('HTML따로 만들어서 만든 알림박스');">버튼2</button>
+  <button onclick="알림창오픈1('비번을 입력안하셨어요');">버튼3</button>
+
+
+  <script>
+    // ⭐ function 문법
+    // function 쓰는 이유 1. 긴 코드 짧게 축약 가능
+
+    // function 쓰는 이유 2. 함수 하나로 다양한기능을 만들 수 있음(여러개를 만들 필요가 없어짐)
+    // 즉, 함수 업그레이드 하고 싶으면 파라미터를 사용(아래처럼)
+
+
+    function 알림창오픈1(alert1) {
+      document.getElementById('title').innerHTML = alert1; //h3태그에 id추가하여 여기다가 기재
+      document.getElementById('alert').style.display = 'block';
+    }
+
+    function 알림창오픈2(alert2) {
+      document.getElementById('title2').innerHTML = alert2;
+      document.getElementById('alert2').style.display = 'block';
+    }
+
+    // 알림창 1과 합칠 수 있음 => 버튼 온클릭의 알림창오픈3을 알림창오픈1로 변경
+    // function 알림창오픈3(alert3) {
+    //   document.getElementById('title').innerHTML = alert3;
+    //   document.getElementById('alert').style.display = 'block';
+    // }
+
+    function 닫기1(close) {
+      document.getElementById('alert').style.display = close;
+    }
+
+    function 닫기2(close) {
+      document.getElementById("alert2").style.display = close;
+    }
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

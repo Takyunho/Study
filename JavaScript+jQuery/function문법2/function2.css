@@ -1,0 +1,24 @@
+body {
+  margin: 0px;
+}
+
+
+.alert-box {
+  width: 50%;
+  background: skyblue;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  display: none;
+}
+
+
+.alert-box2 {
+  width: 50%;
+  margin-top: 20px;
+  background: lightcyan;
+  color: black;
+  padding: 20px;
+  border-radius: 5px;
+  display: none;
+}
