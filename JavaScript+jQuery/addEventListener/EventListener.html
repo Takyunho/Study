@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="EventListener.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="alert-box" id="alert">
+    <h3 id="title">Alert 박스</h3>
+    <button id="close"> X </button> <!-- 닫기버튼 -->
+  </div>
+
+  <!-- 열기버튼 -->
+  <button onclick="알림창오픈1('아이디를 입력안하셨어요');">버튼1</button>
+  <button onclick="알림창오픈1('비번을 입력안하셨어요');">버튼3</button>
+
+
+  <script>
+
+    function 알림창오픈1(alert1) {
+      document.getElementById('title').innerHTML = alert1;
+      document.getElementById('alert').style.display = 'block';
+    }
+
+    // ✅ addEventListener
+    document.getElementById('close').addEventListener('click', function () {
+      document.getElementById('alert').style.display = 'none';
+    })
+
+    // addEventListener 형식
+    //   셀렉터로찾은요소.addEventListener('click', function(){ 
+    //     실행할코드
+    //   });
+
+    // .addEventListener ==> 왼쪽에 있는 요소(document.getElementById('close'))가
+    // 클릭(click)이 되면, function() 실행(알림창이 다시 안보이도록)해주세요
+    // 'click' = 이벤트라고 부름
+    // 이벤트에는 click, keydown, scroll, mouseover 등등이 있음 
+    // 너무 많으므로 아래 페이지에서 필요할 때 찾아서 쓰기!
+    // https://developer.mozilla.org/en-US/docs/Web/Events
+  </script>
+
+
+
+</body>
+
+</html>
