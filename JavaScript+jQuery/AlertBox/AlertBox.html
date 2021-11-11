@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="AlertBox.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="alert-box" id="alert">Alert 박스
+    <button onclick="document.getElementById('alert').style.display = 'none'; ">X</button>
+    <!-- 닫기버튼 -->
+  </div>
+  <button onclick="document.getElementById('alert').style.display = 'block'; //세미콜론 必 ">
+    버튼
+  </button>
+  <!-- onclick="자바스크립트~~" =>> 이 버튼을 클릭했을때 자바스크립트~~를 실행해주세요 -->
+  <!-- id 이므로 div에 id 하나 추가해야함(alert-box는 클래스) -->
+
+
+  <script>
+    // 버튼 누르면 Alert 등장!
+    // UI 만드는 법
+    // 1️⃣ 미리 디자인해놓고,
+    // 2️⃣ UI를 평소엔 안보이게 숨김(display: none, visibility: hidden)
+    // 3️⃣ 버튼 누르거나 하면 UI를 보여줌(display: block)
+  </script>
+
+
+</body>
+
+</html>

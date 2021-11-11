@@ -1,0 +1,13 @@
+body {
+  margin: 0px;
+}
+
+
+.alert-box {
+  width: 50%;
+  background: skyblue;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  display: none;
+}
