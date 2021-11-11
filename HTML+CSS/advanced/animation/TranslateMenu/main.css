@@ -34,7 +34,7 @@
     transform: translateX(-200px);      /* 왼쪽에서 오른쪽으로 이동 */
   }
   50% {
-    transform: translateX(20px) skewX(-30deg);
+    transform: translateX(30px) skewX(-30deg);
     /* 숨겨져 있던 item이 우측으로 이동하고 살짝 비틀어짐 */
   }
   100% {

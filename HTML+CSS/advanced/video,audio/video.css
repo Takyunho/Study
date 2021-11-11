@@ -3,7 +3,7 @@ body {
 }
 
 .video-box {
-  height: 500px;
+  height: 800px;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -16,5 +16,10 @@ body {
   left: 50%;
   transform : translate(-50%,-50%);
   z-index: 0;
-  
+  /*
+  어떤 요소를 궁극의 가운데정렬을 하고 싶을 때
+저렇게 position absolute를 주고 top, left, transform 속성을 차례로 줍니다.
+그럼 position relative를 가진 부모에 대해 정가운데 위치시킬 수 있습니다.
+max-width, width 등으로 크기 조정을 넣는 것도 좋습니다.
+*/
 }
