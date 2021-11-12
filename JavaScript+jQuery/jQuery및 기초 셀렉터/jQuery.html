@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="jQuery.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h4 id="test"> 안녕하세요 </h4>
+
+
+  <div class="alert-box" id="alert">
+    <h3 id="title">Alert 박스</h3>
+    <button id="close"> X </button> <!-- 닫기버튼 -->
+  </div>
+  <!-- 열기버튼 -->
+  <button onclick="알림창오픈1('아이디를 입력안하셨어요');">버튼1</button>
+  <button onclick="알림창오픈1('비번을 입력안하셨어요');">버튼3</button>
+
+
+
+  <!-- ⭐ jQuery -->
+  <!--
+  jQuery 설치 방법 2가지 
+  1️⃣ CDN 사이트를 이용해서 첨부하기 => jQuery cdn : (다른 사이트가 호스팅해주는 js파일 가져오는 것)
+    보통 3.x 버전 설치 / 인터넷 익스플로러 8이하 호환성을 잡는 사이트를 만들고 있으면
+    1.x버전을 설치
+  <!--
+  uncompressed = 쌩 자바스크립트 파일(그냥 원본 파일)
+  minified = 자바스크립트의 공백을 다 압축한 버전(공백 제거버전)
+  slim = 몇개의 기능(AJAX 등)이 빠진 버전(라이트버전)
+  -->
+  <!--
+  2️⃣ 직접 다운받아서 첨부하기
+    제이쿼리 사이트에서 다운 받아서 <script src="아까 다운받은 그 파일 경로"></script>를 적으면 됨
+  -->
+
+
+  <!-- jQery는 바디태그 끝나기 전에 쓰는 것이 바람직 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <!-- ⭐ jQery cdn 아래 있어야 스크립트 동작 -->
+  <script>
+    // 1️⃣ 제이쿼리 기본 문법
+    // document.getElementById('title').innerHTML = '바보';
+    // $('#title').html('바보');
+    // --> 윗줄은 자바스크립트, 아랫줄은 제이쿼리 문법임. 뜻은 동일함
+    // 페이지 내의 ID가 title이라는 것을 찾아서 내용을 '바보'로 바꾸라는 것!
+
+    // 2️⃣ 제이쿼리 셀렉터
+    // jQuery는 HTML찾는 셀렉터를 $() 를 이용해 사용함
+    // 그리고 따옴표 안에 CSS 스타일의 셀렉터를 적으면 됨
+    // ex
+    // document.getElementById('test') 를 $('#test') 로
+    // .innerHTML = '변경될내용'; => .html('변경될내용');
+    // $('#title'); --> id일때 #
+    // $('.box')  --> class일때 .
+
+    // 3️⃣ jQuery 함수/메소드 
+    // $('#title').text('바보'); 
+    // $('#title').html('<p>바보</p>'); 
+    // $('#title').css('color', 'red');
+
+    // 내가 원하는 세부 속성을 바꿀 때 자바스크립트처럼 메소드를 뒤에 붙이면 됨.
+    // 하지만 자바스크립트와 이름이 약간 다름
+    // .text 는 안에있는 모든 텍스트를 변경하라
+    // .html 은 안에있는 모든 내용을 변경하라 (HTML 태그 포함)
+    // .css 는 스타일속성을 변경하라 라는 뜻
+
+    $('#test').html('안녕');
+
+    // css도 변경 가능 => $('CSS셀렉터').css('이걸', '이렇게');
+    $('#test').css('color', 'red');
+
+    // src도 변경 가능 => $('CSS셀렉터').attr('원하는 속성을', '이렇게바꿈');
+    $('#test').attr('src', '~~~~');
+
+    // 클래스 추가
+    $('#test').addClass('yellow-bg');
+
+
+    function 알림창오픈1(alert1) {
+      document.getElementById('title').innerHTML = alert1;
+      document.getElementById('alert').style.display = 'block';
+    }
+    document.getElementById('close').addEventListener('click', function () {
+      document.getElementById('alert').style.display = 'none';
+    })
+  </script>
+
+</body>
+
+</html>
