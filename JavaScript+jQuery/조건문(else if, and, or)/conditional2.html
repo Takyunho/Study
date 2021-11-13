@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="conditional2.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background">
+    <div class="white-background">
+      <p>로그인하세요</p>
+      <!-- 모달창 내부 폼 -->
+      <form action="login.php">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" id="email">
+          <p id="email-alert">이메일 형식이 잘못되었거나 빈칸입니다.</p>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" id="password">
+          <p id="password-alert">비밀번호가 틀렸거나 빈칸입니다.</p>
+        </div>
+        <button type="submit" class="btn btn-primary">전송</button>
+      </form>
+
+      <button type="button" class="btn btn-primary close-btn" id="close">닫기</button>
+    </div>
+  </div>
+
+
+  <!-- nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 style="margin: 0">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+  </div>
+
+
+
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+
+    // 로그인버튼 눌렀을때 input값이 안녕일때만 모달창 띄우기
+    $('.logIn-btn').click(function () {
+      // if ($('#test-input').val() == '안녕') {
+      $('.black-background').fadeIn();
+      // }
+    })
+    // 닫기버튼 눌렀을때 모달창 숨기기
+    $('#close').click(function () {
+      $('.black-background').fadeOut();
+    })
+    //nav 메뉴 눌렀을때 아래로 세부메뉴 보이게하거나 숨기기(toggle) 
+    $('#nav-sub-btn').click(function () {     // on('click', function(){})  == .click(function(){})
+      $('.nav-sub').slideToggle();
+    });
+
+    // ✅ else if문(조건을 차례로 여러개 검사해보고 싶은 경우)
+    // if (1 == 3) {
+    //   console.log('안녕')      // 콘솔창에 로그를 출력해주세요~
+    // } else if (1 == 1) {
+    //   console.log('안녕2')
+    // } else {
+    //   console.log('반갑')
+    // }
+
+    // if 문을 저렇게 이어서 사용했을 때의 특징은
+    // 조건식이 여러개 맞아도 딱 하나만 실행된다는 것
+    // 자바스크립트는 if가 들어있는 코드를 위에서부터 하나하나 읽다가
+    // 참인 조건식을 발견하면 내부의 코드를 실행하며 그 뒤의 if문들은 실행하지 않고 넘어감 
+
+    // if (2 == 4 && 1 == 1 || 1 == 1) {
+    //   console.log('sss')
+    // }
+    // and = && / or = ||
+
+
+    // 폼이 전송될 때
+    $('form').on('submit', function (e) {
+      // 만약에 이메일 input에 입력된 값이 빈칸인 경우,
+      if ($('#email').val() == '') {
+        // 폼의 전송을 막음, 안내문 띄움
+        e.preventDefault(); // 폼의 전송을 막는 코드
+        $('#email-alert').show();
+      } else if ($('#password').val() == '') {     // 만약에 패스워드 input에 입력된 값이 빈칸인 경우,
+        e.preventDefault();
+        $('#password-alert').show();
+      }
+
+      // if문을 두개를 따로 쓰는 것과 
+      // else if 문으로 두개를 붙여 쓰는 것의 차이점은 
+      // - if 두개를 따로 쓰면 if문이 각각 독립적으로 동작함 
+      // - else if로 if문을 두개 붙여쓰면 둘 중 하나만 동작함
+      // (또는 조건식이 둘다 틀리면 둘다 실행 안할 수도 있음)
+    })
+
+
+
+    // ✅ 클릭 이벤트리스너 말고도 다른 이벤트들이 많음
+    // input, select, textarea 등에 사용할 수 있는 change, input 이벤트가 있음
+
+    // ⭐ input
+    //     $('#email').on('input', function(e){ 
+    //   실행할 코드
+    // });
+    // input이라는 이벤트리스너를 달면 이벤트 리스너 왼쪽에 있는 $('#email') 요소 내부에 입력된 값이
+    // 바뀔 때마다 내부 코드를 실행해줌
+
+    // ⭐ change
+    // $('#email').on('change' function () {  
+    //   실행할코드
+    // })
+    // change도 이벤트리스너 왼쪽에 있는 $('#email') 요소 내부에 입력된 값이
+    // 바뀔 때마다 내부 코드를 실행해줌
+    // 하지만,
+    // change 이벤트는 $('#email') 요소에 포커스를 잃었을 때 (커서가 다른곳에 찍힐 때) 실행됨
+    // 그래서 이런 이벤트들을 사용하시면 input에 입력중에 경고메세지를 띄우는 UI 등을 구현해볼 수 있음
+
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
