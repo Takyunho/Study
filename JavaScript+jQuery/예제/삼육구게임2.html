@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <!-- <input type="text" id="369-input"> -->
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+
+    //여기서의 369게임은 '3의 배수에서' 박수를 치고
+    // 9의 배수에서는 박수를 두번 쳐야되는 게임
+    function 삼육구게임(val) {
+      //만약 9의 배수이면 그러니까 9로 나눈 나머지가 0이면
+      if (val % 9 == 0) {
+        console.log('박수X2'); // 박수 2번
+      }
+      else if (val % 3 == 0) { //9의 배수가 아니라 만약 3으로 나눈 나머지가 0이면 
+        console.log('박수')    // 박수 1번
+      }
+      else {
+        console.log('통과');
+      }
+    }
+
+
+
+
+    // if ($('#369-input'))
+
+
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

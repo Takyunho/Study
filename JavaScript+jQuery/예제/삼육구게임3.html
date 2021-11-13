@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <div class="console">Ready~ Go!!<br /></div>
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+
+    //여기서의 369게임은 3의 배수에서 박수를 치는게 아니라
+    // 끝자리가 3,6,9로 끝나는 숫자라면 '박수'를 출력
+    // 기존의 369게임
+
+    for (let i = 1; i < 102; i++) {
+      let results = i.toString().match(/[3,6,9]/g);
+      if (results) for (let j = 0; j < results.length; j++) $(".console").append("짝");
+      else $(".console").append(i);
+
+      $(".console").append("<br />");
+    }
+
+    //앞자리가 3X, 6X, 9X이면 박수
+    // 33 36 39 63 66 69 93 96 99 에서는 두번 박수 
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
