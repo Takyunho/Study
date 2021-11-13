@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="conditional.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background">
+    <div class="white-background">
+      <p>로그인하세요</p>
+      <button type="button" class="btn btn-primary close-btn" id="close">닫기</button>
+    </div>
+  </div>
+
+  <!-- nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 style="margin: 0">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+  </div>
+
+  <input id="test-input" type="text">
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+    // 로그인버튼 눌렀을때 input값이 안녕일때만 모달창 띄우기
+    $('.logIn-btn').click(function () {
+      if ($('#test-input').val() == '안녕') {
+        $('.black-background').fadeIn();
+      }
+      // 닫기버튼 눌렀을때 모달창 숨기기
+      $('#close').click(function () {
+        $('.black-background').fadeOut();
+      })
+      //nav 메뉴 눌렀을때 아래로 세부메뉴 보이게하거나 숨기기(toggle) 
+      $('#nav-sub-btn').click(function () {     // on('click', function(){})  == .click(function(){})
+        $('.nav-sub').slideToggle();
+      });
+
+      // ✅ if문
+      // if (3 < 1) {
+      //   console.log('안녕')      // 콘솔창에 로그를 출력해주세요~
+      // } else {
+      //   console.log('반가워')
+      // }
+      // 조건식에 들어가는 것들
+      // > , < , >=, <=, ==(느슨비교), ===(엄격비교 = 자료의 타입까지 비교함) 
+
+
+
+    })
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
