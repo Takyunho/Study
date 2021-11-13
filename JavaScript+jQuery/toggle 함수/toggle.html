@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="toggle.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background">
+    <div class="white-background">
+      <p>로그인하세요</p>
+    </div>
+  </div>
+
+  <!-- ✅ nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 style="margin: 0">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+  </div>
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+    $('.logIn-btn').on('click', function () {
+      $('.black-background').fadeIn();
+    });
+
+    //.fadeIn() 슬며시 나타남
+    //.fadeOut() 슬며시 사라짐
+    //.sildeDown() 위에서 아래로 스윽 등장!
+    //.slideUp() 아래서 위로 사라짐
+
+    $('#nav-sub-btn').click(function () {     // on('click', function(){})  == .click(function(){})
+      $('.nav-sub').slideToggle();
+    });
+    // ⭐ Toggle을 쓰면 왔다갔다 하는 버튼을 만들기 가능! 슬라이드 업다운을 한 번에 같이!!
+    // ⭐ 토글의 종류
+    // .slideToggle(); => slideDown/Up을 왔다갔다
+    // .fadeToggle(); => fadeIn/Out을 왔다갔다
+    // .toggle(); => hide/show를 왔다갔다
+
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
