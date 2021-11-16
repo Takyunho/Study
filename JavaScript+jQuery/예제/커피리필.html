@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+  <script>
+    // 방금 마신 커피의 3분의 2만 리필해줌
+    // ex. 처음 커피를 90ml 주문하면 첫 리필은 60ml를 해주며, 그 다음 리필은 40ml를 해줌
+    // 최대 2회 리필가능
+    // 처음 주문한 커피 양에 따라서 최대한 마실 수 있는 커피를 콘솔창에 계산해주는 코드
+
+    var 첫커피양 = 360;
+    var 마신커피 = 0;
+
+    // var 두번째커피양 = (첫커피양 * 2 / 3);
+    // var 마신커피 = 첫커피양 + 두번째커피양;
+
+    // var 세번째커피양 = (두번째커피양 * 2 / 3);
+    // var 마신커피 = 마신커피 + 세번째커피양;
+
+    var 리필한커피양 = (첫커피양 * 2 / 3);
+    마신커피 = 첫커피양 + 리필한커피양;
+
+    리필한커피양 = (리필한커피양 * 2 / 3);
+    마신커피 = 마신커피 + 리필한커피양;
+
+    console.log(마신커피);
+
+
+
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
