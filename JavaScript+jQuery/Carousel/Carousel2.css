@@ -1,0 +1,111 @@
+body {
+  margin:  0;
+}
+div {
+  box-sizing: border-box;
+}
+
+.main-background {
+  background-image: url(bg1.jpg);
+  background-size: cover;
+  color: white;
+  border-radius: 0px;
+}
+
+/* 모달창 미리 디자인 */
+.black-background {
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* margin-top: -800px; */
+  transition: all 1s;
+  transform: translateY(-3000px);    /* 마진보다는 트랜스폼쓰는게 속도면에서 좋음 */
+}
+.down-slide {
+  transform: translateY(0px);
+}
+
+.white-background {
+  background: white;
+  width: 70%;
+  margin: 100px auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+.close-btn {
+  float: left;
+  position: relative;
+  left: 64px;
+  bottom: 38px;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between; /*  플렉스 요소의 수평 방향 정렬 방식을 설정 */
+  padding: 15px;
+  align-items: center;    /* 플렉스 요소의 수직 방향 정렬 방식을 설정 */
+}
+
+.nav-sub {
+  display: none;
+}
+#email-alert {
+  display: none;
+}
+#password-alert {
+  display: none;
+}
+
+
+.left-menu {
+  width: 150px;
+  height: 100%;
+  background: black;
+  color: white;
+  position: fixed;
+  margin-left: -150px;
+}
+
+
+/* carousel */
+.slide-container {
+  width: 300vw;
+  transition: transform 1s;
+}
+
+.slide-box {
+  width: 100vw;
+  float: left;
+}
+.slide-box img {
+  width: 50%;
+  max-width: 500px;
+  display: block;
+  margin: 0 auto 0 auto;
+}
+
+/* .btn-container {
+  width: 100%;
+  height: 30px;
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 1px;
+  text-align: center;
+} */
+
+.slideBtn {
+  position: absolute;
+  top: 45%;
+  border: 0px none;
+  background-color: rgba(255,255,255,0.0001);
+  font-size: 30px;
+}
+.nextBtn {
+  right: 0;
+}
+.prevBtn {
+  left: 0;
+}
