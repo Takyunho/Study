@@ -80,10 +80,14 @@
       // ⭐ Animate
       // 로그인버튼 눌렀을때 모달창 위에서 아래로 
       $('.logIn-btn').click(function () {
+        $('.black-background').show();      // display: none을 css에서 지울 필요 없음
         $('.black-background').animate({ marginTop: '0px' }, 1000);
+        // 위에처럼 나눠서 쓸수도 있으나 제이쿼리에서는 아래처럼 함수 연결해서 사용가능
+        // $('.black-background').show().animate({ marginTop: '0px' }, 1000);
       });
       // 닫기버튼 눌렀을때 모달창 아래서 위로
       $('#close').click(function () {
+        $('.black-background').hide();
         $('.black-background').animate({ marginTop: '-800px' }, 1000);
       });
 

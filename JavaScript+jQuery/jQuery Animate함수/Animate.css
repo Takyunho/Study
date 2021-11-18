@@ -20,6 +20,7 @@ div {
   width: 100%;
   height: 100%;
   margin-top: -800px;
+  display: none; /*지울필요 없이 자바스크립트에서 show() */
 }
 
 .white-background {
