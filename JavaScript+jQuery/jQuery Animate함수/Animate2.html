@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="Animate2.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background ">
+    <div class="white-background">
+      <p>로그인하세요</p>
+      <!-- 모달창 내부 폼 -->
+      <form action="login.php">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" id="email">
+          <p id="email-alert">이메일 형식이 잘못되었거나 빈칸입니다.</p>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" id="password">
+          <p id="password-alert">비밀번호가 틀렸거나 빈칸입니다.</p>
+        </div>
+        <button type="submit" class="btn btn-primary">전송</button>
+      </form>
+
+      <button type="button" class="btn btn-primary close-btn" id="close">닫기</button>
+      <span style="clear: both;"></span>
+    </div>
+  </div>
+
+
+  <!-- 왼쪽 메뉴 -->
+  <div class="left-menu">
+    <p>Menu Title</p>
+  </div>
+
+
+  <!-- nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 style="margin: 0" id="hi">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+  <!-- 본문 -->
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+    <a class="btn btn-danger btn-lg" id="show-menu" href="#" role="button">Show Menu</a>
+
+
+
+
+    <!-- 제이쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+      // Animate
+      //각각 다른 요소를 차례로 animate 해주고 싶다면
+      // $('이 요소').animate({ width: '250px'}, 1000, function() {
+      // $('저 요소').animate({ height : '500px'}  });
+      // });
+      // 이런 식으로 사용할 수 있음
+      // 애니메이트 함수의 세번째 파라미터로 function(){}를 집어 넣고 중괄호 안에 첫 애니메이트가
+      // 끝났을 때 실행할 코드를 적으면 됨!
+
+      // 그러나, 
+      // 애니메이트는 요즘 잘 안씀(자바스크립트를 이용하여 애니메이션 잘 안주고 CSS 속성씀)
+
+      // 애니메이션 만드는 방법
+      // 1. 시작화면/최종화면 만들기
+      // 2. 자바스크립트로 트리거하기
+      // 3. 스무스한 동작은 transition 씀
+
+
+
+
+
+
+      // 로그인버튼 눌렀을때 모달창 위에서 아래로 (최종화면)
+      $('.logIn-btn').click(function () {
+        // $('.black-background').css('transform', 'translateY(0px)');
+        // 위처럼 자바스크립트에서 css속성을 부여하지 말고 addClass를 이용하여 클래스 부착하는 식으로 개발하는
+        // 것이 바람직함
+        $('.black-background').addClass('down-slide');  //addClass에서는 .안씀
+      });
+      // 닫기버튼 눌렀을때 모달창 아래서 위로
+      $('#close').click(function () {
+        $('.black-background').removeClass('down-slide');
+      });
+
+
+      //nav 메뉴 눌렀을때 아래로 세부메뉴 보이게하거나 숨기기(toggle) 
+      $('#nav-sub-btn').click(function () {
+        $('.nav-sub').slideToggle();
+      })
+
+      // 폼이 전송될 때
+      $('form').on('submit', function (e) {
+        // 만약에 이메일 input에 입력된 값이 빈칸인 경우,
+        if ($('#email').val() == '') {
+          // 폼의 전송을 막음, 안내문 띄움
+          e.preventDefault(); // 폼의 전송을 막는 코드
+          $('#email-alert').show();
+        } else if ($('#password').val() == '') {     // 만약에 패스워드 input에 입력된 값이 빈칸인 경우,
+          e.preventDefault();
+          $('#password-alert').show();
+        }
+      });
+
+      // 왼쪽메뉴
+      $('#show-menu').click(function () {
+        $('.left-menu').animate({ marginLeft: '0px' }, 700);
+      });
+
+    </script>
+
+
+
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"></script>
+</body>
+
+</html>
