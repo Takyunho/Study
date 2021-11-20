@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <!-- 슬릭 -->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+  <!-- fullPage -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <!-- 자유로운 스크롤을 막고 페이지를 PPT처럼 한번에 한 페이지만 보여주는 라이브러리입니다. 
+어떤건지는 예시 페이지를 들어가보시면 알 수 있겠습니다. (https://alvarotrigo.com/fullPage/)
+처음 보는사람들은 우와 할 수 있겠으나 
+지금은 이런 사이트들이 유행이 지났기 때문에 어디서 외주요청 받았다 이런 경우가 아니면
+잘 사용하진 않습니다.
+요즘은 FullPage 형식보다 자유로운 스크롤 + 애니메이션이 대세입니다. 
+그리고 스크린 사이즈에 따라 CSS 반응형으로 짜는게 가장 어렵습니다.
+(투입 시간대비 가성비가 안좋음)
+
+FullPage.js - https://github.com/alvarotrigo/fullpage.js -->
+
+  <!-- 설치법 
+fullpage.js 자바스크립트 파일과 fullpage.css 파일이 필요합니다.
+홈페이지 들어가셔서 구해오시면 되겠습니다. 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.js"></script>
+
+▲ CDN 방식도 제공합니다. 여러분 HTML에 잘 붙여넣도록 합시다.  -->
+
+  <!-- 사용법
+
+▼ HTML을 만들어줍니다. 부모에게 id를 잘부여해주도록 합시다.  -->
+  <div id="fullpage">
+    <div class="section">One</div>
+    <div class="section">
+      <div class="slide" data-anchor="slide1">Two 1</div>
+      <div class="slide" data-anchor="slide2">Two 2</div>
+    </div>
+    <div class="section">Three</div>
+    <div class="section">Four</div>
+  </div>
+
+
+  <!-- ▼ 자바스크립트를 하단 script에 입력해주시면 되겠습니다. -->
+
+
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- 슬릭 -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+  <!-- fullPage -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.js"></script>
+
+  <script>
+    new fullpage('#fullpage', {
+      //하단은 옵션
+      autoScrolling: true,
+      scrollHorizontally: true,
+      sectionsColor: ['yellow', 'orange', '#C0C0C0', '#ADD8E6'],
+    });
+    // 함수 안의 첫번째 파라미터엔 fullPage로 만들 div의 id를 적으면 되고
+    // 두번째 파라미터에는 옵션을 집어넣으면 된다.
+    // 옵션 사용법은 홈페이지에 나와 있음
+    // 참고로 두번쨰 div 박스를 보면
+    // slide라는 클래스를 가진 div는 자동으로 이미지 슬라이더 UI화 됨
+
+
+    // 기타 유용한 라이브러리 : 
+
+// Font Awesome (500종 이상의 무료 vector 웹 아이콘)
+// Velocity.js (jQuery Animate 함수처럼 이용가능한데 훨씬 더 매끄러움)
+// GSAP (매우 매끄러운 자바스크립트 애니메이션, TweenMax 함수 이용가능)
+// https://greensock.com/get-started/
+  </script>
+
+</body>
+
+</html>
