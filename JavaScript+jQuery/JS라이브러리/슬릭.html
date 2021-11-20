@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <!-- 슬릭 -->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+  <link rel="stylesheet" href="슬릭.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <div style="position: relative;">
+    <div class="slick-container">
+      <div class="item">
+        <img src="../Carousel/ex1.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../Carousel/ex2.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../Carousel/ex3.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../Carousel/ex4.jpg" alt="">
+      </div>
+      <div class="item">
+        <img src="../Carousel/ex5.jpg" alt="">
+      </div>
+      <button class="slideBtn nextBtn">▶️</button>
+      <button class="slideBtn prevBtn">◀️</button>
+    </div>
+  </div>
+  
+
+
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- 슬릭 -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"></script>
+
+  <script>
+
+    
+    $(document).ready(function(){
+      $('.slick-container').slick({
+        slide: "div",           //슬라이드 되어야 할 태그 ex) div, li
+        infinite: true,         //무한 반복 옵션
+        slidesToShow: 1,        // 한 화면에 보여질 컨텐츠 개수
+        slidesToScroll: 1,      //스크롤 한번에 움직일 컨텐츠 개수
+        speed: 1000,            // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+        arrows: true,           // 옆으로 이동하는 화살표 표시 여부
+        dots: true,             // 스크롤바 아래 점으로 페이지네이션 여부
+        autoplay: false,        // 자동 스크롤 사용 여부
+        autoplaySpeed: 1000,    // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+        pauseOnHover: true,     // 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+        vertical: false,        // 세로 방향 슬라이드 옵션
+
+        prevArrow: $('.prevBtn'),
+        // 이전 화살표 모양 설정"<button type='button' class='slick-prev'>Previous</button>"
+        nextArrow: $('.nextBtn'),
+        // 다음 화살표 모양 설정"<button type='button' class='slick-next'>Next</button>"
+        dotsClass: "slick-dots", //아래 나오는 페이지네이션(점) css class 지정
+      
+        centerMode: false       // 중앙배치
+      });
+    });
+      
+      </script>
+
+</body>
+
+</html>
+
+<!-- 자바스크립트 라이브러리 사용법 요약 : 
+0. 각 라이브러리 소개 홈페이지에 들어가 Get started 메뉴를 잘 살펴본다 
+1. 설명대로 js파일이나 CSS 파일을 설치한다 
+2. Get started 부분에 있는 예제코드를 눈치껏 잘 복붙한다
+3. 그럼 UI 개발 끝입니다.  -->
+
+<!-- 주의점 : 
+라이브러리 버전이 업데이트되면 하단에 나와있는 예시들이 동작하지 않을 수 있습니다. 
+정확한 사용법은 각 라이브러리 홈페이지를 참고해주세요!  -->
+
+<!--
+Slick 자바스크립트, Slick CSS파일, jQuery파일 첨부가 필요합니다.
+(jQuery 까먹지마세요)
+홈페이지에서 다운받거나 위처럼 CDN 방식으로 첨부하시면 되겠습니다.
+-->
+
+
+<!-- 사용법
+
+▼ HTML을 이런 식으로 만들어줍니다. 
+부모 div박스의 클래스 명은 자유롭게 지정합니다. 
+
+<div class="your-class">
+  <div>내용1</div>
+  <div>내용2</div>
+  <div>내용3</div>
+</div>
+
+
+▼그 다음 jQuery를 이용해서 이런 식으로 부모 클래스를 찾아서 .slick이라는 함수를 붙여줍니다. 
+
+<script>
+    $(document).ready(function(){
+      $('.your-class').slick();
+    });
+  </script>
+
+그럼 슬라이더가 완성됩니다. 끝!
+
+
+이제 slick() 함수 내부에 {} 이런 자료형을 하나 추가할 수 있는데 
+중괄호 내에 여러가지 코드를 추가하면 기능 세부조정이 가능합니다. 
+
+$('.your-class').slick({
+  infinite: true,
+  slidesToShow: 3,
+});
+▲ 위의 예시는 한번에 몇개의 슬라이드를 보여줄지,
+
+그리고 무한히 보여줄지를 셋팅한 부분입니다. 
+
+더욱 자세한 커스터마이징예시들은 홈페이지를 참고하시면 되겠습니다. 
+
+다른 Carousel UI들도 매우 비슷합니다.  -->
