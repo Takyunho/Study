@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="Tab_UI.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background ">
+    <div class="white-background">
+      <p>로그인하세요</p>
+      <!-- 모달창 내부 폼 -->
+      <form action="login.php">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" id="email">
+          <!-- 타입이 이메일이면 브라우저에서 자동으로 이메일형식 검사를 해줌 -->
+          <p id="email-alert">이메일 형식이 잘못되었습니다.</p>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" id="password">
+          <p id="password-alert">비밀번호가 틀렸거나 빈칸입니다.</p>
+        </div>
+        <button type="submit" class="btn btn-primary">전송</button>
+      </form>
+      <!-- 모달창 내부 폼 끝-->
+      <button type="button" class="btn btn-primary close-btn" id="close">닫기</button>
+      <span style="clear: both;"></span>
+    </div>
+  </div>
+
+
+  <!-- 왼쪽 메뉴 -->
+  <div class="left-menu">
+    <p>Menu Title</p>
+  </div>
+
+
+  <!-- nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 id="hi large-logo">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+
+  <!-- 본문 -->
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+    <a class="btn btn-danger btn-lg" id="show-menu" href="#" role="button">Show Menu</a>
+  </div>
+
+
+  <!-- Carousel 만들기 -->
+  <h4 class="my-4 text-center">Showcase</h4>
+
+  <div style="overflow: hidden; position: relative;">
+    <!-- 이미지 숨기기-->
+    <div class="slide-container">
+      <div class="slide-box">
+        <img src="ex1.jpg" alt="">
+      </div>
+      <div class="slide-box ">
+        <img src="ex2.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex3.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex4.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex5.jpg" alt="">
+      </div>
+    </div>
+    <button class="slideBtn nextBtn">▶️</button>
+    <button class="slideBtn prevBtn">◀️</button>
+  </div>
+
+
+  <!-- Tab UI -->
+  <div class="container mt-5">
+    <ul class="list">
+      <li class="tab-button">Products</li>    <!--버튼은 tab-button이라는 클래스로 만듦-->
+      <li class="tab-button">information</li> <!--버튼들에 active라는 클래스명을 추가하면 버튼을 누른듯하게 하이라이트할 수 있음-->
+      <li class="tab-button">Shipping</li>
+    </ul>
+
+    <div class="tab-content">   <!--탭내용은 tab-content라는 클래스로 만듦-->
+      <p>상품설명입니다. Products</p>
+    </div>
+    <div class="tab-content">  <!--탭내용에 show라는 클래스명을 추가하면 원하는 탭내용이 보임.-->
+      <p>상품정보입니다. Info</p>
+    </div>
+    <div class="tab-content">
+      <p>배송정보입니다. Shipping</p>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="Tab_UI.js"></script>
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
