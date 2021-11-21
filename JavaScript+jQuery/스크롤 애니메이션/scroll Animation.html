@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="scroll Animation.css">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- 모달창은 보통 맨 위에다가 작성 -->
+  <div class="black-background ">
+    <div class="white-background">
+      <p>로그인하세요</p>
+      <!-- 모달창 내부 폼 -->
+      <form action="login.php">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" id="email">
+          <!-- 타입이 이메일이면 브라우저에서 자동으로 이메일형식 검사를 해줌 -->
+          <p id="email-alert">이메일 형식이 잘못되었습니다.</p>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" id="password">
+          <p id="password-alert">비밀번호가 틀렸거나 빈칸입니다.</p>
+        </div>
+        <button type="submit" class="btn btn-primary">전송</button>
+      </form>
+
+      <button type="button" class="btn btn-primary close-btn" id="close">닫기</button>
+      <span style="clear: both;"></span>
+    </div>
+  </div>
+
+
+  <!-- 왼쪽 메뉴 -->
+  <div class="left-menu">
+    <p>Menu Title</p>
+  </div>
+
+
+  <!-- nav 메뉴 만들기 -->
+  <div class="nav-menu">
+    <h4 id="hi large-logo">Shirts Studio</h4>
+    <a href="##" id="nav-sub-btn">Products</a>
+  </div>
+
+  <!-- nav메뉴의 세부메뉴 -->
+  <ul class="list-group nav-sub">
+    <li class="list-group-item">Outer</li>
+    <li class="list-group-item">Innerwear</li>
+    <li class="list-group-item">pants</li>
+  </ul>
+
+  <!-- 본문 -->
+  <div class="jumbotron main-background">
+    <h1 class="display-4">Shirts Studio</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
+    <a class="btn btn-danger btn-lg" id="show-menu" href="#" role="button">Show Menu</a>
+  </div>
+
+  <!-- Carousel 만들기 -->
+  <h4 class="my-4 text-center">Showcase</h4>
+
+  <div style="overflow: hidden; position: relative;">
+    <!-- 이미지 숨기기-->
+    <div class="slide-container">
+      <div class="slide-box">
+        <img src="ex1.jpg" alt="">
+      </div>
+      <div class="slide-box ">
+        <img src="ex2.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex3.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex4.jpg" alt="">
+      </div>
+      <div class="slide-box">
+        <img src="ex5.jpg" alt="">
+      </div>
+    </div>
+    <button class="slideBtn nextBtn">▶️</button>
+    <button class="slideBtn prevBtn">◀️</button>
+  </div>
+
+
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script>
+
+    // 로그인버튼 눌렀을때 모달창 위에서 아래로 (최종화면)
+    $('.logIn-btn').click(function () {
+      $('.black-background').addClass('down-slide');  //addClass에서는 .안씀
+    });
+    // 닫기버튼 눌렀을때 모달창 아래서 위로
+    $('#close').click(function () {
+      $('.black-background').removeClass('down-slide');
+    });
+
+
+    //nav 메뉴 눌렀을때 아래로 세부메뉴 보이게하거나 숨기기(toggle) 
+    $('#nav-sub-btn').click(function () {
+      $('.nav-sub').slideToggle();
+    })
+
+
+    // 폼이 전송될 때
+    $('form').on('submit', function (e) {
+      var 입력한이메일 = $('#email').val();
+      var 이메일검증 = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/;
+      // 특수문자만 걸러주고 한글 등 다양한 문자들도 다 통과시키는 이메일 정규식
+
+      // 만약에 이메일 input에 입력된 값이 정규식과 비교했을때 false인 경우
+      // 폼전송 막기 + 안내창 띄우기
+      if (입력한이메일 == '') {
+        e.preventDefault();
+        $('#email-alert').html('공백입니다. 다시 입력해주세요.');
+        $('#email-alert').show();
+      } else if (이메일검증.test(입력한이메일) == false) {
+        e.preventDefault(); // 폼의 전송을 막는 코드
+        $('#email-alert').html('이메일 형식이 잘못되었습니다.');
+        $('#email-alert').show();
+      }
+
+      var 입력한비밀번호 = $('#password').val();
+      var 패스워드검증 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      // 최소 8 자, 하나 이상의 대문자, 하나의 소문자 및 하나의 숫자
+
+      // 패스워드 입력란에 대문자 들어있는지 검사(대문자가 없으면 전송 X )
+      if (패스워드검증.test(입력한비밀번호) == false) {
+        e.preventDefault();
+        $('#password-alert').show();
+      }
+    });
+
+    // 왼쪽메뉴
+    $('#show-menu').click(function () {
+      $('.left-menu').animate({ marginLeft: '0px' }, 700);
+    });
+
+
+
+    // ✅ Carousel
+    var 이전버튼 = $('.prevBtn'); // 이전버튼 감지
+    var 다음버튼 = $('.nextBtn'); // 다음버튼 감지
+    var 이미지개수 = $('.slide-container').find('img').length // 슬라이드 콘테이너 안에 있는 이미지를 찾아서 개수로 반환
+
+    //변수를 하나 만들어서 지금 몇번째 사진을 보고있는지를 저장
+    var index = 1; //index라는 값을 통해 이미지 숫자를 입력하여 이전과 이후에 리소스가 있는지 없는지 판단
+
+    // Carousel(사진 기준 왼쪽 이동)
+    다음버튼.click(function () {
+      if (index < 이미지개수) { //인덱스가 내가 업로드한 이미지의 개수보다 작으면 증가 멈춰줘
+        $('.slide-container').css('transform', 'translateX(-' + index + '00vw)');
+        index = index + 1;
+      }
+    });
+
+    // Carousel(사진 기준 오른쪽 이동)
+    이전버튼.click(function () {
+      if (index > 1) {        // 사진 1일때는 기능이 동작하지 않도록
+        $('.slide-container').css('transform', 'translateX(-' + (index - 2) + '00vw)');
+        index = index - 1;
+      }
+    });
+
+
+    // 2. 스크롤바를 내리면 메뉴(nav)가 불투명 해지도록
+    $(window).scroll(function () {    // window = 뷰포트(화면전체) / 자바스크립트에서는 document
+      // console.log('안녕');
+
+      // 만약에 지금 스크롤을 100px 내렸을때만
+      if ($(window).scrollTop() > 100) {    //px 단위
+        $('.nav-menu').addClass('nav-black');
+        // $('.nav-menu h4').attr('id', 'small-logo'); // id 추가
+        $('.nav-menu h4').css('font-size', '20px');
+        $('.nav-menu h4').css('transition', 'all 1s');
+      } else {
+        $('.nav-menu').removeClass('nav-black');
+        // $('.nav-menu h4').removeAttr('id', 'small-logo');
+        $('.nav-menu h4').css('font-size', '30px');
+      }
+    })
+
+
+// 스크롤 이벤트 리스너는 왼쪽에 오는 요소가 스크롤이 될 때마다 내부 코드를 실행해주는 함수입니다.
+// 1초에 최대 60번 실행시키기 때문에 
+// 실행횟수가 많아 브라우저가 간혹 부담을 느끼곤 합니다.  
+// 스크롤 이벤트리스너가 많으면 스크롤 할 때마다 코드를 120개 360개 이렇게 실행해야하니
+// 사이트가 느려질 수 있기 때문에 scroll 이벤트 리스너와 내부의 코드는 최대한 줄여서 사용하는게 좋습니다.
+// scroll 이벤트 리스너는 하나면 충분하니 하나만 쓰세요. 
+  </script>
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
