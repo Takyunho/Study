@@ -57,12 +57,12 @@ div {
   font-size: 30px; 
   transition: all 1s;
 }
-#large-logo {
+/* #large-logo {
   font-size: 60px;
 }
 #small-logo {
   font-size: 20px;
-}
+} */
 
 /* 2. 최종화면 */
 .nav-black {
