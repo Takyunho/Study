@@ -97,9 +97,11 @@
   <!-- Tab UI -->
   <div class="container mt-5">
     <ul class="list">
-      <li class="tab-button">Products</li>    <!--버튼은 tab-button이라는 클래스로 만듦-->
-      <li class="tab-button">information</li> <!--버튼들에 active라는 클래스명을 추가하면 버튼을 누른듯하게 하이라이트할 수 있음-->
-      <li class="tab-button">Shipping</li>
+      <li class="tab-button" data-작명="0">Products</li>    <!--버튼은 tab-button이라는 클래스로 만듦-->
+      <li class="tab-button" data-작명="1">information</li> <!--버튼들에 active라는 클래스명을 추가하면 버튼을 누른듯하게 하이라이트할 수 있음-->
+      <li class="tab-button" data-작명="2">Shipping</li>
+      <!-- data-작명="값"을 통해 HTML에 몰래 정보를 심을 수 있음 -->
+      <!-- 몰래 심은 정보는 JS에서 꺼내 쓸 수 있음 -->
     </ul>
 
     <div class="tab-content">   <!--탭내용은 tab-content라는 클래스로 만듦-->
