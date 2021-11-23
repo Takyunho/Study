@@ -98,6 +98,7 @@ $(window).scroll(function () {    // window = 뷰포트(화면전체)
 
 // ✅ 탭기능 다시 만들기(이벤트 버블링 응용과 dataset)
 
+// ⭐ 1. 함수 축약 및 반복문을 통한 탭기능
 // var tabBtn = $(document).find('.tab-button').length; 
 
 // for (let i = 0; i < tabBtn; i++) {      // for 반복문 안에 이벤트리스너 안에 i 변수가 있으면 let으로 바꿔야 잘 동작함 
@@ -106,6 +107,8 @@ $(window).scroll(function () {    // window = 뷰포트(화면전체)
 //   })
 // };
 
+
+// ⭐ 2. 이벤트 버블링을 이용한 탭기능
 // 이벤트 버블링이 일어나므로 li태그에 3개의 이벤트 리스너를 사용하는 것이 아닌
 // ul태그 하나에 이벤트 리스너를 달아도 됨
 // 이벤트 리스너가 많아지면 자원이 많이 사용되므로 적게 사용하면 메모리 절약가능
@@ -128,13 +131,14 @@ $(window).scroll(function () {    // window = 뷰포트(화면전체)
 //   }
 // })
 
+
 // 그런데 만약 버튼이 많은 경우엔 if 문을 많이 써야되므로 코드 길이가 길어짐
 // 결국 코드 양이 비슷해지므로,
 // HTML 요소에 몰래 정보를 숨겨두는 dataset이라는 문법을 이용
 // data-작명="값" 이렇게 맘대로 HTML에 작성 후
 // JS에서 HTML요소.dataset.id(작명)를 통해 데이터 불러올 수 있음
 // ex. document.querySelectorAll('.tab-button')[0].dataset.id(작명)
-
+// ⭐ 3. 이벤트버블링 + dataset문법을 이용한 탭기능
 // 🔻 데이터셋을 이용
 $('.list').click(function (e) {
   // 탭열기(내가누른버튼에숨겨져있던숫자)
@@ -142,8 +146,11 @@ $('.list').click(function (e) {
   탭열기(e.target.dataset.작명)
 })
 
+
+// ⭐ 참고 
 // 제이쿼리버전으로 HTML에 몰래 정보저장하는법
 // $('.list').data('작명', '값');
+
 // 저장된 정보 꺼내쓰는법
 // $('.list').data('작명');  ==> 콘솔창으로 확인가능
 
