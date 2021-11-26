@@ -3,26 +3,53 @@
 var products = [
   { id: 0, price: 70000, title: '드레스' },
   { id: 1, price: 50000, title: '셔츠' },
-  { id: 2, price: 60000, title: '바지' }
+  { id: 2, price: 40000, title: '바지' }
 ]
+var products2 = [...products]; // 사본만들기 (원래대로 정렬할때 필요)
+// 사본만들때 어레이2 = 어레이 하면 값이 공유됨
+// 복사하고 싶으면 앞에다가 ... 써야함(spread operator 라고함)
+
+
+
+// 1. 사이트처음 접속시 상품 3개 띄우려면?
+// 사이트 방문시 products2 어레이 개수에맞게 즉, 상품 3개의 HTML을 동적으로 만들어 주세요~ 라고 코드
+products2.forEach(function (a) {
+  var 초기템플릿 = `<div class="card">
+<img src="https://via.placeholder.com/600">
+<div class="card-body product">
+  <h5 class="title">${a.title}</h5>      
+  <p class="price">${'가격 : ' + a.price}</p>
+  <button class="btn btn-danger">주문하기</button>
+</div>
+</div>` 
+$('.card-group').append(초기템플릿);
+})
+
 
 // 초기 데이터 바인딩
-for (i = 0; i < 3; i++) {
-  $('.title').eq(i).html(products[i].title);
-  $('.price').eq(i).html('가격 : ' + products[i].price);
+// for(i = 0; i < 3; i++) {
+//   $('.title').eq(i).html(products[i].title);
+//   $('.price').eq(i).html('가격 : ' + products[i].price);
+// }
+function 데이터바인딩(i) {
+    $('.title').eq(i).html(products[i].title);
+    $('.price').eq(i).html('가격 : ' + products[i].price);
 }
 
 
+
+
 // 가격순 정렬
-$('#sort-btn').click(function () {                          // 버튼 누르면
-  products.sort(function (a, b) {                           // products 정렬하고
+$('#sort-btn').click(function () {                // 버튼 누르면
+  products.sort(function (a, b) {                 // products 정렬하고
     return a.price - b.price
   })
-  for (i = 0; i < 3; i++) {                                 // 데이터 바인딩 해주세요
-    $('.title').eq(i).html(products[i].title);
-    $('.price').eq(i).html('가격 : ' + products[i].price);
+  for(i = 0; i < 3; i++) {                        // 데이터바인딩
+    데이터바인딩(i);
   }
 })
+
+
 
 // 가나다순 정렬 (드레스, 바지, 셔츠가 나와야함)
 $('#sort-btn2').click(function () {
@@ -38,30 +65,44 @@ $('#sort-btn2').click(function () {
     }
   })
   for (i = 0; i < 3; i++) {                                 // 데이터 바인딩 해주세요
-    $('.title').eq(i).html(products[i].title);
-    $('.price').eq(i).html('가격 : ' + products[i].price);
+    데이터바인딩(i);
   }
 })
 
+
+
+
 // 5만원 이하 필터버튼
-// 1. 우선 상품목록 다 비워두고
+// 1. 우선 상품목록 다 비워두고 (HTML 주석처리)
 // 2. 버튼 누르면 products에서 5만원 이하 상품만 남김
-// 3. products array 개수만큼 HTML 동적으로 생성
 $('#filter-btn').click(function () {
-  var newProducts = products.filter(function (a) {
+  $('.card-group').html('');                          // 중복추가 방지
+  var 새상품 = products.filter(function (a) {
     return a.price <= 50000
+  });
+  console.log(새상품);
+  // 3. products array 개수만큼 HTML 동적으로 생성해줘 -> 더 확장성 있음
+  // var template = `<div>상품</div>`
+  // $('.card-group').append(template);
+
+  // var template = `<div>상품</div>`
+  // $('.card-group').append(template);
+
+  // var template = `<div>상품</div>`
+  // $('.card-group').append(template);
+  // 🔻 반복문으로 확장성확보
+  새상품.forEach(function (a) {        // forEach = 어레이 안에있는 개수만큼 반복
+    var template = `<div class="card">
+    <img src="https://via.placeholder.com/600">
+    <div class="card-body product">
+      <h5 class="title">${a.title}</h5>
+      <p class="price">${'가격 : ' +a.price}</p>
+      <button class="btn btn-danger">주문하기</button>
+    </div>
+  </div>`
+  $('.card-group').append(template);
   })
-  console.log(newProducts);
-  // products안의 데이터 개수만큼 HTML을 생성해줘 -> 더 확장성 있음
-  newProducts.forEach(function (a) {
-    var template = `
-  <h5 class="title">${a.title}</h5>
-  <p class="price">${'가격 : ' + a.price}</p>
-  <button class="btn btn-danger">주문하기</button>
-`
-    $('#product1').html('');
-    $('#product1').append(template);
-  })
-})
+});
+
 
 
