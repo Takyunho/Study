@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- DOM이라는 용어의 개념과 이벤트리스너 ready, load -->
+<!-- 
+
+1️⃣ DOM이라는 개념을 알아보자
+DOM = Document Object Model
+
+자바스크립트는 HTML 조작에 특화된 언어
+
+HTML 조작을 하기 위해선 HTML을 자바스크립트가 해석할 수 있는 문법으로 일단 정리하는 작업
+이 필요함
+그래서 자바스크립트는 HTML을 쉽게 찾고 바꾸기 위해 Object와 비슷한 자료형에 담아서 사용
+(브라우저가 알아서함)
+
+
+예를 들어서 
+<div class="red-text">안녕하세요</div>
+HTML파일에 이런 <div>가 하나 있다고 칩시다.
+
+자바스크립트로 찾아 조작이 가능합니다.
+
+document.querySelector(저 div).innerHTML = '바보' 이렇게 하면 조작 되겠죠 뭐 
+
+근데 자바스크립트로 이 <div>를 조작하기 위해서는 컴퓨터가 <div>를
+미리 object 자료형으로 정리해놓는다는 소리입니다. 
+
+var document = {
+  div태그 : {
+    style : {color : 'red', width : '100%'}
+    innerHTML : '안녕하세요'
+  }
+}
+▲ 대충 이렇게 object 자료에 정리를 해놔야 저렇게 점찍어서 원하는 자료를
+출력하고 조작하고 할 수 있지 않겠습니까.
+(실제로 저렇다는건 아니고 느낌이요 느낌)
+
+이걸 document object라고 부릅니다. 간지나게 + model이라고 붙여서 DOM이라고 합니다.
+그냥 자바스크립트가 HTML에 대한 정보들 (id, class, name, style, innerHTML 등)을
+Object 자료형으로 정리해서 사용하는구나만 아시면 됩니다. 
+
+
+
+2️⃣ 브라우저는 HTML 문서를 읽을 때 DOM을 만듭니다.
+
+
+브라우저는 HTML문서를 읽을 때 DOM을 생성해야합니다. 
+그래야 자바스크립트로 HTML을 조작할 수 있으니까요. 
+뭐 그렇구나 하고 넘어가시면 되겠습니다. 
+그런데 DOM 때문에 문제가 생기곤 합니다. 
+▼ DOM이 생성되기 전에 우리가 p태그 내용을 ~~로 바꿔라 라고 명령을 주면 어떻게 될까요?
+
+(index.html 파일)
+
+<script>
+  document.getElementById('test').innerHTML = '안녕'
+</script>
+
+<p id="test">임시글자</p>
+
+
+에러가납니다. id가 test인게 없다는 에러를 뿜습니다. 
+왜냐면 
+브라우저는 HTML을 위에서부터 한줄한줄 읽습니다.
+그런데 <script>태그 안에서 자바스크립트로 id가 test인
+요소를 찾고 바꾸려하니 에러가 납니다. 
+왜냐면 아직 <p id="test">를 읽기 전이라 p태그에 대한 DOM이 아직 생성되지 않았으니까요. 
+이렇듯 자바스크립트는 DOM이 생성되어있어야 HTML을 변경할 수 있습니다. 
+
+
+
+3️⃣ 위와같은 문제를 해결하려면? 
+
+
+jQuery에서는 ready 라는 이벤트리스너가 간혹 쓰입니다. 
+이 이벤트리스너는 "HTML을 다 읽어들였는지"를 알려주는 이벤트리스너입니다. 
+HTML을 다 읽고난 후에 자바스크립트를 실행하고 싶으시면 이걸 쓰시면 됩니다. 
+사용방법은 이렇습니다. 
+
+$(document).ready(function(){
+  //$(document)에 있는 HTML을 다 읽었을 때 실행할 코드 
+});
+
+▲ 이렇게 쓰시면 현재 페이지에 있는 HTML을 다 읽고 DOM을 만든 후에 
+내부 코드를 실행해줍니다. 
+참고로 $(document)는 현재 웹문서를 뜻합니다. (jQuery 문법)
+쌩자바스크립트에선 document라고 쓰시면 됩니다. 
+
+
+
+그럼 아까 문제를 ready 이벤트 리스너로 해결할 수 있겠군요. 
+
+<script>
+  $(document).ready(function(){
+    document.getElementById('test').innerHTML = '안녕'
+  });
+</script>
+
+<p id="test">임시글자</p>
+
+▲ 이렇게 쓰면 자바스크립트가 위에 있음에도 불구하고 에러가 나지 않습니다. 
+그래서 예전 스타일 강의들 보시면 ready 이벤트리스너를 꼭 쓰라고 가르칩니다. 
+안정적이니까요.
+하지만 자바스크립트를 <body>태그 끝나기 전에 전부 작성하면
+위와 같은 버그 걱정은 안하셔도됩니다. 
+자바스크립트 위치를 내가 정할 수 없을 경우에만 유용한 방법이라고 보시면 되겠습니다. 
+
+
+
+4️⃣ load 이벤트리스너
+
+
+배운 김에 이것도 배워보도록 합시다. 
+load 라는 이벤트리스너를 사용하시면 DOM 생성뿐만 아니라
+이미지, CSS, JS파일이 로드가 됐는지도 전부 체크하실 수 있습니다. 
+
+
+$('img').on('load', function(){
+  //이미지가 다 로드가 되었을 경우 실행할 코드 
+});
+이런 식으로 쓰시면 되겠습니다. 
+
+
+$(document).on('load', function(){
+  //이미지가 다 로드가 되었을 경우 실행할 코드 
+});
+document에 붙이셔도 됩니다.
+document에 포함된 이미지, CSS파일 등 모든것이 로드가 되었는지 체크해줍니다. 
+
+
+앞선 .ready()는 DOM 생성만 체크하는 함수인데,
+이것보다 약간 더 나아가서 모든 파일과 이미지의 로드상태를 체크한다고 보시면 되겠습니다. 
+이미지 등 로딩이 완료되면 뭔가 동작시켜주는 UI들을 만들 때 자주 쓰이는 이벤트리스너입니다. 
+
+참고로 $('').load(function(){}) 이렇게 쓰시면 안됩니다. 
+jQuery 3버전 이상에선 load() 함수는 다른 의미로 쓰입니다. (Ajax 용으로 쓰입니다)
+
+
+
+5️⃣ ready 이벤트리스너의 쌩자바스크립트 버전 
+
+
+참고로 알아두면 좋을 쌩 자바스크립트 이벤트리스너입니다. 
+
+document.addEventListener('DOMContentLoaded', function() {
+  //DOM생성이 완료되었을 때 실행할 코드 
+});
+
+쌩 자바스크립트는 ready 대신 addEventListener에
+'DOMContentLoaded' 라고 적어주시면 됩니다. 
+HTML5 이후부터 추가된 문법이기 때문에 IE9 이상에서만 작동합니다.
+
+-->
+
+</body>
+</html>
