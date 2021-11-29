@@ -14,4 +14,7 @@
   position: sticky;
   top: 100px;
   margin-top: 200px;
+
+  /* 더 부드러운 동작을 위해 */
+  transition: all 0.2s;
 }
