@@ -78,50 +78,60 @@ var index = 1; //index라는 값을 통해 이미지 숫자를 입력하여 이�
 
 
 // Hammer.js 세팅
-var 이미지1 = document.querySelectorAll('.slide-box img')[0];
-    
-var 매니저 = new Hammer.Manager(이미지1);
-매니저.add(new Hammer.Pan({ threshold: 0 }));
-    
-매니저.on('pan', function(e){
-  console.log(e.deltaX); 
-  if (e.deltaX < -1) {  
-    $('.slide-container').css('transform', 'translateX(' + e.deltaX + 'px)');
+// var 이미지1 = document.querySelectorAll('.slide-box img')[0];
+// var 매니저1 = new Hammer.Manager(이미지1);
+// 매니저1.add(new Hammer.Pan({ threshold: 0 }));
+// 매니저1.on('pan', panHandler1);
+
+// var 이미지2 = document.querySelectorAll('.slide-box img')[1];
+// var 매니저2 = new Hammer.Manager(이미지2);
+// 매니저2.add(new Hammer.Pan({ threshold: 0 }));
+// 매니저2.on('pan', panHandler2);
+
+var 이미지0 = document.querySelectorAll('.slide-box img')[0];
+var 매니저0 = new Hammer.Manager(이미지0);
+매니저0.add(new Hammer.Pan({ threshold: 0 }));
+매니저0.on('pan', panHandler0);
+
+var 이미지1 = document.querySelectorAll('.slide-box img')[1];
+var 매니저1 = new Hammer.Manager(이미지1);
+매니저1.add(new Hammer.Pan({ threshold: 0 }));
+매니저1.on('pan', panHandler1);
+
+
+
+function panHandler0(e) {
+  console.log(e.deltaX);
+  if (e.deltaX < -1) {
+    var 이동거리1 = e.deltaX;
+    $('.slide-container').css('transform', 'translateX(' + 이동거리1 + 'px)');
   
-    // ⭐ 만약에 마우스를 놓으면
-    if (e.isFinal) {
-      // 이미지를 두번째 이미지로 바꿔주셈
-      // $('.slide-container').css('transform', 'translateX(-100vw)');
-      // 그런데 이미지2로 변할 때 부자연스러움
-      // 따라서 서서히 변하도록 코드를 짜자
-      // 클래스를 추가해서 트랜지션을 주자(CSS로 직접 적용하면 터치와 동시에 트랜지션이
-      // 적용되어 버리기 때문)
-      // 따라서 이미지 2를 보여주기 전에만 잠깐 트랜지션이 적용되도록
+    if (e.isFinal && index == 1) {
       $('.slide-container').addClass('transforming');
       $('.slide-container').css('transform', 'translateX(-100vw)');
-      // 다시 트랜지션제거
-      // $('.slide-container').removeClass('transforming');
-      // 그러나 트랜지션이 0.5초간 작동 된 후 제거하는게 더 좋을거 같음
-      // 0.5초 후에 코드를 실행하고 싶을 때 쓰는 문법
       setTimeout(function () {
         $('.slide-container').removeClass('transforming');
       }, 500);
-      // setTimeout()이라는 함수를 쓰시면 
-      // 원하는 시간 후에 코드를 실행할 수 있습니다. 
-      // setTimeout(function(){ 실행할코드 }, 기다릴시간)
+      index = index + 1;
     }
-    
-  
   }
-})
+}
 
 
-
-
-
-
-
-
-
-
+function panHandler1(e) {
+  console.log(e.deltaX); 
+  if (e.deltaX < -1 ) {
+    var 이동거리2 = '-100vw' + e.deltaX;
+    $('.slide-container').css('transform', 'translateX(' + 이동거리2 + 'px)');
+  
+    if (e.isFinal && index == 2) {
+      $('.slide-container').addClass('transforming');
+      $('.slide-container').css('transform', 'translateX(-200vw)');
+      setTimeout(function () {
+        $('.slide-container').removeClass('transforming');
+      }, 500);
+      index = index + 1;
+    }
+  }
+}
 
