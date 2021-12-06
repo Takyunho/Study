@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    // ⭐ str_text.replace("찾을 문자열", "변경할 문자열")
+    var test = '가나다라 마바사 가나';
+    var result = test.replace('가', '나');
+
+    console.log(result);
+
+    // 맨 앞의 '가' 문자만 '나'로 치환됨
+    // 뒤의 '가는' 변하지 않고 그대로임
+    // 왜냐하면 replace()함수는 제일 먼저 일차하는 패터만 변환 후 바꿀뿐
+    // 모든 텍스트를 바꾸지는 않음
+
+
+    // 어떻게 해야 모든 텍스트를 바꿀 수 있을까?
+    // ! 정규표현식(Regular Expression)을 사용한 변환을 통해
+    // 모든 문자를 변환하거나
+    // 숫자만 변환하거나
+    // 맨 처음 또는 맨 뒤만 변환하거나 할 수 있음
+
+    // 정규표현식을 사용하는 문법
+    // ⭐ str_text.replace(/찾을 문자열/gi, "변경할 문자열")
+
+    var test2 = '가나다라 마바사 가나';
+    var result2 = test2.replace(/가/gi, '나');
+    // 여기서 꼭 알아야 될 점은 나누기(/)표시안에 넣는 텍스트의 따옴표는 없어야 한다는 점
+    // 그리고 뒤의 gi는
+    // g : 전체 모든 문자열을 변경 global
+    // i : 영문 대소문자를 무시, 모두 일치하는 패턴 검색 ignore
+    // 를 의미함
+    console.log(result2);
+  </script>
+
+</body>
+</html>
