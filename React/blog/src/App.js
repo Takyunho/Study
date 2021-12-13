@@ -2,56 +2,45 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  let posts = '서버에서 받아온 데이터라고 가정'
+  function 함수() {
+    return 100
+  }
+  let 변수에저장해서사용 = {color : 'red', fontSize : '40px'}
+  
   return (
+    // 그냥 평소에 웹 만들던 것 처럼 여기에 HTML 코딩( JSX라는 문법)
+    // 자바스크립트 파일 안에서 HTML을 직관적으로 작성하기 위해 도와주는
+    // 리액트 기본 내장 문법이라고 생각하면 된다.
+    // JSX도 일종의 자바스크립트기 때문에 자바스크립트에서 사용 하는 예약어인 class라는
+    // 키워드를 막 사용하면 안됨.
+    // className 이라고 써야 CSS파일의 class명을 박아넣을 수 있음
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          안녕하세요
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='black-nav'>
+        <div>개발 Blog</div>
+      </div>
+      {/* 리액트를 사용하면 데이터 바인딩이 쉬워진다.
+      중괄호안에 데이터 바인딩 하고 싶은  변수명만 담으면 됨
+      변수명 뿐만 아니라 미리 만들어둔 함수명이든 뭐든 별걸 다 집어넣을 수 있음 
+      그리고 href, id, className, src 등 여러가지 HTML 속성들에도 데이터 바인딩이 가능 */}
+      <h4> {posts}</h4>
+      <img src={ logo }></img>
+      <h4>{ 함수() }</h4>
+
+
+      {/* HTML에 스타일을 직접 넣고 싶으면
+      JSX 상에서는 무조건 {}오브젝트로 바꿔서 넣어야함 { 속성명 : '속성값' }
+      그런데 속성명에 -(대쉬)기호를 쓸 수 없음 
+      따라서 대쉬기호 대신에 모든 단어를 붙여써야함. 대신 붙여쓸 때 앞글자를
+      대문자로 치환해서 사용!! (복잡해보이고 보기 싫으니까 변수로 따로 저장해서 사용 하거나
+      CSS파일에 class를 만들어 사용하자) */}
+      <h1 style={{ color: 'blue', fontSize: '30px' }}> {posts}</h1>
+      <h1 style={ 변수에저장해서사용 }> {posts}</h1>
+      
     </div>
   );
 }
 
 export default App;
 
-// 1️⃣
-// 리액트로 웹을 만들기 위해서 필요한 개발환경
-// Node.js + VS Code
-// 설치 후 터미널에
-// npx create - react - app blog 으로 프로젝트 생성
-// npx 어쩌구 이렇게 하시면 특정 라이브러리를 이용해 프로젝트를 하나 생성하실 수 있고
-// blog라는건 우리의 프로젝트명 결정하는 부분입니다. 자유롭게 작명하실 수 있습니다. 
-
-// ⭐ 코드 짜거나 npm으로 뭐 하기 전 폴더가 제대로 열려있는지 꼭 체크
-
-// 2️⃣
-// 코드 짠거 미리 보고 싶으면 터미널창에서
-// npm start
-// 안뜨면 localhost:3000 이라고 크롬 브라우저 열고 직접 입력
-
-// 3️⃣
-// Node.js를 설치한 이유
-// create React App 라이브러리를 사용하기 위해
-// create React App을 구글에 검색하면 자세히 나옴
-// Node.js를 설치하면 npm이라는 툴 이용가능
-
-// ⭐
-// App.js는 메인페이지에 들어갈 HTML 짜는 곳
-// 메인페이지는 public/index.html이 메인페이지임
-// index.js에서 app.js에 있는 내용을 index.html에 넣도록 코드가 짜여져 있음
-
-// ⭐
-// node_modules : 라이브러리를 모아놓은 폴더
-// public : static 파일 보관함(정적으로 바뀌지 않는 파일들)
-// src : 소스코드 보관함
-// package.json : 설치한 라이브러리들을 모아놓은 파일
