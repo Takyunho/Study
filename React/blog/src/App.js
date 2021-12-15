@@ -43,7 +43,7 @@ function App() {
         <div>개발 Blog</div>
       </div>
 
-      <div className='list'>
+      {/* <div className='list'>
         <h4> {글제목[0]} <span onClick={() => { 좋아요변경(좋아요 + 1) }}>👍</span> {좋아요} </h4>
         <button onClick={제목바꾸기}>제목바꾸기</button>
         <button onClick={오름차순정렬}>오름차순정렬</button>
@@ -61,18 +61,40 @@ function App() {
         <h4> {글제목[2]}</h4>
         <p> 12월 13일 발행</p>
         <hr />
-        <button onClick={() => { modal변경(!modal) }}>모달창 열고 닫기</button>
-        {modal === true
+      </div> */}
+
+
+      {/*
+      HTML을 반복하고 싶으면
+      { 반복할데이터.map() }
+      */}
+      {
+        // 반복할때 map() 함수 사용
+        글제목.map(function (a) {  // 글제목이라는 어레이 개수만큼 반복 실행
+          return (
+            <div className='list'>
+              <h4> {a} <span onClick={() => { 좋아요변경(좋아요 + 1) }}>👍</span> {좋아요}</h4>
+              <p> 12월 13일 발행</p>
+              <hr />
+            </div>
+          )
+        })
+      }
+
+
+
+
+      <button onClick={() => { modal변경(!modal) }}>모달창 열고 닫기</button>
+      {modal === true
         ? <Modal></Modal>
         : null
-        }
-        {/* modal이 true면 false가 되고, modal이 false면 true가 됨 */}
-        {/* ! 느낌표 기호는 true 왼쪽에 붙이면 false로 바꿔주고
+      }
+      {/* modal이 true면 false가 되고, modal이 false면 true가 됨 */}
+      {/* ! 느낌표 기호는 true 왼쪽에 붙이면 false로 바꿔주고
         false 왼쪽에 붙이면 true로 바꿔줌 */}
-        {/* 즉, modal이라는 state에 !를 붙이면 지금 state를 반대로 만들어주므로
+      {/* 즉, modal이라는 state에 !를 붙이면 지금 state를 반대로 만들어주므로
         열려 있으면 닫히고 닫혀있으면 열리게 됨 */}
-      </div>
-      
+
     </div>
   );
 }
