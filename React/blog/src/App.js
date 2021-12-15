@@ -37,20 +37,6 @@ function App() {
   }
 
 
-  function 모달창열고닫기() {
-    // 만약에 modal이 false 면
-    if (modal == false) {
-      // true로 바꿔
-      modal변경(true);
-    } else if (modal == true) {   // 그렇지 않고 Modal이 true면
-      // false로 바꿔
-      modal변경(false);
-    }
-  }
-  // Q. 오잉 왜 state 변경할 때 복사본을 만들어서 수정하라매요?
-  // A. 사본만드는건 reference 자료형들만 하시면 됩니다. array, object 이런거요.
-  // 문자, 숫자, true/false 이런건 필요없이 직접수정하셈
-
   return (
     <div className="App">
       <div className='black-nav'>
@@ -75,22 +61,18 @@ function App() {
         <h4> {글제목[2]}</h4>
         <p> 12월 13일 발행</p>
         <hr />
-        <button onClick={모달창열고닫기}>모달창 열고 닫기</button>
-      </div>
-
-      {/* if 대신 삼항연산자 사용가능*/}
-      {/* 조건식 ? 조건식 참일 때 실행할 코드 : 조건식 거짓일 때 실행할 코드  */}
-      {/* 스위치가 켜져있을 때(modal이 true일때)만 모달창이 보인다고 명시 */}
-      {modal === true ?
-        <Modal></Modal>
+        <button onClick={() => { modal변경(!modal) }}>모달창 열고 닫기</button>
+        {modal === true
+        ? <Modal></Modal>
         : null
-      }
-      {/* 리액트에서 클릭시 보이는 UI 만드는 법 
-
-1. 일단 UI가 보이는/보이지않는 상태정보를 state로 만들어둠 (보통 true/false 자료형으로)
-2. state가 true일 때만 UI를 보여준다고 if문을 사용함 
-3. <열기버튼>을 누르면 state가 true로 바뀌도록 버튼에 기능개발 */}
-
+        }
+        {/* modal이 true면 false가 되고, modal이 false면 true가 됨 */}
+        {/* ! 느낌표 기호는 true 왼쪽에 붙이면 false로 바꿔주고
+        false 왼쪽에 붙이면 true로 바꿔줌 */}
+        {/* 즉, modal이라는 state에 !를 붙이면 지금 state를 반대로 만들어주므로
+        열려 있으면 닫히고 닫혀있으면 열리게 됨 */}
+      </div>
+      
     </div>
   );
 }
