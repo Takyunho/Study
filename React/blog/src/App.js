@@ -6,10 +6,13 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-
+  // ⭐ state는 UI의 현재상태를 보관하는 저장소역할을 한다.
   let [글제목, 글제목변경] = useState(['남자 코트 추천', ' 여자 코트 추천', ' 남자 바지 추천']);
   let [좋아요, 좋아요변경] = useState([0, 0, 0]);
   let [modal, modal변경] = useState(false);
+
+  // 중요한 정보는 일반 변수가 아니라 state로 만들기
+  let [clickTitle, clickTitle변경] = useState(0);   // 몇번째 글제목 눌렀는지의 정보를 보관하는 곳이라고 생각하면 됨
 
 // 버튼 클릭시 글제목 바꾸기
   function 제목바꾸기() {
@@ -54,48 +57,38 @@ function App() {
         글제목.map(function (a, i) {
           return (
             <div className='list'>
-              <h4> {a} <span onClick={() => {좋아요각각변경(i)}}>👍</span> {좋아요[i]}</h4>
+              <h4 onClick={() => { clickTitle변경(i) } }> {a} <span onClick={() => {좋아요각각변경(i)}}>👍</span> {좋아요[i]}</h4>
               <p> 12월 13일 발행</p>
               <hr />
             </div>
           )
         })
       }
-      
+
+
       < button onClick={() => { modal변경(!modal) }}>모달창 열고 닫기</button>
       {
         modal === true
-          ? <Modal 글제목= {글제목}></Modal>
+          ? <Modal 글제목={글제목} clickTitle={ clickTitle }></Modal>
           : null
       }
-      {/* 컴포넌트 안에 컴포넌트를 집어넣어서 사용할 수 있는데, 이때 안에 들어간 컴포
-      넌트를 자식 컴포넌트라고 함 (여기선 Modal이 자식컴포넌트, App이 부모 컴포넌트) */}
       
-      {/* <Modal> 이라는 자식 컴포넌트가 부모인 App이 가진 state를 사용하고 싶으면
-      props문법 사용 */}
-      {/* ⭐ props로 자식컴포넌트에게 state 전해주는 법
-      1. <자식컴포넌트 작명={state명} />
-      2. 자식컴포넌트 선언하는 fucntion 안에 파라미터 입력(보통은 props 라고 적음)
-      3. props.작명 으로 사용  */}
-
-      {/* ⭐ 참고
-      1. props는 <Modal 작명={스테이트} 작명2={또다른스테이트} 등 이렇게 10개, 100개, 1000개
-      무한히 전송 가능함
-      2. props라는 파라미터엔 전송한 모든 props 데이터가 들어가 있음.
-      props.글제목[0] 이런 식으로 원하는 것만 꺼내쓰면 됨
-      3. props 전송할 땐 꼭 중괄호로 전송해야 되는건 아님
-      <Modal 글제목={변수명}> 이렇게 변수명을 넣고싶으면 중괄호를 쓰고
-      <Modal 글제목="강남우동맛집"> 이렇게 일반 텍스트를 전송하고 싶으면 따옴표 쓰면됨
-      */}
     </div >
   );
 }
+
+// UI 만드는법
+// 1. 지금 0,1,2번째 중 몇번째 제목을 눌렀는지 상태정보를 state로 저장해놓고
+//  즉, state를 하나 만들고
+// 2. state가 0일 때는 0번째 제목을 저기 출력해주고
+// state가 1일 때는 1번째 제목을 저기 출력해주고..
+// 이런식으로 UI 만들기
 
 
 function Modal(props) {
   return (
     <div className='modal'>
-      <h2>{ props.글제목[0] }</h2>
+      <h2>{ props.글제목[ props.clickTitle ] }</h2>
       <p>날짜</p>
       <p>상세내용</p>
     </div>
