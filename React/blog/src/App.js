@@ -13,6 +13,8 @@ function App() {
 
   // 중요한 정보는 일반 변수가 아니라 state로 만들기
   let [clickTitle, clickTitle변경] = useState(0);   // 몇번째 글제목 눌렀는지의 정보를 보관하는 곳이라고 생각하면 됨
+  // input에 입력한 값 저장하는 공간 
+  let [입력값, 입력값변경] = useState('');          // 초기값은 따옴표 두개로 빈 문자열
 
 // 버튼 클릭시 글제목 바꾸기
   function 제목바꾸기() {
@@ -56,7 +58,7 @@ function App() {
         // 반복할때 map() 함수 사용
         글제목.map(function (a, i) {
           return (
-            <div className='list'>
+            <div className='list' key={i}> {/* map반복문으로 돌린 HTML에는 key={}가 필요 (안하면 warning이 뜬다) */ }
               <h4 onClick={() => { clickTitle변경(i) } }> {a} <span onClick={() => {좋아요각각변경(i)}}>👍</span> {좋아요[i]}</h4>
               <p> 12월 13일 발행</p>
               <hr />
@@ -65,7 +67,11 @@ function App() {
         })
       }
 
-
+      {/* 사용자가 입력한 input 값을 state에 저장하는 법 */}
+      {/* <input onChange={(e) => { 입력값변경(e.target.value) } }></input> */}
+      {/* onChange라는건 input에 무언가 입력할 때마다 특정 함수를 동작시키고 싶을 때 사용 */}
+      {/* e.target이라는건 쌩자바스크립트 문법으로 '지금 이벤트가 동작하는 HTML요소'
+      .value라는건 input등에 입력한 값을 의미 */}
       < button onClick={() => { modal변경(!modal) }}>모달창 열고 닫기</button>
       {
         modal === true
