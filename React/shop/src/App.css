@@ -2,6 +2,32 @@
   text-align: center;
 }
 
+.background {
+  background-image: url('./background.jpg');
+  background-size: cover;
+  padding: 100px;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
