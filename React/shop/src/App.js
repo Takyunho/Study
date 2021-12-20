@@ -1,9 +1,26 @@
 import logo from './logo.svg';
-import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-// React Bootstrap에서 코드 가져올때 내가 쓸 컴포넌트 들을 import해야함
+import React, { useState } from 'react';    // useState 사용을 위해 import
+import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';  // React Bootstrap에서 코드 가져올때 내가 쓸 컴포넌트 들을 import해야함
 import './App.css';
+// 변수나 함수나 자료형을 다른 파일로 저장해둔 뒤에 불러오는 방법
+// import / export 문법을 이용하여 가져와 쓸 수 있다.
+// export 문법 설명은 data.js에 기록
+
+// ⭐ import문법
+// import 변수명 from '경로';
+// 여기서 변수명은 자유롭게 작명 가능하고, 경로 쓸때 ./ 반드시 표기(현재 경로라는 의미)
+
+// ⭐ 여러개의 변수를 받으려면?
+// import { name1, name2 } from './data.js';
+// 이렇게 export 했던 변수명을 원하는 것만 골라서 써주면 됨
+// 이때, 작명 불가능하고 export했던 변수명 그대로 써야함!!
+import data from './data.js'; // 가져와서 쓰기
 
 function App() {
+
+  let [shoes, shoes변경] = useState(data);
+  // console.log(shoes);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -30,7 +47,7 @@ function App() {
         <h1>Hello, world!</h1>
         <p>dasdasdasdasdasas</p>
         <p>
-          <Button variant="primary">Primary</Button>{' '}
+          <Button variant="primary"> 버튼 </Button>{' '}
         </p>
       </div>
 
@@ -38,28 +55,32 @@ function App() {
         <div className='row'>
           <div className='col-md-4'>
             <img src='https://codingapple1.github.io/shop/shoes1.jpg' width='100%'></img>
-            <h4>상품명</h4>
-            <p>상품설명 & 가격</p>
+            <h4>{shoes[0].title}</h4>
+            <p>{shoes[0].content} & {shoes[0].price}</p>
           </div>
+        
           <div className='col-md-4'>
           <img src='https://codingapple1.github.io/shop/shoes2.jpg' width='100%'></img>
-            <h4>상품명</h4>
-            <p>상품설명 & 가격</p>
+            <h4>{shoes[1].title}</h4>
+            <p>{shoes[1].content} & {shoes[1].price}</p>
           </div>
+
           <div className='col-md-4'>
           <img src='https://codingapple1.github.io/shop/shoes3.jpg' width='100%'></img>
-            <h4>상품명</h4>
-            <p>상품설명 & 가격</p>
+            <h4>{shoes[2].title}</h4>
+            <p>{shoes[2].content} & {shoes[2].price}</p>
           </div>
+          
         </div>
       </div>
-
 
 
       
     </div>
   );
 }
+
+
 
 export default App;
 
