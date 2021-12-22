@@ -63,9 +63,6 @@ function App() {
 
         {/* URL 만들 땐 반복문은 안쓰고 보통 URL 파라미터 문법을 이용해 축약함 */}
         <Route path="/detail/:id">
-          {/* :id 자리에 아무 문자나 입력하면 <Detail> 컴포넌트를 보여주세요~ */}
-          {/* id라는 부분은 함수 파라미터처럼 자유롭게 작명 */}
-          {/* 파라미터는 2개 3개 몇개든 추가할 수 있음 => /detail/:id/:name 이런 식도 가능 */}
           <Detail shoes={shoes} />
         </Route>
 
