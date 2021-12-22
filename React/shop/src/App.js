@@ -1,13 +1,12 @@
 /* eslint-disable */
 import logo from './logo.svg';
-import React, { useState } from 'react';    
+import React, { useState } from 'react';
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
-
-// 4️⃣ index.js 설정 후 라우팅 하기(여러가지 태그들 import)
 import { Link, Route, Switch } from 'react-router-dom';
-
+// Detail 컴포넌트 가져와서 쓰기 위해 import하기
+import Detail from './Detail.js';
 
 function App() {
 
@@ -21,8 +20,13 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              {/* ⭐ Link 태그로 페이지 이동버튼 만들기 */}
+              {/*
+              1. 버튼에 달려있는 href 지우고
+              2. <Link to="경로"> 버튼이름 </Link>로 작성
+              */}
+              <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
+              <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -35,60 +39,44 @@ function App() {
         </Container>
       </Navbar>
 
-
-      {/* 5️⃣ 라우팅하기(원하는 곳에 <Route><Route/>태그를 작성) */}
-      {/* <Route>안에 path와 path 방문시 보여줄 HTML 작성  */}
-      {/* 메인 페이지 */}
-      <Route path="/" exact >  {/* exact라는 속성 추가하면 경로가 정확히 일치할 때만 보여줌 */}
-        {/* 대문 */}
-        <div className="lh-lg mt-2 background">
-          <h1>Hello, world!</h1>
-          <p>dasdasdasdasdasas</p>
-          <p>
-            <Button variant="primary"> 버튼 </Button>{' '}
-          </p>
-        </div>
-        {/* 상품들 */}
-        <div className='container'>
-          <div className='row'>
-            {
-              shoes.map(function (a, i) {
-                return (
-                  <Cardshoes 슈즈={shoes[i]} i={i} key={i} /> // {shoes[i]}대신 {a} 도 가능
-                )
-              })
-            }
+      {/* ⭐ 매치되는 <Route> 들을 전부 보여주지 말고
+      한번에 하나만 보여주고 싶은 기능을 만들고 싶을 때 ⭐ Switch 사용 */}
+      <Switch> 
+        {/* 메인 페이지 */}
+        <Route path="/" exact >
+          {/* 대문 */}
+          <div className="lh-lg mt-2 background">
+            <h1>Hello, world!</h1>
+            <p>dasdasdasdasdasas</p>
+            <p>
+              <Button variant="primary"> 버튼 </Button>{' '}
+            </p>
           </div>
-        </div>
-      </Route>
-      {/* 세부 페이지 */}
-      <Route path="/detail">
-      <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-        </div>
-        <div className="col-md-6 mt-4">
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
-          <button className="btn btn-danger">주문하기</button> 
-        </div>
-      </div>
-</div> 
-      </Route>
-      
-      {/* 아래처럼 div를 넣는게 아니라 component를 넣을 수도 있음 */}
-      {/* <Route path="/어쩌구" component={모달창}></Route> */}
-      {/* 또는 <Route path="/어쩌구"> <모달창/> </Route>*/}
+          {/* 상품들 */}
+          <div className='container'>
+            <div className='row'>
+              {
+                shoes.map(function (a, i) {
+                  return (
+                    <Cardshoes 슈즈={shoes[i]} i={i} key={i} />
+                  )
+                })
+              }
+            </div>
+          </div>
+        </Route>
+        {/* 세부 페이지 */}
+        <Route path="/detail">
+          <Detail />
+        </Route>
 
-      {/* ❗ React-Router의 특징 
-      HTML 내부의 내용을 갈아치워서 다른 페이지처럼 흉내내는 것일 뿐
-      각각 페이지마다 다른 HTML 파일을 보여주는게 아님!!
-      */}
-
-
-
+        <Route path="/:id">       {/* /:id => URL 파라미터라는 문법
+        / 슬래시 뒤에 모든 문자가 오면 이 Route로 안내해줘라는 뜻 */ }
+          {/* ⭐ 리액트 라우터는 그냥 URL 매치되는 것들 전부를 다 보여주기 때문에
+          한번에 하나의 <Route>만 보여주고 싶다 그러면 Switch 태그로 라우터를 감싸야함 */}
+          <div>아무거나 적었을때 이거 보여주셈</div>
+        </Route>
+      </Switch>
 
     </div>
   );

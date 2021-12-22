@@ -18,6 +18,7 @@ ReactDOM.render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
+    {/* 4️⃣ 그다음 사용하고 싶은 js파일로 가서 import 후 5️⃣ 원하는 곳에 <Route></Route> 태그 작성 */}
   </React.StrictMode>,
   document.getElementById('root')
 );
