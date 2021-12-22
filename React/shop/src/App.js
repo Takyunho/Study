@@ -1,14 +1,17 @@
 /* eslint-disable */
 import logo from './logo.svg';
-import React, { useState } from 'react';    // useState 사용을 위해 import
-import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';  // React Bootstrap에서 코드 가져올때 내가 쓸 컴포넌트 들을 import해야함
+import React, { useState } from 'react';    
+import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
-import data from './data.js'; // 가져와서 쓰기
+import data from './data.js';
+
+// 4️⃣ index.js 설정 후 라우팅 하기(여러가지 태그들 import)
+import { Link, Route, Switch } from 'react-router-dom';
+
 
 function App() {
 
   let [shoes, shoes변경] = useState(data);
-  // console.log(shoes);
 
   return (
     <div className="App">
@@ -32,72 +35,75 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="lh-lg mt-2 background">
-        <h1>Hello, world!</h1>
-        <p>dasdasdasdasdasas</p>
-        <p>
-          <Button variant="primary"> 버튼 </Button>{' '}
-        </p>
-      </div>
 
-      <div className='container'>
-        <div className='row'>
-          {/* <Cardshoes 슈즈={shoes[0]} />
-          <Cardshoes 슈즈={shoes[1]} />
-          <Cardshoes 슈즈={shoes[2]} /> */}
-
-          {/* props를 전달할 때 shoes라는 [ {}, {}, {} ] 이렇게 생긴 데이터를 다 전송하는게
-          아니라, 각각 카드마다 각각 다른 정보를 전달 할 수도 있다 ... */}
-          {/* 즉, 같은 컴포넌트라고 항상 같은 내용만 보여줄 수 있는게 아니다.
-          props 등을 이용해 각각 다른 내용을 전송해주면 된다.
-          그럼 같은 컴포넌트라고 해도 각각 다른 내용이 출력되는 컴포넌트를 만들 수 있다. 
-          다시 말해, 여러개의 컴포넌트를 만들 필요 없음!! */}
-
-          {/* 🔻 위에 반복되는거 map()함수 사용  */}
-          {
-            shoes.map(function (a, i) {           // 각각의 데이터인 a는 꼭 안써도 되네?
-              return (
-                <Cardshoes 슈즈={shoes[i]} i={i} key={i} /> // {shoes[i]}대신 {a} 도 가능
-              )
-            })
-          }
+      {/* 5️⃣ 라우팅하기(원하는 곳에 <Route><Route/>태그를 작성) */}
+      {/* <Route>안에 path와 path 방문시 보여줄 HTML 작성  */}
+      {/* 메인 페이지 */}
+      <Route path="/" exact >  {/* exact라는 속성 추가하면 경로가 정확히 일치할 때만 보여줌 */}
+        {/* 대문 */}
+        <div className="lh-lg mt-2 background">
+          <h1>Hello, world!</h1>
+          <p>dasdasdasdasdasas</p>
+          <p>
+            <Button variant="primary"> 버튼 </Button>{' '}
+          </p>
+        </div>
+        {/* 상품들 */}
+        <div className='container'>
+          <div className='row'>
+            {
+              shoes.map(function (a, i) {
+                return (
+                  <Cardshoes 슈즈={shoes[i]} i={i} key={i} /> // {shoes[i]}대신 {a} 도 가능
+                )
+              })
+            }
+          </div>
+        </div>
+      </Route>
+      {/* 세부 페이지 */}
+      <Route path="/detail">
+      <div className="container">
+      <div className="row">
+        <div className="col-md-6">
+          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+        </div>
+        <div className="col-md-6 mt-4">
+          <h4 className="pt-5">상품명</h4>
+          <p>상품설명</p>
+          <p>120000원</p>
+          <button className="btn btn-danger">주문하기</button> 
         </div>
       </div>
+</div> 
+      </Route>
+      
+      {/* 아래처럼 div를 넣는게 아니라 component를 넣을 수도 있음 */}
+      {/* <Route path="/어쩌구" component={모달창}></Route> */}
+      {/* 또는 <Route path="/어쩌구"> <모달창/> </Route>*/}
+
+      {/* ❗ React-Router의 특징 
+      HTML 내부의 내용을 갈아치워서 다른 페이지처럼 흉내내는 것일 뿐
+      각각 페이지마다 다른 HTML 파일을 보여주는게 아님!!
+      */}
+
+
+
 
     </div>
   );
 }
 
-// 컴포넌트화 하기
-// ⭐ 1. 컴포넌트로 만들고, 2.props로 데이터 전송 및 데이터 바인딩하고, 3. 반복문 돌리기
+
 function Cardshoes(props) {
   return (
     <div className='col-md-4'>
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
-      {/* src에 변수 넣을때 중괄호로 감싸고 각각 '으로 나눈 후 + */}
       <h4>{props.슈즈.title}</h4>
       <p>{props.슈즈.content} & {props.슈즈.price}</p>
     </div>
   )
 }
-// function Cardshoes(props) {
-//   return (
-//     <div className='col-md-4'>
-//       <img src='https://codingapple1.github.io/shop/shoes2.jpg' width='100%'></img>
-//       <h4>{props.슈즈[1].title}</h4>
-//       <p>{props.슈즈[1].content} & {props.슈즈[1].price}</p>
-//     </div>
-//   )
-// }
-// function Cardshoes(props) {
-//   return (
-//     <div className='col-md-4'>
-//       <img src='https://codingapple1.github.io/shop/shoes3.jpg' width='100%'></img>
-//       <h4>{props.슈즈[2].title}</h4>
-//       <p>{props.슈즈[2].content} & {props.슈즈[2].price}</p>
-//     </div>
-//   )
-// }
 
 
 export default App;
