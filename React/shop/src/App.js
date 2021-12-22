@@ -5,13 +5,12 @@ import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import { Link, Route, Switch } from 'react-router-dom';
-// Detail 컴포넌트 가져와서 쓰기 위해 import하기
 import Detail from './Detail.js';
 
 function App() {
 
   let [shoes, shoes변경] = useState(data);
-
+  console.log(shoes);
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -20,11 +19,6 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {/* ⭐ Link 태그로 페이지 이동버튼 만들기 */}
-              {/*
-              1. 버튼에 달려있는 href 지우고
-              2. <Link to="경로"> 버튼이름 </Link>로 작성
-              */}
               <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
               <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -39,8 +33,8 @@ function App() {
         </Container>
       </Navbar>
 
-      {/* ⭐ 매치되는 <Route> 들을 전부 보여주지 말고
-      한번에 하나만 보여주고 싶은 기능을 만들고 싶을 때 ⭐ Switch 사용 */}
+      
+
       <Switch> 
         {/* 메인 페이지 */}
         <Route path="/" exact >
@@ -66,16 +60,15 @@ function App() {
           </div>
         </Route>
         {/* 세부 페이지 */}
-        <Route path="/detail">
-          <Detail />
+
+        {/* URL 만들 땐 반복문은 안쓰고 보통 URL 파라미터 문법을 이용해 축약함 */}
+        <Route path="/detail/:id">
+          {/* :id 자리에 아무 문자나 입력하면 <Detail> 컴포넌트를 보여주세요~ */}
+          {/* id라는 부분은 함수 파라미터처럼 자유롭게 작명 */}
+          {/* 파라미터는 2개 3개 몇개든 추가할 수 있음 => /detail/:id/:name 이런 식도 가능 */}
+          <Detail shoes={shoes} />
         </Route>
 
-        <Route path="/:id">       {/* /:id => URL 파라미터라는 문법
-        / 슬래시 뒤에 모든 문자가 오면 이 Route로 안내해줘라는 뜻 */ }
-          {/* ⭐ 리액트 라우터는 그냥 URL 매치되는 것들 전부를 다 보여주기 때문에
-          한번에 하나의 <Route>만 보여주고 싶다 그러면 Switch 태그로 라우터를 감싸야함 */}
-          <div>아무거나 적었을때 이거 보여주셈</div>
-        </Route>
       </Switch>
 
     </div>

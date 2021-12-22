@@ -1,53 +1,34 @@
-// ⭐
-// 1. src 폴더 내에 Detail.js 파일을 만들고
-// 2. 컴포넌트 생성하는 코드를 담음.
-// 근데 이거 쓰려면 맨 위에 항상 import React를 해와야함
-// 3. 맨 마지막줄에 Detail 이라는 함수를 export
 
-// 파일명은 아무렇게나 해도 상관 없으나,
-// 보통은 컴포넌트파일들은 대문자로 시작함
-// 그리고 컴포넌트명으로 이름짓는것이 관습
+import React, { useState } from 'react';        
+import { useHistory, useParams } from 'react-router-dom'; 
 
 
-import React, { useState } from 'react';        // 꼭 첨부해야 컴포넌트 만들 수 있음
-import { useHistory } from 'react-router-dom';  // useHistory라는 훅을 사용하기 위해 import
-
-
-// 모듈화(컴포넌트를 다른 파일로 빼내는 방법)
-function Detail() {
+function Detail(props) {
   
-  // ⭐ useHistory라는 훅을 사용하기
+  // 1. 맨 위에서 import를 이용해 useParams를 가져왔고 2. 그걸 변수에 저장
+  let { id } = useParams();
+  // useParams() 라는 함수는 현재 URL에 적힌 모든 파라미터를 {파라미터1,파라미터2} 이런 식으로
+  // 저장해주는 고마운 함수
+  // destructuring 문법을 이용해서 따로따로 변수로 빼서 저장
+  // 그래서 id라는 변수는 :id 자리에 있던 숫자를 의미
+  // 즉 /detail/1로 접속하면 id는 1이 되고, /detail/100 으로 접속하면 id라는 변수는 100이 됨
+
   let history = useHistory(); 
-  // useHistory()는 우리의 코딩을 편하게 해주는 일종의 Hook이다. (useState 이런거랑 비슷)
-  // history라는 변수엔 큰 object{} 자료가 하나 저장된다.
-  // 그 object 안에는 페이지 이동 내역 + 유용한 함수가 저장되어 있다.
 
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+          <img src={'https://codingapple1.github.io/shop/shoes1.jpg'} width="100%" />
         </div>
         <div className="col-md-6 mt-4">
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
+          <h4 className="pt-5">{props.shoes[id].title}</h4>
+          <p>{ props.shoes[id].content }</p>
+          <p>{props.shoes[id].price}원</p>
           <button className="btn btn-danger">주문하기</button>
-          {/* ⭐ 페이지 이동기능 만들기 */}
-          {/*
-          Link태그 말고도 페이지 중간에 이동하고 싶은 경우가 있음
-          이럴때 페이지 이동 함수를 사용
-          그러기 위해 1. useHistory()라는 함수를 'react-router-dom'에서 import 해오고
-          2. let history 라는 변수에 그 함수를 저장하면 됨 (변수명은 아무렇게나 작명가능)
-          */}
           <button className="btn btn-danger" onClick={() => {
-            // history에 저장된 여러 자료들 중 하나인 goBack()함수를 사용해서 뒤로가기 구현
-            // goBack()같은 함수 즉, 라이브러리 사용법은 찾아서 읽거나 검색해봐야 알 수있으니 구글검색 ㄱㄱ
             history.goBack();
-            // 커스텀 페이지로 이동하고 싶을때는?
-            // 라이브러리 사용법에 따라 push() 함수를 꺼내쓰면 된다.
-            // history.push('/') => / 경로로 이동해주세요~ 라는 뜻
           }}>뒤로가기</button>
         </div>
       </div>
@@ -55,5 +36,23 @@ function Detail() {
   )
 }
 
-// 변수명 뿐만 아니라, 함수명도 적어줄 수 있음
 export default Detail;
+
+
+// ⭐ 참고
+// Q.그냥 애초에 shoes라는 state같은걸 Detail 컴포넌트에다가 만들면 되는거 아닙니까 ?
+// 그럼 props 귀찮게 안써도 될텐데
+// A. 좋은 방법입니다. 근데 React, Angular, Vue 이런거 쓸 때 항상 염두에 두셔야하는게
+// 데이터는 항상 위에서 아래로 흘러야합니다.
+
+
+// 만약에 그냥 <Detail>안에 state를 만들었다고 칩시다.
+// 그리고 <App>안에 <Detail> & <Detail2> 컴포넌트가 있다고 칩시다.
+// 그럼 <Detail2>에서 <Detail>안에 있는 state가 필요하면 어떡합니까?
+// <App>으로 state를 올려보냈다가 다시 <Detail2>로 props로 전송하나요? 
+// 딱봐도 귀찮고 어렵습니다.  
+
+// 그래서 상위컴포넌트가 중요 데이터를 다 가지고 있어야합니다.
+// 그리고 하위컴포넌트는 데이터를 항상 props로 받아서 써야합니다.
+// 이것이 좋은 관습입니다.
+// 왜냐면 안그러면 데이터를 역방향으로 전달시킨다면 props보다 훨씬 귀찮은 문제들이 생기니까요.
