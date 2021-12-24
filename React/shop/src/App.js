@@ -10,7 +10,7 @@ import Detail from './Detail.js';
 function App() {
 
   let [shoes, shoes변경] = useState(data);
-  console.log(shoes);
+  // console.log(shoes);
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -19,8 +19,9 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
-              <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
+              {/* Link태그 에러 해결 => Link태그 대신 Nav.Link태그에 as={Link} 추가  */}
+              <Nav.Link as={ Link } to="/">Home</Nav.Link>
+              <Nav.Link as={ Link } to="/detail">Detail</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
