@@ -1,39 +1,50 @@
 /* eslint-disable */
 
-import React, { useEffect, useState } from 'react';        
-import { useHistory, useParams } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import './Detail.scss'
 
 let 박스 = styled.div`
   padding : 20px;
-`;      
+`;
 
 let 제목 = styled.h4`
   font-size : 25px;
-  color : ${ props => props.색상 };
-`; 
+  color : ${props => props.색상};
+`;
 
 
 function Detail(props) {
+  
+  let [alert, alert변경] = useState(true);      // ⭐ UI 만드는법 1️⃣ UI의 상태를 state로 저장(true/false)
+  let [inputData, inputData변경] = useState('');// 컴포넌트 업데이트시 진짜 실행되는지 알아보기위해 input값을 저장하는 state
+
   // useEffect 훅
-  // 페이지 상단에 useEffect를 import 해온 후 사용
   useEffect(() => {
-    // console.log(111)
+    
     // Detail페이지 방문 후 alert 창이 2초 후에 사라지도록
     let 타이머 = setTimeout(function () {
-      // 컴포넌트가 첫 등장해서 로딩이 끝난 후에 (전문용어로 mount 끝났을 때)
-      document.querySelector('.alert-box').style.display = 'none';
+      alert변경(false);                     // alert 스테이트의 true값을 false로
+      // ⭐ setTimeout 타이머를 썼으면 타이머 해제도 해야함(코드가 길어지거나 꼬이면 남아있는
+      // 타이머 때문에 이상한 현상이 일어날 수 있음)
+      // Detail컴포넌트가 사라질때 타이머를 제거하는 코드(버그를 막기위한 팁(타이머 해제 스킬))
+      return () => { clearTimeout(타이머) } 
     }, 2000)
-    // 컴포넌트가 재렌더링 되고난 후 때 (전문용어로 update 되고난 후에)
-      // return function 어쩌구(){ 언마운트될 때 실행할 코드~~~}
-  });
+
+  // ⭐ useEffect는 업데이트될 때 항상 실행됨
+  // 조건을 지정하면 업데이트마다 실행되는 것을 막을 수 있음
+  }, [alert]); // alert라는 state가 변경이 될때만 실행해줌 (대괄호 안에 state는 콤마로 여러개 넣을 수 있음)
+  // 이렇게 하면 1. Detail컴포넌트 로드가 될 때 & 2. alert라는 state가 변경이 될 때만 실행
+  // 만약 빈칸이면?(조건을 안넣으면?)
+  // 컴포넌트가 업데이트 될 때 절대 실행되지않음
+  // 즉, 페이지 로드될때만 한 번 실행하고 끝남(컴포넌트 로드때만 한번 딱 실행하고 싶은 코드를 담을 때 쓸 수 있는 일종의 트릭)
 
   let { id } = useParams();
-  let history = useHistory(); 
+  let history = useHistory();
 
-  let findProduct = props.shoes.find(function (product) { 
+  let findProduct = props.shoes.find(function (product) {
     return product.id == id // 참인 데이터만 새로운 변수에 저장
   });
   console.log(findProduct);
@@ -41,19 +52,31 @@ function Detail(props) {
 
   return (
     <div className="container">
-      <박스> 
-        <제목 className='color'>Detail</제목>    
+      <박스>
+        <제목 className='color'>Detail</제목>
       </박스>
-      <div className='alert-box'>
-        <p>재고가 얼마 남지 않았습니다.</p>
-      </div>
+
+      {/* Detail 컴포넌트 업데이트 시키기 위해 만듦(<input>에다가 뭔가 입력하면 Detail 컴포넌트가 재 렌더링됨(업데이트됨)) */}
+      <input onChange={(e) => { inputData변경(e.target.value) }}></input>
+      {inputData}
+
+
+      {/* ⭐ UI만드는법 2️⃣ state가 true일때만 alert 보여주기 */}
+      {
+        alert === true
+          ? <div className='alert-box'>
+            <p>재고가 얼마 남지 않았습니다.</p>
+          </div>
+          : null
+      }
+
+
       {/* <div className='alert-box2'>
         <p>재고가 얼마 남지 않았습니다.</p>
       </div>
       <div className='alert-box3'>
         <p>재고가 얼마 남지 않았습니다.</p>
       </div> */}
-
       <div className="row">
         <div className="col-md-6">
           <img src={`https://codingapple1.github.io/shop/shoes${findProduct.id + 1}.jpg`} width="100%" />
@@ -61,7 +84,7 @@ function Detail(props) {
         </div>
         <div className="col-md-6 mt-4">
           <h4 className="pt-5">{findProduct.title}</h4>
-          <p>{findProduct.content }</p>
+          <p>{findProduct.content}</p>
           <p>{findProduct.price}원</p>
           <button className="btn btn-danger">주문하기</button>
           <button className="btn btn-danger" onClick={() => {
@@ -74,45 +97,3 @@ function Detail(props) {
 }
 
 export default Detail;
-
-
-// 컴포넌트의 Lifecycle & Hook을 알아보자
-
-
-// 여러분이 만들어쓰고있는 컴포넌트는 Lifecycle이라는 개념이 있습니다.
-// 컴포넌트도 인생이 있다는겁니다.
-// 컴포넌트는 1. 생성이 될 수도 있고 2. 삭제가 될 수 있고 3. 관련된 state가 변경되면
-// 재렌더링(업데이트)가 일어날 수도 있습니다.
-
-
-// Q. 그래서 이걸 왜 알아야하는데요?
-// A. 컴포넌트의 인생 중간중간 Hook을 걸 수 있습니다. 그래서 배우는겁니다.
-// Hook이 뭡니까. 갈고리죠?
-// Hook을 이용해 인생중간중간에 참견을 할 수 있습니다.
-
-
-// "Detail 컴포넌트 등장 전에 이것좀 해줘"
-// "Detail 컴포넌트 사라지기 전에 이것좀 해줘"
-// "Detail 컴포넌트 업데이트 되고나서 이것좀 해줘"
-// Hook을 사용하면 이런 코드를 짤 수 있다는 것이지요.
-// Hook의 정확한 명칭은 Lifecycle Hook 이라고 합니다.
-
-
-
-// Lifecycle Hook은 어떻게 생겼는가 
-
-
-// 위에서 설명한 Hook들은 원래 class로 만든 컴포넌트에서 사용가능합니다.
-
-// ▼ 이런식으로 작성합니다.
-
-// class Detail2 extends React.Component {
-//   componentDidMount(){
-//     // Detail2 컴포넌트가 Mount 되고나서 실행할 코드
-//     // 컴포넌트 첫 등장 후 실행할 코드
-//   }
-//   componentWillUnmount(){
-//     // Detail2 컴포넌트가 Unmount 되기전에 실행할 코드 
-//     // 다른페이지로 넘어간다든지 등의 사유로 컴포넌트가 사라지기 전 실행할 코드
-//   }
-// }
