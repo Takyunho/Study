@@ -9,7 +9,16 @@
   color: white;
 }
 
-
+/* 로딩알람띄우기 */
+.lodingAlert {
+  width: 100%;
+  height: 500px;
+  padding: 30px;
+  margin: auto;
+  border-radius: 5px;
+  background-color: tomato;
+  max-width: 500px;
+}
 
 
 
