@@ -76,9 +76,12 @@ function App() {
             <button className='btn btn-primary' onClick={() => {
 
               // ⭐ 로딩중이라는 UI 띄우기
-              lodingAlert == true
+              {
+                lodingAlert == true
                 ? <div className='lodingAlert'><p>loding</p></div>
                 : null
+              }
+              
 
               // ⭐ post 요청
               // 가끔은 데이터를 받아오는게 아니라 서버로 전송하기도 해야합니다.
@@ -99,9 +102,11 @@ function App() {
 
                   // ⭐ 로딩중이라는 UI 안보이게 처리
                   lodingAlert변경(false)
+                  {
                   lodingAlert == true
                     ? <div className='lodingAlert'><p>loding</p></div>
                     : null
+                  }
 
                   let 요청데이터 = result.data;
 
@@ -122,9 +127,11 @@ function App() {
                 .catch(() => {
                   // ⭐ 실패 UI 띄우기
                   lodingAlert변경(true)
-                  lodingAlert == true
-                    ? <div className='lodingAlert'><p>로딩실패</p></div>
-                    : null
+                  {
+                    lodingAlert == true
+                      ? <div className='lodingAlert'><p>로딩실패</p></div>
+                      : null
+                  }
                   console.log('실패!');
                 })
             }}>더보기</button>
