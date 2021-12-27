@@ -1,8 +1,13 @@
 /* eslint-disable */
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
+// ⭐ 변수를 App.js에서 export하고 Detail.js에서 import
+// export 키워드는 변수나 함수 선언 왼쪽에 붙일 수 있습니다.
+// 그럼 다른 파일에서 import { 변수명, 함수명 } 이렇게 가져와서 쓸 수 있습니다. 
+import { 재고context } from './App.js';
 
 import './Detail.scss'
 
@@ -20,7 +25,11 @@ let 제목 = styled.h4`
 
 function Detail(props) {
   
-  let [alert, alert변경] = useState(true);      
+  let [alert, alert변경] = useState(true);
+  
+  // ⭐ 재고라는 state 쓰고 싶으면 App.js에서 import해와야함 
+  // 변수를 App.js에서 export하고 Detail.js에서 import
+  let 재고 = useContext(재고context);
 
   // useEffect 훅
   useEffect(() => {
