@@ -1,52 +1,24 @@
-// CSS는 주먹구구식으로 작성하면 되는 원초적인 스타일링 언어입니다.
-// 근데 CSS를 조금 더 프로그래밍언어스럽게 다룰 수 있는 CSS 대체 문법이 존재합니다.
-// SASS라는 pre-processor 입니다. 이걸 이용하면 변수, 반복문, 함수 이런 문법으로
-// CSS를 작성할 수 있습니다.
-
-// 그리고 SASS 문법으로 스타일을 쭉 작성하셨다면 다시 CSS로 컴파일을 하셔야합니다.
-// 그건 node-sass 라는 라이브러리가 자동으로 알아서 해줍니다.
-
-// 1. sass 설치
-// 터미널 켜고
-// npm install node-sass
-// yarn add node-sass
-// 둘중 하나 입력
-
-// 2. SASS 파일 생성후 JS 파일에서 import (ex. import './Detail.scss')
-
-
-// SASS 문법 2️⃣ @import
 @import './reset.scss';   // 다른 css (혹은 scss)파일에 저장해두고 필요해질 때마다 @import 
 
 
-// ⭐ SASS문법을 쓰는 이유
-// SASS 문법 1️⃣ 변수 사용 ==> $변수명 : 집어넣을값;
 $mainColor : #ff0999;   // 변수에 저장해서 사용가능(색상 뿐만 아니라 px값 %값 별걸 다 집어넣을 수 있음)
+
+// 애니메이션 시작 때 적용할 CSS  (클래스명-enter)
+.wow-enter {
+  opacity: 0;
+}
+// 애니메이션 동작 때 적용할 CSS  (클래스명-enter-active)
+.wow-enter-active {
+  opacity: 1;
+  transition: all 500ms;
+}
+
 
 .color {
   color: $mainColor;       // 저장했던 변수로 불러와서 사용가능
 }
 
-// div.container h4 {
-//   color: blue;
-// }
-// div.container p {
-//   color: green;
-// }
-// 위의 내용을 nesting문법으로 🔻
 
-// SASS 문법 3️⃣ nesting 문법
-// div.container {
-//   h4 {
-//     color: rgb(53, 78, 14);
-//   }
-//   p {
-//     color: grey;
-//   }
-// }
-// 셀렉터를 옆으로 길게 나열하는게 아니라 안쪽에다가 작성
-
-// SASS 문법 4️⃣ extends 문법
 .alert-box {
   background-color: #eeeeee;
   padding: 20px;
@@ -64,9 +36,6 @@ $mainColor : #ff0999;   // 변수에 저장해서 사용가능(색상 뿐만 아
   background-color: grey;
 }
 
-// SASS 문법 5️⃣ @mixin / @include 문법
-// (자바스크립트 문법과는 다르게 함수명이 위에 선언되어있어야 밑에서 사용가능)
-// 함수에 파라미터같은것도 넣을 수 있고 여러가지 기능들을 만들어낼 수 있음
 @mixin 함수() {
   background: honeydew;
   padding: 10px;

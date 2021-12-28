@@ -8,30 +8,22 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
 import axios from 'axios';
 
-
-
-// props 연속사용이 싫다면 Redux를 쓰든가 아니면 Context 어쩌구를 쓰든가 하시면 됩니다.
-// 1. ⭐ context 만들기 (React.createContext(); )
-// 2. ⭐ 만든 context 변수로 선언
 export let 재고context = React.createContext();
-// ⭐ 변수를 Detail.js에서 쓰고 싶으면
-// App.js에서 export하고 Detail.js에서 import
+
 
 function App() {
 
   let [shoes, shoes변경] = useState(data);
   let [lodingAlert, lodingAlert변경] = useState(true);
 
-  // 왜 App.js에 만들었을까?
-  // => 중요한 데이터는 상위 컴포넌트에 만드는게 바람직(모든 데이터는 위에서 밑으로 흐른다.)
   let [재고, 재고변경] = useState([10, 11, 12]);
 
 
-  useEffect(() => {
-    axios.get()
-      .then()
-      .catch();
-  }, []);  // 괄호 추가하면 업데이트시 ajax 요청 안하고 등장시에만 한 번 실행
+  // useEffect(() => {
+  //   axios.get()
+  //     .then()
+  //     .catch();
+  // }, []);  // 괄호 추가하면 업데이트시 ajax 요청 안하고 등장시에만 한 번 실행
 
   return (
     <div className="App">
@@ -73,8 +65,6 @@ function App() {
           {/* 상품들 */}
           <div className='container'>
 
-            {/* ⭐ 3. 같은 값을 공유할 HTML을 <범위>로 싸매기 */}
-            {/* 범위.provider value={스테이트명}*/}
             <재고context.Provider value={재고}>
               <div className='row'>
                 {
@@ -138,25 +128,23 @@ function App() {
 
 function Cardshoes(props) {
 
-  // ⭐ state를 사용하고 싶으면 useContext() 라는 훅을 이용해서 사용을 원하는 context를 불러와야함.
-  // useContext 훅을 쓰려면 상단에 'react' 로부터 import도 해야함
-  let 재고 = useContext(재고context); // 재고context에 들어있는 state를 변수로 저장해 쓰겠습니다~ 라는 문법
+  let 재고 = useContext(재고context); 
 
   return (
     <div className='col-md-4'>
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
       <h4>{props.슈즈.title}</h4>
       <p>{props.슈즈.content} & {props.슈즈.price}</p>
-      <p>{재고}</p>
+      <Test i={props.i}></Test>
     </div>
   )
 }
 // 컴포넌트 안에 컴포넌트 추가하기
-function Test() {
+function Test(props) {
   // useContext로 데이터를 받아서 사용
   let 재고 = useContext(재고context);
   return (
-    <p> 재고 : {재고[0]}</p>
+    <p> 재고 : {재고[props.i]}</p>
   )
 }
 
