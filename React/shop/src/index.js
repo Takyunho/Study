@@ -4,21 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// 여러가지 페이지를 만들고 싶다면 라우터를 이용
-// 1️⃣ 먼저 터미널에서 react-router-dom 이라는 공식 라이브러리를 설치
-// 터미널을 열고 npm install react-router-dom@5 또는 yarn add react-router-dom@5
-// 둘 중 하나 입력해서 설치 (yarn은 yarn이 설치되어 있어야 한다.)
-// 2️⃣ 터미널에 react-router-dom 설치 후 index.js에서 라우터 세팅
 import { BrowserRouter } from 'react-router-dom';
-// 'react-router-dom'과 같이 ./가 없으면 라이브러리 이름이라고 생각하면 된다.
+
+// redux 세팅하기(데이터들을 App.js 이런데가 아니라 redux를 이용해 보관하기 위해)
+// 1️⃣ 터미널에 yarn add redux react-redux 설치((redux, react-redux 두개의 라이브러리))
+// redux는 데이터를 엄격하게 관리하는 기능, react-redux는 리덕스를 리액트에서 쓸 수 있게 도와주는 기능을 제공
+// 2️⃣ 설치 후 import { Provider }
+import { Provider } from 'react-redux';
+
+// 4️⃣ createStore() 함수를 위해 import 
+import { createStore } from 'redux';
+
+// 4️⃣ redux에서 state를 하나 만들려면 createStore() 함수를 써야함 (useState가 아님)
+// import 해온 다음에 createStore(콜백함수) 로 사용
+// redux 설치 후엔 state들을 store라는 명칭으로 부름
+let store = createStore(() => {
+  // 콜백함수 안에는 내가 원하는 state 초기값을 작성
+  return [{ id: 0, name: '멋진신발', quan: 2 }, { id: 1, name: '예쁜신발', quan: 4 },
+    {id: 2, name: '좋은신발', quan: 7}]
+})
+
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* 3️⃣ 위에서 import해온 BrowserRouter 컴포넌트 태그로 App을 감싸주면 됨 */}
     <BrowserRouter>
-      <App />
+      {/* 3️⃣ 내가 state값 공유를 원하는 컴포넌트를 <Provider>로 감싸기 */}
+      <Provider store={store}> { /* 5️⃣ props처럼 등록*/}
+        <App />
+      </Provider>
     </BrowserRouter>
-    {/* 4️⃣ 그다음 사용하고 싶은 js파일로 가서 import 후 5️⃣ 원하는 곳에 <Route></Route> 태그 작성 */}
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -28,22 +42,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-
-// ❗ 참고
-// BrowserRouter 말고도 HashRouter가 있다.
-// HashRouter를 복붙하면 사이트 방문시 URL 맨 뒤에 /#/이 붙은채로 시작하고
-// BrowserRouter를 복붙하면 사이트 방문시 # 그런거 없이 깔끔하게 시작
-
-// ❗ HashRouter를 사용하는 이유는?
-// 원래 브라우저 주소창에 어떤 페이지를 입력하면 서버에게 특정 페이지를 보여달라는 요청이
-// 되는데, 현재 요청할 서버가 없고 리액트 자체에서 라우팅을 담당하고 있음
-// 그래서 잘못하면 있지도 않은 페이지를 서버에 요청해서 404Page Not Found 이런 에러가 뜰 수
-// 있음
-// 실수로 서버에게 요청하지 않게 하려면 안전하게 #을 붙여야 함
-// 그래서 HashRouter를 사용하는 거 ㅇㅇ
-
-// ❗ 그럼 BrowserRouter는 안좋은건가?
-// BrowserRouter를 쓰려면 서버에서 세팅만 잘해주면 됨
-// "이런 경로로 들어오는 요청은 404 보내지 말구요~ 전부 리액트가 라우팅하게 해주세요~"
-// "이 경로로 들어오는 요청은 그냥 리액트 메인페이지로 보내주세요~"
-// 이런 식으로 API를 짜놓으면 됨
+// redux 쓰는 이유 : props 전송 없이도 모든 컴포넌트들이 state를 사용할 수 있게 만들어줌
