@@ -120,7 +120,7 @@ function App() {
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
             <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
-            </재고context.Provider>
+          </재고context.Provider>
         </Route>
 
         {/* 카트 페이지 */}
@@ -139,11 +139,13 @@ function App() {
 
 function Cardshoes(props) {
 
-  let 재고 = useContext(재고context); 
+  let 재고 = useContext(재고context);
 
   return (
     <div className='col-md-4'>
-      <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
+      <a href={"/detail/" + (props.i)}>
+        <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
+      </a>
       <h4>{props.슈즈.title}</h4>
       <p>{props.슈즈.content} & {props.슈즈.price}</p>
       <Test i={props.i}></Test>

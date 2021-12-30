@@ -11,13 +11,21 @@ import { combineReducers, createStore } from 'redux';
 let 초기값 = [
   { id: 0, name: '멋진신발', quan: 2 },
   { id: 1, name: '예쁜신발', quan: 4 },
-  { id: 2, name: '좋은신발', quan: 7 }
 ]
 
 
 function reducer(state = 초기값, 액션) {
-  if (액션.type === '수량증가') { 
+  
+  //  '항목추가' 라는 요청이 들어오면 카피본을 생성해서 전송받은 데이터를 push (array에 추가) 해주세요
+  if ( 액션.type === '항목추가') { 
+    let copy = [...state]
+    copy.push(액션.payload); // 괄호안에는 버튼 누를 때 전송된 데이터가 들어가야함. 그것이 바로 액션.payload
+    // 액션.payload // Detail 컴포넌트에서 보낸 데이터 받아 쓰기
+    // 액션이라는 파라미터는 dispatch() 소괄호 안에 들어있던 모든게 들어있음.
+    return copy
 
+  } else if (액션.type === '수량증가') { 
+    
     let copy = [...state];
     copy[0].quan++;
     return copy
@@ -39,11 +47,7 @@ function reducer(state = 초기값, 액션) {
   }
 }
 
-// ⭐ 리덕스를 이용해서 alert 상태 저장
-// redux store에선 reducer를 하나 더 쓰면 된다.
-// 즉, state + reducer 세트를 하나 더 만들어서 여기에 UI의 true/false 값을 저장!
-// 그러나 Cart.js에서만 쓰이는 알림창을 굳이 리덕스에 저장할 필요 XX
-// 리덕스에는 뽑아쓸 수 있으면서 공용적으로 쓰이는 state를 저장하는 것이 바람직
+
 let alert초기값 = true;
 
 function reducer2(state = alert초기값, 액션) {
@@ -57,21 +61,7 @@ function reducer2(state = alert초기값, 액션) {
   
 }
 
-
-
-// reducer를 더 만들었으면 combineReducers() 사용
-// combineReducers() => 리듀서 여러개 합치는 문법
-// combineReducers() 안에 모든 리듀서를 object 형식으로 쭉 담으면 끝 (상단에 import 필요)
 let store = createStore(combineReducers({reducer, reducer2}));
-
-// ⭐ 오늘의 교훈 ⭐
-// 이런 식으로 redux를 쓰면 안된다.
-// 이거 UI 하나 만드는데 굳이.. redux에 저장?
-// redux가 있다고 해도 redux에 state 저장할지 말지는 선택임!!
-// 내가 이 state 데이터를 다른 컴포넌트에서 쓸 일이 없다면
-// 간단하게 useState()로 Cart 컴포넌트 안에서 만들어서 사용 하면 됨. 굳이 redux 쓸 필요 X
-// 반면에, 많은 컴포넌트들이 공유하는 값은 redux store안에 보관!!!
-// 그것이 코드의 양을 조금이라도 줄이는 길임.
 
 
 

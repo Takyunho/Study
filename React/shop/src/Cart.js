@@ -26,10 +26,13 @@ function Cart(props) {
                   <td>{a.id + 1}</td>
                   <td>{props.작명[i].name}</td>
                   <td>{props.작명[i].quan}</td>
-                  {/* 버튼을 누르면 '수량증가' 요청하기 */}
-                  {/* ⭐ 데이터 수정요청을 할 땐 dispatch()함수 사용
-                props.dispatch({ type : '???'}) / */}
                   <td>
+                    {/* dispatch()로 수정요청할 때 데이터를 보낼 수도 있음 */}
+                    {/* {dispatch({ type: '???', payload: 보낼데이터 })} */}
+                    {/* props.dispatch({ type : 어쩌구, payload : '안녕' }) 이렇게 쓰면
+                    안녕이라는 데이터를 redux store까지 실어보낼 수 있고
+                    reducer 안에서 요청을 처리할 땐 액션.payload 라고 쓰면
+                    보냈던 '안녕' 데이터를 사용할 수 있다.  */}
                     <button onClick={() => { props.dispatch({ type: '수량증가' }) }}>+</button>
                     <button onClick={() => { props.dispatch({ type: '수량감소' }) }}>-</button>
                   </td>

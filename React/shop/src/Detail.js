@@ -7,8 +7,10 @@ import { 재고context } from './App.js';
 import './Detail.scss'
 // 부트스트랩
 import { Nav } from 'react-bootstrap';
-// ⭐ 트랜지션 라이브러리 import
+// 트랜지션 라이브러리 import
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
+import context from 'react-bootstrap/esm/AccordionContext';
 
 
 // styled-components
@@ -27,13 +29,14 @@ function Detail(props) {
 
   let [alert, alert변경] = useState(true);
 
-  // ⭐ 몇번째 버튼을 눌렀는지 저장할 state 데이터 만들기
+  // 몇번째 버튼을 눌렀는지 저장할 state 데이터 만들기
   let [clickTab, clickTab변경] = useState(0);
-  // ⭐ 버튼 눌렀을 때 CSS 적용을 위한 state
+  // 버튼 눌렀을 때 CSS 적용을 위한 state
   let [스위치, 스위치변경] = useState(false);
 
 
   let 재고 = useContext(재고context);
+
 
   // useEffect 훅
   useEffect(() => {
@@ -71,19 +74,43 @@ function Detail(props) {
       <div className="row">
         <div className="col-md-6">
           <img src={`https://codingapple1.github.io/shop/shoes${findProduct.id + 1}.jpg`} width="100%" />
-          {/* <img src={`https://codingapple1.github.io/shop/shoes${parseInt(id) + 1}.jpg`} width="100%" /> */}
         </div>
         <div className="col-md-6 mt-4">
           <h4 className="pt-5">{findProduct.title}</h4>
           <p>{findProduct.content}</p>
           <p>{findProduct.price}원</p>
+
           {/* 재고 표시하기 */}
-          <Info 재고={props.재고} ></Info>
+          <Info 재고={재고} findProduct={findProduct}></Info>
+          {/* {
+            재고.map(function (a, i) {
+              return (
+                <Info 재고={재고[i]} i={i} key={i}></Info>
+              )
+            })
+          } */}
+
           {/* 주문하기 클릭시 재고 변경되도록 하기 */}
           <button className="btn btn-danger" onClick={() => {
             var new재고 = [...props.재고]
             new재고[0] = new재고[0] - 1;
             props.재고변경(new재고);
+
+            // 주문하기 버튼을 누르면 redux store에 있던 상품데이터들에 항목 추가
+            // dispatch 쓰려면 state를 props화 해주는 함수를 아래에서 써야함
+            // (참고) props.dispatch를 그냥 쓰면 에러나고 꼭 밑에서 connect 해줘야 함
+            props.dispatch({ type: '항목추가', payload: { id: 2, name: '새로운상품', quan: 1 } });
+            
+            // 원래 데이터 저장하고 수정하고 그러는건 사이트 새로 들어올 때마다 초기화 됨
+            // 근데 우린 Detail -> Cart 페이지로 이동했을 뿐인데 state가 초기화가 되는 이유는
+            // 그냥 원래 개발단계에서 미리보기 띄우실 때 페이지를 이동하면 페이지를 껐다
+            // 켠 것 처럼 초기화 됩니다.
+            // 사이트 나중에 발행해보시면 아마 제대로 동작할겁니다.
+            // 그게 싫으면 주문하기 버튼을 눌렀을 때 
+            // history.push() 등의 라우터 함수를 이용해서 페이지 이동을 강제로 시켜보십시오.
+            // 저렇게 라우터 함수를 이용해서 페이지 이동을 시키면 개발환경에서도 초기화가 되지 않습니다.
+            history.push('/cart'); // 페이지 이동을 강제로 시켜주는 코드 (페이지 이동을 시켜서 값 리셋을 방지)
+            // (참고) 이거 쓰려면 당연히 useHistory 훅이 상단에 import 되어있어야합니다.
           }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => {
             history.goBack();
@@ -91,7 +118,8 @@ function Detail(props) {
         </div>
       </div>
 
-      {/* ⭐ 탭기능 만들기 */}
+
+      {/* 탭기능 만들기 */}
       <Nav variant="tabs" defaultActiveKey="link-0" className='mt-5'>
         <Nav.Item>
           <Nav.Link eventKey="link-0" onClick={() => { 스위치변경(false); clickTab변경(0); }}>Option 1</Nav.Link>
@@ -113,17 +141,21 @@ function Detail(props) {
   )
 }
 
+
+
 function Info(props) {
+
   return (
     <p>남은 수량 : {props.재고[0]}</p>
   )
+
 }
 
-// ⭐ if문 사용(삼항연산자는 경우의 수가 3개 이상일때는 유용하지 않으므로)
+// if문 사용(삼항연산자는 경우의 수가 3개 이상일때는 유용하지 않으므로)
 function TabContent(props) {
 
   // 컴포넌트 등장 또는 업데이트시 스위치 true로 바꾸기
-  useEffect(() => { 
+  useEffect(() => {
     props.스위치변경(true);     // 스위치변경은 상위 컴포넌트에 있으므로 props 이용
   })
 
@@ -137,27 +169,15 @@ function TabContent(props) {
 }
 
 
-export default Detail;
 
-// ⭐ 정리
-// 1. CSSTransition 라이브러리 터미널로 설치
-// yarn add react-transition-group 또는 npm install react-transition-group
+// redux에 있던 state를 갖다 쓰기 위해 컴포넌트 파일 하단에 이렇게 써야함
+// connect 함수도 위에서 import 해야함
+function state를props로(store) {
+  return {
+    작명: store.reducer,
+    alert: store.reducer2
+  }
+}
 
-// 2. 상단에 import
-// import { CSSTransition } from 'react-transition-group';
+export default connect(state를props로)(Detail);
 
-// 3. <CSSTransition>으로 애니메이션 필요한 곳 감싸기
-// 4. in, classNames, timeout 넣기
-// in은 스위치
-// classNames는 어떤 애니메이션을 적용할지 작명해주는 부분
-// timeout은 작동시간
-
-// 5. CSS 파일에서 애니메이션 디자인
-// .클래스명-enter = 컴포넌트 등장 즉, 시작시 적용할 CSS
-// .클래스명 - enter - active = 컴포넌트 동작 중 적용할 CSS
-
-// 6. 원할 때 스위치 켜기
-// 평소엔 in={true} 이걸 false로 해놨다가 원할 때 true로 바꾸기
-// 그러기 위해서 스위치를 위한 state 필요
-// in={스위치}로 변경
-// 컴포넌트가 로드될 때 스위치가 true로 바뀌게 useEffect 이용
