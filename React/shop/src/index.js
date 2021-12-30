@@ -5,55 +5,74 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
-// let store = createStore(() => {
-//   return [
-//     { id: 0, name: '멋진신발', quan: 2 },
-//     { id: 1, name: '예쁜신발', quan: 4 },
-//     { id: 2, name: '좋은신발', quan: 7 }
-//   ]
-// })
 
-// ⭐ redux에선 state 데이터의 수정방법을 미리 정의하고 수정해야한다.
-// 1. reducer 함수를 만들고 그곳에 데이터 수정하는 방법을 정의해놓습니다.
-// 2. 그리고 원하는 곳에서 dispatch() 라는 함수를 써서 reducer에게 수정해달라고 요청을 합니다.
-
-// 따로 state 변수를 만들어 두고 이걸 reducer에 default 파라미터 문법으로 집어넣기
-// default 파라미터 문법은 ES6 신문법으로, 기본으로 가질 파라미터를 부여할 수 있음
-// 그냥 파라미터 선언할 때 = 등호로 입력하면 됨
 let 초기값 = [
   { id: 0, name: '멋진신발', quan: 2 },
   { id: 1, name: '예쁜신발', quan: 4 },
   { id: 2, name: '좋은신발', quan: 7 }
 ]
 
-// 데이터 수정하는 법은 reducer로 만드는데,
-// 그냥 function 어쩌구로 시작하는 흔히 보이는 함수로 만들면됨.
-// 대신 reducer는 function안에 1. state 초기값과 2. state 데이터 수정방법이 들어있음
+
 function reducer(state = 초기값, 액션) {
-  if (액션.type === '수량증가') { //(액션.type === 수정방법이름) 이런 식
-    
-    // state 수정
+  if (액션.type === '수량증가') { 
+
     let copy = [...state];
     copy[0].quan++;
-    // 수정된 state 리턴 
     return copy
 
-  } else if (액션.type === '수량감소'){
-    
+  } else if (액션.type === '수량감소') {
+
     let copy = [...state]
-    copy[0].quan--;
-    return copy    
+    //  만약에 음수면 그러니까 0보다 작으면 0 리턴
+    if (copy[0].quan > 0) {
+      copy[0].quan--;
+      return copy
+    } else {
+      copy[0].quan = 0;
+      return copy
+    }
 
   } else {
-    // 기본 state (reducer는 항상 state를 뱉어야함)
     return state
   }
 }
 
-// 위에서 만든 reducer를 createStore()안에 넣음
-let store = createStore(reducer);
+// ⭐ 리덕스를 이용해서 alert 상태 저장
+// redux store에선 reducer를 하나 더 쓰면 된다.
+// 즉, state + reducer 세트를 하나 더 만들어서 여기에 UI의 true/false 값을 저장!
+// 그러나 Cart.js에서만 쓰이는 알림창을 굳이 리덕스에 저장할 필요 XX
+// 리덕스에는 뽑아쓸 수 있으면서 공용적으로 쓰이는 state를 저장하는 것이 바람직
+let alert초기값 = true;
+
+function reducer2(state = alert초기값, 액션) {
+  
+  if (액션.type === '알림닫기') {
+    state = false;
+    return state
+  } else {
+    return state
+  }
+  
+}
+
+
+
+// reducer를 더 만들었으면 combineReducers() 사용
+// combineReducers() => 리듀서 여러개 합치는 문법
+// combineReducers() 안에 모든 리듀서를 object 형식으로 쭉 담으면 끝 (상단에 import 필요)
+let store = createStore(combineReducers({reducer, reducer2}));
+
+// ⭐ 오늘의 교훈 ⭐
+// 이런 식으로 redux를 쓰면 안된다.
+// 이거 UI 하나 만드는데 굳이.. redux에 저장?
+// redux가 있다고 해도 redux에 state 저장할지 말지는 선택임!!
+// 내가 이 state 데이터를 다른 컴포넌트에서 쓸 일이 없다면
+// 간단하게 useState()로 Cart 컴포넌트 안에서 만들어서 사용 하면 됨. 굳이 redux 쓸 필요 X
+// 반면에, 많은 컴포넌트들이 공유하는 값은 redux store안에 보관!!!
+// 그것이 코드의 양을 조금이라도 줄이는 길임.
+
 
 
 
@@ -72,6 +91,8 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
 
 // ⭐ redux 쓰는 이유
 // 1. props 전송 없이도 모든 컴포넌트들이 state를 사용할 수 있게 만들어줌
