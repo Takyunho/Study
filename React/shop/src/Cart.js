@@ -1,14 +1,22 @@
 import { type } from '@testing-library/user-event/dist/type';
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { connect } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import index from './index.js';
 
 function Cart(props) {
+
+  // ⭐ state 꺼내쓰는 더 쉬운 방법
+  // useSelector 훅 사용하기
+  let state = useSelector((작명) => 작명) // 작명.reducer 도 가능   // (작명) = redux에 있던 모든 state임
+  // console.log(state);
+  // console.log(state.reducer);
+
+  // ⭐ dispatch를 더 쉽게 쓰는 방법
+  let dispatch = useDispatch(); // 아래에서 props.dispacth 할 필요없이 dispatch라고 쓸 수 있음
+
   return (
     <div>
-
-
       <Table responsive="md">
         <thead>
           <tr>
@@ -20,21 +28,16 @@ function Cart(props) {
         </thead>
         <tbody>
           {
-            props.작명.map(function (a, i) {
+            state.reducer.map(function (a, i) {
               return (
                 <tr key={i}>
                   <td>{a.id + 1}</td>
-                  <td>{props.작명[i].name}</td>
-                  <td>{props.작명[i].quan}</td>
+                  <td>{state.reducer[i].name}</td>
+                  <td>{state.reducer[i].quan}</td>
                   <td>
-                    {/* dispatch()로 수정요청할 때 데이터를 보낼 수도 있음 */}
-                    {/* {dispatch({ type: '???', payload: 보낼데이터 })} */}
-                    {/* props.dispatch({ type : 어쩌구, payload : '안녕' }) 이렇게 쓰면
-                    안녕이라는 데이터를 redux store까지 실어보낼 수 있고
-                    reducer 안에서 요청을 처리할 땐 액션.payload 라고 쓰면
-                    보냈던 '안녕' 데이터를 사용할 수 있다.  */}
-                    <button onClick={() => { props.dispatch({ type: '수량증가' }) }}>+</button>
-                    <button onClick={() => { props.dispatch({ type: '수량감소' }) }}>-</button>
+                    {/* 위의 useDispatch() 함수를 통해 props 필요 없이 사용가능 */}
+                    <button onClick={() => { dispatch({ type: '수량증가' }) }}>+</button>
+                    <button onClick={() => { dispatch({ type: '수량감소' }) }}>-</button>
                   </td>
                 </tr>
               )
@@ -43,10 +46,10 @@ function Cart(props) {
         </tbody>
       </Table>
       {
-        props.alert === true
+        state.reducer2 === true     // useSelector 사용함으로써 state안에 있던 reducer2에 있는거 받아오기
           ? <div className='alert-box'>
             <p>지금 구매하시면 신규할인 20%</p>
-            <button onClick={() => { props.dispatch({ type: '알림닫기' }) }}>닫기</button>
+            <button onClick={() => { dispatch({ type: '알림닫기' }) }}>닫기</button>
           </div>
           : null
       }
@@ -56,13 +59,16 @@ function Cart(props) {
   )
 }
 
-function state를props로(store) {
-  return {
-    작명: store.reducer,
-    alert: store.reducer2 // reducer2에 있는거 가져오는법
-    // 리듀서가 여러개면 store에서 받아오는 데이터의 형식이 달라진다.
-  }
-}
+// 아래 문법 대신 위에서 useSelctor 사용
+// function state를props로(store) {
+//   return {
+//     작명: store.reducer,
+//     alert: store.reducer2 // reducer2에 있는거 가져오는법
+//     // 리듀서가 여러개면 store에서 받아오는 데이터의 형식이 달라진다.
+//   }
+// }
 
-export default connect(state를props로)(Cart);
+// export default connect(state를props로)(Cart);
+
+export default Cart;
 
