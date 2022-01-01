@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Detail from './Detail.js';
 import axios from 'axios';
 
@@ -53,7 +53,6 @@ function App() {
       </Navbar>
 
 
-
       <Switch>
         {/* 메인 페이지 */}
         <Route path="/" exact >
@@ -65,9 +64,9 @@ function App() {
               <Button variant="primary"> 버튼 </Button>{' '}
             </p>
           </div>
+
           {/* 상품들 */}
           <div className='container'>
-
             <재고context.Provider value={재고}>
               <div className='row'>
                 {
@@ -87,7 +86,7 @@ function App() {
                   ? <div className='lodingAlert'><p>loding</p></div>
                   : null
               }
-
+              // ajax get 요청
               axios.get('https://codingapple1.github.io/shop/data2.json')
                 .then((result) => {
                   // 로딩중이라는 UI 안보이게 처리
@@ -97,7 +96,6 @@ function App() {
                       ? <div className='lodingAlert'><p>loding</p></div>
                       : null
                   }
-
                   let 요청데이터 = result.data;
                   // shoes state에 ajax 요청 시 전달받은 데이터 추가하기
                   shoes변경([...shoes, ...요청데이터]); // 이러면 기존 state 사본생성 없이도 원하는 데이터를 한큐에 추가할 수 있음
@@ -116,20 +114,17 @@ function App() {
           </div>
         </Route>
 
-        {/* 세부 페이지 */}
+        {/* 세부(Detail) 페이지 */}
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
             <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
           </재고context.Provider>
         </Route>
 
-        {/* 카트 페이지 */}
+        {/* 카트(Cart) 페이지 */}
         <Route path='/cart'>
           <Cart></Cart>
         </Route>
-
-
-
       </Switch>
 
     </div>
@@ -140,18 +135,20 @@ function App() {
 function Cardshoes(props) {
 
   let 재고 = useContext(재고context);
-
+  let history = useHistory();
   return (
-    <div className='col-md-4'>
-      <a href={"/detail/" + (props.i)}>
+    // history를 이용하여 상세 페이지로 이동되게끔
+    // props.i를 쓰면 상품을 정렬 했을 경우 문제가 발생 -> 따라서 상품의 고유 번호(id)로 하자.
+    <div className='col-md-4' onClick={() => { history.push('/detail/' + props.슈즈.id) }}>
         <img src={'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'} width='100%'></img>
-      </a>
       <h4>{props.슈즈.title}</h4>
       <p>{props.슈즈.content} & {props.슈즈.price}</p>
       <Test i={props.i}></Test>
     </div>
   )
 }
+
+
 // 컴포넌트 안에 컴포넌트 추가하기
 function Test(props) {
   // useContext로 데이터를 받아서 사용
@@ -160,6 +157,7 @@ function Test(props) {
     <p> 재고 : {재고[props.i]}</p>
   )
 }
+
 
 export default App;
 

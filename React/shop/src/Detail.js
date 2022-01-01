@@ -95,22 +95,12 @@ function Detail(props) {
             var new재고 = [...props.재고]
             new재고[0] = new재고[0] - 1;
             props.재고변경(new재고);
-
-            // 주문하기 버튼을 누르면 redux store에 있던 상품데이터들에 항목 추가
-            // dispatch 쓰려면 state를 props화 해주는 함수를 아래에서 써야함
-            // (참고) props.dispatch를 그냥 쓰면 에러나고 꼭 밑에서 connect 해줘야 함
-            props.dispatch({ type: '항목추가', payload: { id: 2, name: '새로운상품', quan: 1 } });
+            // 실제 주문하기 클릭한 상품을 reducer로 보내자
+            props.dispatch({ type: '항목추가', payload: { id: findProduct.id, name: findProduct.title, quan: 1 } });
             
-            // 원래 데이터 저장하고 수정하고 그러는건 사이트 새로 들어올 때마다 초기화 됨
-            // 근데 우린 Detail -> Cart 페이지로 이동했을 뿐인데 state가 초기화가 되는 이유는
-            // 그냥 원래 개발단계에서 미리보기 띄우실 때 페이지를 이동하면 페이지를 껐다
-            // 켠 것 처럼 초기화 됩니다.
-            // 사이트 나중에 발행해보시면 아마 제대로 동작할겁니다.
-            // 그게 싫으면 주문하기 버튼을 눌렀을 때 
-            // history.push() 등의 라우터 함수를 이용해서 페이지 이동을 강제로 시켜보십시오.
-            // 저렇게 라우터 함수를 이용해서 페이지 이동을 시키면 개발환경에서도 초기화가 되지 않습니다.
+
+
             history.push('/cart'); // 페이지 이동을 강제로 시켜주는 코드 (페이지 이동을 시켜서 값 리셋을 방지)
-            // (참고) 이거 쓰려면 당연히 useHistory 훅이 상단에 import 되어있어야합니다.
           }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => {
             history.goBack();

@@ -9,36 +9,55 @@ import { combineReducers, createStore } from 'redux';
 
 
 let 초기값 = [
-  { id: 0, name: '멋진신발', quan: 2 },
-  { id: 1, name: '예쁜신발', quan: 4 },
+  // { id: 0, name: '멋진신발', quan: 2 },
+  // { id: 1, name: '예쁜신발', quan: 4 },
 ]
-
+console.log(초기값)
 
 function reducer(state = 초기값, 액션) {
   
   //  '항목추가' 라는 요청이 들어오면 카피본을 생성해서 전송받은 데이터를 push (array에 추가) 해주세요
   if ( 액션.type === '항목추가') { 
-    let copy = [...state]
-    copy.push(액션.payload); // 괄호안에는 버튼 누를 때 전송된 데이터가 들어가야함. 그것이 바로 액션.payload
-    // 액션.payload // Detail 컴포넌트에서 보낸 데이터 받아 쓰기
-    // 액션이라는 파라미터는 dispatch() 소괄호 안에 들어있던 모든게 들어있음.
-    return copy
+
+    // 만약에 state 안에있는 id가 액션.payload 인게 있는지?
+    // 있으면 중복방지 / 없으면 스테이트에 액션.payload 추가해서 카트에 데이터바인딩
+    
+    let found = state.findIndex((a)=>{ return a.id === 액션.payload.id }); // findIndex함수 : array 안에서 원하는 데이터를 찾아주는 함수
+    // 조건식이 맞으면 몇번째에 있는지 퉤 뱉어줌 (0, 1, 2 이런식으로 숫자가 남게된다. 그걸 변수에 저장해서 사용하면 됨)
+    // a는 어레이 안에 있는 하나하나의 데이터를 말함 (여기서는 {})
+    if(found >= 0){
+
+      let copy = [...state]
+      copy[found].quan++;       // 같은 상품 주문시 항목추가가 아니라 수량이 증가되도록
+      return copy
+    } else {
+      let copy = [...state]
+      copy.push(액션.payload); 
+      return copy
+    }
+
+
+    
 
   } else if (액션.type === '수량증가') { 
     
+    // (보낸 id를 바탕으로 같은 id 가진 상품을 찾아서 ++ 해주면)
+    // 액션.payload = a.id
     let copy = [...state];
-    copy[0].quan++;
+    let 같은id찾기 = copy.findIndex((a)=>{ return a.id === 액션.payload})
+    copy[같은id찾기].quan++;
     return copy
 
   } else if (액션.type === '수량감소') {
 
     let copy = [...state]
+    let 같은id찾기 = copy.findIndex((a)=>{ return a.id === 액션.payload})
     //  만약에 음수면 그러니까 0보다 작으면 0 리턴
-    if (copy[0].quan > 0) {
-      copy[0].quan--;
+    if (copy[같은id찾기].quan > 0) {
+      copy[같은id찾기].quan--;
       return copy
     } else {
-      copy[0].quan = 0;
+      copy[같은id찾기].quan = 0;
       return copy
     }
 

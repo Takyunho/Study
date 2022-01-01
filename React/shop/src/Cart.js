@@ -10,7 +10,7 @@ function Cart(props) {
   // useSelector 훅 사용하기
   let state = useSelector((작명) => 작명) // 작명.reducer 도 가능   // (작명) = redux에 있던 모든 state임
   // console.log(state);
-  // console.log(state.reducer);
+  console.log(state.reducer);
 
   // ⭐ dispatch를 더 쉽게 쓰는 방법
   let dispatch = useDispatch(); // 아래에서 props.dispacth 할 필요없이 dispatch라고 쓸 수 있음
@@ -20,7 +20,7 @@ function Cart(props) {
       <Table responsive="md">
         <thead>
           <tr>
-            <th>#</th>
+            <th>상품넘버</th>
             <th>상품명</th>
             <th>수량</th>
             <th>변경</th>
@@ -32,12 +32,15 @@ function Cart(props) {
               return (
                 <tr key={i}>
                   <td>{a.id + 1}</td>
-                  <td>{state.reducer[i].name}</td>
-                  <td>{state.reducer[i].quan}</td>
+                  <td>{a.name}</td>
+                  <td>{a.quan}</td>
                   <td>
                     {/* 위의 useDispatch() 함수를 통해 props 필요 없이 사용가능 */}
-                    <button onClick={() => { dispatch({ type: '수량증가' }) }}>+</button>
-                    <button onClick={() => { dispatch({ type: '수량감소' }) }}>-</button>
+                    {/* 수량증가나 수량감소 버튼을 개별로 구현하기 위해
+                    수량증가시 0,1,2가 되는 데이터를 보내서 반복되게 만들자 
+                    i 보단 a.id를 사용하자 */}
+                    <button onClick={() => { dispatch({ type: '수량증가', payload: a.id }) }}>+</button>
+                    <button onClick={() => { dispatch({ type: '수량감소', payload: a.id }) }}>-</button>
                   </td>
                 </tr>
               )
