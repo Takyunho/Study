@@ -1,30 +1,12 @@
 /* eslint-disable */
 import logo from './logo.svg';
-/*
-⭐ 컴포넌트 import할 때 lazy loading하기
-웹앱 사이트들은 메인 페이지 방문시 모두 import해옴
-그래서 많은 컴포넌트파일을 import 해오라고 써놓으면 사이트 초기 접속속도가
-굉장히 느려질 수 있음
-Detail, Cart 컴포넌트들은 첫 페이지 방문시 import를 바로 해올 필요는 없으므로,
-lazy import를 하면 성능향상
-✅ 순서
-1. react 라이브러리에서 lazy, Suspense를 import
-2. import Detail 처럼 import하던거를 lazy 함수를 이용해 바꾸기
-3. <Suspense> 라는 컴포넌트로 <Detail>을 감싸주기
-4. fallback 속성에 <Detail> 컴포넌트 로딩 전까지 띄울 원하는 HTML 적기
-*/
-
-// 1️⃣ lazy, Suspense import 하기
 import React, { useEffect, useState, useContext, lazy, Suspense } from 'react';
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
-// import Detail from './Detail.js'; 대신에
-// 2️⃣ 아래처럼 작성(import Detail 하던거를 lazy 함수를 이용해 바꾸기)
 let Detail = lazy(() => { return import('./Detail.js') }); // <Detail>을 보여줄 때만 import Detail.js해옴
-// return 하나면 중괄호랑 리턴 생략가능 lazy(() => import('./Detail.js') );
 
 import axios from 'axios';
 import Cart from './Cart.js';
@@ -135,8 +117,6 @@ function App() {
         {/* 세부(Detail) 페이지 */}
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
-            {/* 3️⃣ <Suspense> 라는 컴포넌트로 <Detail> 감싸기 */}
-            {/* 4️⃣ fallback속성에 Detail 컴포넌트 로딩전까지 보여줄 HTML 적기 */}
             <Suspense fallback={<div>로딩중!</div>}> 
               <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
             </Suspense>
@@ -184,33 +164,33 @@ function Test(props) {
 export default App;
 
 
-// ⭐ 성능향상과 유지관리를 위해
-// 1️⃣ 함수나 오브젝트는 변수에 담아서 쓰자
-// 의미없는 arrowfunction + object를 쓰지 말고
-// 변수에 담아서 오브젝트를 쓰던가 함수를 따로 선언해서 쓰던가 하자
-// 메모리 공간을 아낄 수 있음!
-// function Cart(){
-//   return (
-//     <div style={ {color : 'red'} } ></div>
-//   )
-// }
-// ▲ 이렇게 이름없는 콜백함수나 오브젝트를 대충 써넣지 말고
+/*
+React Dev Tools 리액트 개발자 도구 크롬 확장프로그램
 
-// var 스타일 = {color : 'red'};  // 재렌더링될 때 변수에 저장되지 않은 이름없는
-                                  //object, function 류의 자료형들은 매번 새로운 메모리 영역을 할당해줘야 하기 때문에
-                                  // 컴퓨터가 바빠질 수 있음. 따라서 컴포넌트 바깥에 마련해두는 것이 바람직하다.
+크롬 웹스토어에서 설치 후
+크롬브라우저에서 우클릭 - 검사누르면 나옴
 
-// function Cart(){
-//   return (
-//     <div style={ 스타일 } ></div>
-//   )
-// }
-// ▲ 이렇게 컴포넌트 바깥에 있는 변수에 저장해서 쓰라는 소리
+컴포넌트를 클릭해보면 거기서 사용중인 props, state, hook 이런 것들이 우측에 쫘르륵 표기
 
-// 2️⃣ 애니메이션 줄 때 레이아웃 변경 애니메이션은 좋지 않다.
-// 레이아웃은 width, margin, padding, left right top bottom 이런 것들을 뜻하는데
-// 자바스크립트나 transition을 이용해 레이아웃을 변경시키는건 브라우저 입장에서 큰 부담이 된다.
-// (왜 그런지는 CSS 렌더링 단계 참고)
-// 그래서 애니메이션을 넣어도 성능에 큰 지장이 없게 만들고 싶으면
-// transform, opacity 같은 CSS 속성을 이용해 애니메이션 주는 것이 바람직
+- 그래서 props가 잘 전해졌는지 확인
+- state가 잘 변하고 있는지 확인
+- 실시간 state, props 수정해보기
+- 시계모양 버튼을 눌러 해당 컴포넌트 렌더링을 잠깐 정지해보기
+이런 것들이 가능
+
+
+또 다른 메뉴인 Profiler 탭으로 들어가면
+녹화 버튼(파란점) 을 눌러서 컴포넌트 렌더링 되는 속도를 측정해볼 수 있음
+1. 버튼 누르고 2. 사이트 탐색하고 3. 버튼 다시 누르면 녹화 끝
+
+그걸 보고
+- 어떤 컴포넌트가 렌더링 시간이 젤 오래걸리는가
+- 쓸데없이 재렌더링 자주되는 컴포넌트가 있는가
+- 렌더링 필요없는 컴포넌트가 있는가
+이런 것들을 찾아낼 수 있음
+
+나중에 성능 최적화할 때 사용하면 되고
+컴포넌트를 적게, 코드를 깔끔하고 예쁘게 짜면 많이 켜볼 일이 없음
+
+*/
 
