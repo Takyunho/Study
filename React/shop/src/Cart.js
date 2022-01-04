@@ -1,18 +1,16 @@
 import { type } from '@testing-library/user-event/dist/type';
-import React from 'react';
+import React, { useEffect, memo } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import index from './index.js';
 
 function Cart(props) {
 
-  // ⭐ state 꺼내쓰는 더 쉬운 방법
   // useSelector 훅 사용하기
   let state = useSelector((작명) => 작명) // 작명.reducer 도 가능   // (작명) = redux에 있던 모든 state임
   // console.log(state);
-  console.log(state.reducer);
+  // console.log(state.reducer);
 
-  // ⭐ dispatch를 더 쉽게 쓰는 방법
   let dispatch = useDispatch(); // 아래에서 props.dispacth 할 필요없이 dispatch라고 쓸 수 있음
 
   return (
@@ -35,10 +33,6 @@ function Cart(props) {
                   <td>{a.name}</td>
                   <td>{a.quan}</td>
                   <td>
-                    {/* 위의 useDispatch() 함수를 통해 props 필요 없이 사용가능 */}
-                    {/* 수량증가나 수량감소 버튼을 개별로 구현하기 위해
-                    수량증가시 0,1,2가 되는 데이터를 보내서 반복되게 만들자 
-                    i 보단 a.id를 사용하자 */}
                     <button onClick={() => { dispatch({ type: '수량증가', payload: a.id }) }}>+</button>
                     <button onClick={() => { dispatch({ type: '수량감소', payload: a.id }) }}>-</button>
                   </td>
@@ -57,21 +51,47 @@ function Cart(props) {
           : null
       }
 
-
+      <Parent 이름="yun" 나이="29" />
+      {/* 컴포넌트에 있는 props나 state가 변경되면 그거 쓰는
+      HTML(아래의 Child1,2)들이 전부 재 렌더링됨
+      예를 들어 이름="yun1"로 변경하면 Child1,2 둘다 재 렌더링 됨(Child1만 되는게 아니라) */}
     </div>
   )
 }
 
-// 아래 문법 대신 위에서 useSelctor 사용
-// function state를props로(store) {
-//   return {
-//     작명: store.reducer,
-//     alert: store.reducer2 // reducer2에 있는거 가져오는법
-//     // 리듀서가 여러개면 store에서 받아오는 데이터의 형식이 달라진다.
-//   }
-// }
 
-// export default connect(state를props로)(Cart);
+function Parent(props) {
+  return (
+    <div>
+      <Child1 이름={ props.이름 }/>
+      <Child2 나이={props.나이} /> 
+    </div>
+  )
+}
+function Child1() {
+  useEffect(() => { console.log('렌더링됨1') });
+  return <div>1111</div>
+}
+
+// ⭐ memo()를 사용하면 불필요한 재렌더링 막기 가능 
+// memo() => props가 변경이 안된 컴포넌트는 재렌더링하지 말아주세요~ 라는 뜻의 함수 
+// 컴포넌트가 너무 크거나 해서 잦은 재렌더링이 부담스러울 때 씀 
+// 1. 'react'에서 import{memo}
+// 2. memo()로 컴포넌트 감싸고 변수로 선언
+// 3. 그럼 컴포넌트와 관련된 props가 변경이 될 때만 재렌더링이 된다. 
+let Child2 = memo(function () {
+  useEffect(() => { console.log('렌더링됨2') });
+  return <div>2222</div>
+});
+// memo()의 단점
+// 기존 props VS 바뀐 props 비교연산 후 컴포넌트를 업데이트 할지말지 결정하므로
+// props가 크고 복잡하면 사이트가 느려짐
+// 잘 판단해서 사용할 것!!
+// 쓸지말지 평가하려면 리액트 개발자도구에서 렌더링속도를 측정해볼 순 있으나 
+// 그것마저 귀찮으니 쪼그만한 사이트를 만들거나 컴포넌트 내부에 있는
+// HTML 양이 매우 적을 경우엔 memo는 쓰지말도록 하자
+// (컴포넌트 크기가 클때 사용하면 될거같음)
+
 
 export default Cart;
 
