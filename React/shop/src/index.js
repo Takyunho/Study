@@ -12,7 +12,6 @@ let 초기값 = [
   // { id: 0, name: '멋진신발', quan: 2 },
   // { id: 1, name: '예쁜신발', quan: 4 },
 ]
-console.log(초기값)
 
 function reducer(state = 초기값, 액션) {
   
@@ -21,7 +20,6 @@ function reducer(state = 초기값, 액션) {
 
     // 만약에 state 안에있는 id가 액션.payload 인게 있는지?
     // 있으면 중복방지 / 없으면 스테이트에 액션.payload 추가해서 카트에 데이터바인딩
-    
     let found = state.findIndex((a)=>{ return a.id === 액션.payload.id }); // findIndex함수 : array 안에서 원하는 데이터를 찾아주는 함수
     // 조건식이 맞으면 몇번째에 있는지 퉤 뱉어줌 (0, 1, 2 이런식으로 숫자가 남게된다. 그걸 변수에 저장해서 사용하면 됨)
     // a는 어레이 안에 있는 하나하나의 데이터를 말함 (여기서는 {})
@@ -35,9 +33,6 @@ function reducer(state = 초기값, 액션) {
       copy.push(액션.payload); 
       return copy
     }
-
-
-    
 
   } else if (액션.type === '수량증가') { 
     
@@ -77,12 +72,10 @@ function reducer2(state = alert초기값, 액션) {
   } else {
     return state
   }
-  
+
 }
 
 let store = createStore(combineReducers({reducer, reducer2}));
-
-
 
 
 ReactDOM.render(

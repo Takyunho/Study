@@ -5,11 +5,15 @@ import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import RecentProduct from './RecentProduct.js';
+
 
 let Detail = lazy(() => { return import('./Detail.js') }); // <Detail>을 보여줄 때만 import Detail.js해옴
+let Cart = lazy(() => { return import('./Cart.js') });
+
 
 import axios from 'axios';
-import Cart from './Cart.js';
+// import Cart from './Cart.js';
 
 export let 재고context = React.createContext();
 
@@ -66,66 +70,76 @@ function App() {
           </div>
 
           {/* 상품들 */}
-          <div className='container'>
-            <재고context.Provider value={재고}>
-              <div className='row'>
-                {
-                  shoes.map(function (a, i) {
-                    return (
-                      <Cardshoes 슈즈={shoes[i]} i={i} key={i} />
-                    )
-                  })
-                }
-              </div>
-            </재고context.Provider>
+          <div className='container '>
+            {/* <div className='row'> */}
+              {/* <div className='col-10'> */}
+                <재고context.Provider value={재고}>
+                  <div className='row'>
+                    {
+                      shoes.map(function (a, i) {
+                        return (
+                          <Cardshoes 슈즈={shoes[i]} i={i} key={i} />
+                        )
+                      })
+                    }
+                  </div>
+                </재고context.Provider>
 
-            <button className='btn btn-primary' onClick={() => {
-              // 로딩중이라는 UI 띄우기
-              {
-                lodingAlert == true
-                  ? <div className='lodingAlert'><p>loding</p></div>
-                  : null
-              }
-              // ajax get 요청
-              axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then((result) => {
-                  // 로딩중이라는 UI 안보이게 처리
-                  lodingAlert변경(false)
+                <button className='btn btn-primary' onClick={() => {
+                  // 로딩중이라는 UI 띄우기
                   {
                     lodingAlert == true
                       ? <div className='lodingAlert'><p>loding</p></div>
                       : null
                   }
-                  let 요청데이터 = result.data;
-                  // shoes state에 ajax 요청 시 전달받은 데이터 추가하기
-                  shoes변경([...shoes, ...요청데이터]); // 이러면 기존 state 사본생성 없이도 원하는 데이터를 한큐에 추가할 수 있음
-                })
-                .catch(() => {
-                  // 실패 UI 띄우기
-                  lodingAlert변경(true)
-                  {
-                    lodingAlert == true
-                      ? <div className='lodingAlert'><p>로딩실패</p></div>
-                      : null
-                  }
-                  console.log('실패!');
-                })
-            }}>더보기</button>
-          </div>
+                  // ajax get 요청
+                  axios.get('https://codingapple1.github.io/shop/data2.json')
+                    .then((result) => {
+                      // 로딩중이라는 UI 안보이게 처리
+                      lodingAlert변경(false)
+                      {
+                        lodingAlert == true
+                          ? <div className='lodingAlert'><p>loding</p></div>
+                          : null
+                      }
+                      let 요청데이터 = result.data;
+                      // shoes state에 ajax 요청 시 전달받은 데이터 추가하기
+                      shoes변경([...shoes, ...요청데이터]); // 이러면 기존 state 사본생성 없이도 원하는 데이터를 한큐에 추가할 수 있음
+                    })
+                    .catch(() => {
+                      // 실패 UI 띄우기
+                      lodingAlert변경(true)
+                      {
+                        lodingAlert == true
+                          ? <div className='lodingAlert'><p>로딩실패</p></div>
+                          : null
+                      }
+                      console.log('실패!');
+                    })
+                }}>더보기</button>
+              </div>
+              {/* <RecentProduct></RecentProduct> */}
+            {/* </div> */}
+          {/* </div> */}
         </Route>
+
+
 
         {/* 세부(Detail) 페이지 */}
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
-            <Suspense fallback={<div>로딩중!</div>}> 
+            <Suspense fallback={<div>로딩중!</div>}>
               <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
             </Suspense>
           </재고context.Provider>
         </Route>
 
+
         {/* 카트(Cart) 페이지 */}
         <Route path='/cart'>
-          <Cart></Cart>
+          <Suspense fallback={<div>로딩중!</div>}>
+            <Cart></Cart>
+          </Suspense>
         </Route>
       </Switch>
 
@@ -161,36 +175,7 @@ function Test(props) {
 }
 
 
+
 export default App;
 
-
-/*
-React Dev Tools 리액트 개발자 도구 크롬 확장프로그램
-
-크롬 웹스토어에서 설치 후
-크롬브라우저에서 우클릭 - 검사누르면 나옴
-
-컴포넌트를 클릭해보면 거기서 사용중인 props, state, hook 이런 것들이 우측에 쫘르륵 표기
-
-- 그래서 props가 잘 전해졌는지 확인
-- state가 잘 변하고 있는지 확인
-- 실시간 state, props 수정해보기
-- 시계모양 버튼을 눌러 해당 컴포넌트 렌더링을 잠깐 정지해보기
-이런 것들이 가능
-
-
-또 다른 메뉴인 Profiler 탭으로 들어가면
-녹화 버튼(파란점) 을 눌러서 컴포넌트 렌더링 되는 속도를 측정해볼 수 있음
-1. 버튼 누르고 2. 사이트 탐색하고 3. 버튼 다시 누르면 녹화 끝
-
-그걸 보고
-- 어떤 컴포넌트가 렌더링 시간이 젤 오래걸리는가
-- 쓸데없이 재렌더링 자주되는 컴포넌트가 있는가
-- 렌더링 필요없는 컴포넌트가 있는가
-이런 것들을 찾아낼 수 있음
-
-나중에 성능 최적화할 때 사용하면 되고
-컴포넌트를 적게, 코드를 깔끔하고 예쁘게 짜면 많이 켜볼 일이 없음
-
-*/
 
