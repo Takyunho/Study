@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Momentum</title>
+</head>
+<body>
+  <form class="hidden" id="login-form">
+    <input
+      required
+      maxlength="15"
+      type="text"
+      placeholder="what is your name?">
+    </input>
+    <input type="submit" value="Log In"></input>
+  </form>
+  <h1 id="greeting" class="hidden"></h1>
+  <script src="../JS/4-7.js"></script>
+</body>
+</html>
+
+
+<!--
+input의 유효성 검사를 작동시키기 위해서는 input이 form안에 있어야 함
+우리가 form 안에서 엔터를 누르고 input이 더 존재하지 않는다면 자동으로  submit 된다
+또는, form안에 있는 버튼을 눌렀을 때도 form이 자동으로 sumbit 된다
+즉, 폼의 기본 동작은 sumbit
+-->
+
+<!--
+즉, HTML의 도움을 활용하려면 input을 form안에 위치시켜야함.
+그리고 input을 form안에 넣었을 경우에는 우리가 엔터를 누를 때마다
+form은 자동적으로 sumbit됨
+하지만 이것은 우리가 원하는게 아님. form이 submit될 때마다 페이지가 새로고침 되기 때문
+따라서, form이 submit 되는걸 막아야 함 (인수.preventDefault() 사용)
+-->

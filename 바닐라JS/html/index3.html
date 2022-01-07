@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Random Number Game</title>
+</head>
+<body>
+  <h1>Random Number Game</h1>
+  <form id="input-form">
+    <h3>
+      Generate a number between 0 and
+      <input id="numberInput" type="number" min="0" max="100" required autofocus />     <!-- 0~n까지 숫자 입력-->
+    </h3>
+    <h4>
+      Guess the number: 
+      <input id="guessNumberInput" type="number" min="0" max="100" required />          <!-- 예측 숫자 입력 -->
+      <input id="playBtn" type="submit" value="Play!" />                      <!-- 시작버튼 --> 
+    </h4>
+  </form>
+  <div id="result" >
+    <span id="choseResult"></span><br>
+    <b><span id="winLoseResult"></span></b>
+  </div>
+  <script src="../예제/9day-challenge.js"></script>
+</body>
+</html>

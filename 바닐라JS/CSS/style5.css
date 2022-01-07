@@ -1,0 +1,122 @@
+/* 기초작업 */
+
+.hidden {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+#bgimg {
+  position:absolute;
+  width:100vw; 
+  height:100vh;
+  background-size: cover;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  border:2px solid yellow;
+}
+
+#section_1 {
+  width: 33vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#section_2 {
+  width: 33vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#section_3 {    
+  width: 33vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* section_1 */
+
+#calendar {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid white;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  opacity: 0.7;
+  width: 30vw;
+  height: 20vh;
+}
+
+
+#quotes {
+  padding: 10px;
+}
+/* section_2 */
+/* #part_1 {
+  
+} */
+
+#part_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid white;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  opacity: 0.7;
+  width: 33vw;
+  height: 75vh;   
+}
+
+#todo_list li  {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  padding: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+  align-items: center;
+  background-color: bisque;
+}
+
+#finish {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid white;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  opacity: 0.7;
+  width: 30vw;
+  height: 100vh;
+}

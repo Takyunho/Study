@@ -1,0 +1,19 @@
+body {
+  background-color: black;
+}
+
+h1 {
+  color: white;
+}
+
+.backColor1 {
+  background-color: skyblue ;
+}
+
+.backColor2 {
+  background-color: purple;
+}
+
+.backColor3 {
+  background-color: coral;
+}
