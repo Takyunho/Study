@@ -5,19 +5,27 @@
 const todoInputElem = document.querySelector('.todo-input');
 const todoListElem = document.querySelector('.todo-list');
 const completeAllBtnElem = document.querySelector('.complete-all-btn'); // 9. 전체 완료 처리를 위해 만들어둔 버튼을 querySelector를 통해 checkAllBtnElem이라 선언
+const leftItemsElem = document.querySelector('.left-items'); // 10. 남은 할 일 개수를 표시하는 요소를 querySelector를 사용하여 가져와 leftItemsElem이라 선언
 
-
+// 10. setLeftItems()라는 함수를 만들어 완료 처리가 되는 부분 마다 적용하여, 남은 할 일 개수를 갱신
+  // 현재 완료되지 않은 할 일 리스트를 반환한다.
+const getActiveTodos = () => { 
+  return todos.filter(todo => todo.isCompleted === false);
+}
+const setLeftItems = () => { 
+  const leftTodos = getActiveTodos()
+  const 남은투두길이 = leftTodos.length
+  leftItemsElem.innerHTML = `${남은투두길이}개 남음`
+}
+// setLeftItems()함수를 todos의 배열의 길이와 완료상태가 변할 때 호출되는 함수[ 로드시실행(), appendTodos(), deleteTodo(), completeTodo(), onClickCompleteAll() ]에 각각 적용하자.
 
 let todos = [];   // 할 일들을 담을 배열
 let id = 0;       // 각각의 할 일들이 유니크하게 구별될 수 있는 키값을 설정하기 위해 선언
-
-
 
 // 2. 할 일 추가하기
 const setTodos = (newTodos) => {
   todos = newTodos;
 }
-
 const getAllTodos = () => {
   return todos;
 }
@@ -30,6 +38,7 @@ const appendTodos = (text) => {
   // const newTodos = [...getAllTodos(), {id: newId, isCompleted: false, content: text }] 
   setTodos(newTodos) // 반환된 newTodos를 setTodos()라는 함수로 기존 todos배열을 변경시키기
   checkIsAllCompleted(); // 9. 전체 완료처리 확인
+  setLeftItems(); // 10. 남은 할 일 개수 표시
   paintTodos();
 }
 
@@ -37,7 +46,8 @@ const appendTodos = (text) => {
 const deleteTodo = (todoId) => {
   const newTodos = getAllTodos().filter(todo => todo.id !== todoId);
   setTodos(newTodos);
-  paintTodos()
+  setLeftItems(); // 10. 남은 할 일 개수 표시
+  paintTodos();
 }
 
 // 6. 할 일 완료하기
@@ -45,6 +55,7 @@ const completeTodo = (todoId) => {
   // Array map()을 사용하여 완료 처리를 하고자 하는 할 일의 isCompleted 값을 토글(true이면 false로, false면 true로) 처리하여 새로운 todos 배열을 저장
   const newTodos = getAllTodos().map(todo => todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo)
   setTodos(newTodos);
+  setLeftItems(); // 10. 남은 할 일 개수 표시
   paintTodos();
   checkIsAllCompleted(); // 9. 전체 todos의 완료 상태를 파악하여 전체 완료 처리 버튼 CSS 반영
 }
@@ -85,8 +96,15 @@ const onDbclickTodo = (e, todoId) => {
 }
 
 
+
+
 // 9. 전체 완료처리
+const getCompletedTodos = () => {
+  return todos.filter(todo => todo.isCompleted === true );
+}
+
 let isAllCompleted = false; // 전체 todos 체크 여부
+
 const setIsAllCompleted = (bool) => { isAllCompleted = bool};
 
 const completeAll = () => {
@@ -94,6 +112,7 @@ const completeAll = () => {
   const newTodos = getAllTodos().map(todo => ({...todo, isCompleted: true }) )
   setTodos(newTodos)
 }
+
 const incompleteAll = () => {
   completeAllBtnElem.classList.remove('checked');
   const newTodos =  getAllTodos().map(todo => ({...todo, isCompleted: false }) );
@@ -118,10 +137,6 @@ const onClickCompleteAll = () => {
   else completeAll(); // isAllCompleted가 false이면 todos를 전체 완료 처리 
   setIsAllCompleted(!isAllCompleted); // isAllCompleted 토글
   paintTodos(); // 새로운 todos를 렌더링
-}
-
-const getCompletedTodos = () => {
-  return todos.filter(todo => todo.isCompleted === true );
 }
 
 
@@ -185,6 +200,6 @@ const 로드시실행 = function () {
   })
   // 전체 완료처리를 위한 이벤트 리스너 등록
   completeAllBtnElem.addEventListener('click', onClickCompleteAll); 
-
+  setLeftItems();
 }
 로드시실행();
