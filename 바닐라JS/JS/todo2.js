@@ -4,6 +4,9 @@
 
 const todoInputElem = document.querySelector('.todo-input');
 const todoListElem = document.querySelector('.todo-list');
+const completeAllBtnElem = document.querySelector('.complete-all-btn'); // 9. 전체 완료 처리를 위해 만들어둔 버튼을 querySelector를 통해 checkAllBtnElem이라 선언
+
+
 
 let todos = [];   // 할 일들을 담을 배열
 let id = 0;       // 각각의 할 일들이 유니크하게 구별될 수 있는 키값을 설정하기 위해 선언
@@ -26,6 +29,7 @@ const appendTodos = (text) => {
   // 스프레드 연산자 사용할 경우
   // const newTodos = [...getAllTodos(), {id: newId, isCompleted: false, content: text }] 
   setTodos(newTodos) // 반환된 newTodos를 setTodos()라는 함수로 기존 todos배열을 변경시키기
+  checkIsAllCompleted(); // 9. 전체 완료처리 확인
   paintTodos();
 }
 
@@ -42,6 +46,7 @@ const completeTodo = (todoId) => {
   const newTodos = getAllTodos().map(todo => todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo)
   setTodos(newTodos);
   paintTodos();
+  checkIsAllCompleted(); // 9. 전체 todos의 완료 상태를 파악하여 전체 완료 처리 버튼 CSS 반영
 }
 
 // 8. 투두업데이트(수정)하기
@@ -78,6 +83,49 @@ const onDbclickTodo = (e, todoId) => {
   document.body.addEventListener('click', onClickBody) // body 클릭에 대한 이벤트 리스너 등록
   todoItemElem.appendChild(inputElem); // 투두아이템 요소에 자식 요소로 인풋요소 추가
 }
+
+
+// 9. 전체 완료처리
+let isAllCompleted = false; // 전체 todos 체크 여부
+const setIsAllCompleted = (bool) => { isAllCompleted = bool};
+
+const completeAll = () => {
+  completeAllBtnElem.classList.add('checked');
+  const newTodos = getAllTodos().map(todo => ({...todo, isCompleted: true }) )
+  setTodos(newTodos)
+}
+const incompleteAll = () => {
+  completeAllBtnElem.classList.remove('checked');
+  const newTodos =  getAllTodos().map(todo => ({...todo, isCompleted: false }) );
+  setTodos(newTodos)
+}
+// 전체 todos의 isCompleted 여부를 체크하여, 처리
+// 새롭게 만든 checkIsAllCompleted()함수를 completeTodo()함수와 appendTodos()함수에 추가해야함
+const checkIsAllCompleted = () => {
+  if(getAllTodos().length === getCompletedTodos().length ){
+      setIsAllCompleted(true);
+      completeAllBtnElem.classList.add('checked');
+  }else {
+      setIsAllCompleted(false);
+      completeAllBtnElem.classList.remove('checked');
+  }
+}
+
+const onClickCompleteAll = () => {
+  if(!getAllTodos().length) return; // todos배열의 길이가 0이면 return;
+
+  if(isAllCompleted) incompleteAll(); // isAllCompleted가 true이면 todos를 전체 미완료 처리 
+  else completeAll(); // isAllCompleted가 false이면 todos를 전체 완료 처리 
+  setIsAllCompleted(!isAllCompleted); // isAllCompleted 토글
+  paintTodos(); // 새로운 todos를 렌더링
+}
+
+const getCompletedTodos = () => {
+  return todos.filter(todo => todo.isCompleted === true );
+}
+
+
+
 
 
 // 3. HTML에 추가된 할 일 그려주기
@@ -135,5 +183,8 @@ const 로드시실행 = function () {
       todoInputElem.value ='';
     }
   })
+  // 전체 완료처리를 위한 이벤트 리스너 등록
+  completeAllBtnElem.addEventListener('click', onClickCompleteAll); 
+
 }
 로드시실행();
