@@ -15,42 +15,79 @@
 
   <script>
 
-    // ⭐ 함수는
-    // 1. 코드들을 기능으로 묶고 싶을 때 사용한다.
-    // 2. 입출력 기계를 만들고 싶을 때 사용한다.
-    // 그냥 막 만들어 쓰는 것이 아님!!
+    // ⭐ 변수의 선언 할당 및 범위 
+    // var 는 재선언 O, 재할당 O, 범위는 function
+    // let 은 재선언 X, 재할당 O, 범위는 {}
+    // const는 재선언 X, 재할당 X, 범위는 {}
 
-    // ⭐ arrow function의 장점
-    // (1). 함수 본연의 기능을 아주 잘 표현하는 문법이다.
-    // (2). 소괄호 및 중괄호 생략이 가능하다. (한 줄일때)
+    // (1) 재선언
+    var 이름 = 'kim';
+    var 이름 = 'park';
+    이름;
+    이름;
+    // 위처럼 var 변수는 재선언이 자유로움
+    // 그러나 아래처럼 let, const 변수는 재선언 안됨 (엄격)
+    let 나이 = 20;
+    let 나이 = 30;  // 에러
 
-
-    // 예시 (1)
-    // var 함수 = (a)=> {return a+10}; 를
-    var 함수 = a => a + 10; // 으로 간결하게 쓸 수 있음
-    // 즉 한줄이면 괄호 생략 가능
-
-
-    // (2) 
-    [1, 2, 3, 4].forEach(a => console.log(a));
-  // arrow function으로 축약 가능 (한줄 밖에 없으므로 소괄호, 중괄호 제거 가능)
-
-
-    // (3)
-    document.getElementById('버튼').addEventListener('click', e => { console.log(e); } );
-    // 위와 같이 arrow function을 사용할때는 바깥의 this 값을 내부에서 그대로 사용함
-    // 따라서 일반 이벤트 리스너에서는 this == e.currentTarget
-    // arrow function 이벤트리스너 에서는 this == window 가 출력된다.
-    // this값을 제대로 쓰고 싶으면 일반 함수를 사용하고
-    // this값을 window로 쓰고 싶으면 arrow function을 사용하자!!
+    const 나이 = 30;
+    const 나이 = 90;  // 에러
+    // 위처럼 쓰면 콘솔창에 오류가 뜸 => let, const는 재선언 안됨!
 
 
-    // (4) Object 안의 함수
-    var 오브젝트 = { 
-      함수 : ()=>{ console.log(this) }    // arrow function을 사용하면 this값이 window가 되는 것 주의!
+    // (2) 재할당
+    var 이름 = 'kim';
+    이름 = 'park';      // var 변수는 재할당이 자유로움
+
+    let 이름 ='kim';    
+    이름 = 'park';      // let 변수도 재할당이 자유로움
+
+    const 이름 = 'kim'; // const 는 constant= 상수 라는 뜻 즉, 변하지 않는 값(재할당이 안되는거처럼)
+    이름 = 'park';      // const 변수는 재할당시 오류가 나온다.
+
+    // ➡️ const로 오브젝트를 만들었을 때 오브젝트 값을 변경하면?
+    const 사람 = {
+      이름 : 'kim'
     }
-    오브젝트.함수();
+    
+    사람.이름 = 'park'; // 오브젝트 값을 변경해도 에러 안남!
+    // 오브젝트 안의 값을 변경했을 뿐이지 값을 재 할당한 것이 아니므로, const 변수를 쓰고 오브젝트 내의 값을 변경해도 오류가 나지 않는다!! 
+
+    // 수정 불가능한 오브젝트를 만들고 싶으면?
+    const 사람 = {
+      이름 : 'kim'
+    }
+    
+    // Object.freeze(사람); // 수정 불가능한 오브젝트를 만들때 사용하는 문법 Object.freeze(오브젝트명);
+    // (하지만 오브젝트 내의 오브젝트까지 freeze해주진 않음)
+    사람.이름 = 'park';  // park이라고 값을 변경해도 출력하면 'kim'이 나온다.
+    
+    // (3) 존재범위
+
+    // var 변수는 범위가 function임( 함수 안에서만 존재)
+    function 함수() {
+      var 이름 = 'kim';
+      console.log(이름);               // 가능
+    }
+    
+    console.log(이름);    // 에러 // 함수 밖에서 이름이라는 변수를 사용하면 정의되어 있지 않다고 나온다.
+
+
+    // let, const 변수는 범위가 중괄호이다. ({} 안에서만 존재)
+    if (true) {
+      let 이름 = 'kim';
+      console.log(이름);  // 가능
+    }
   
+    console.log(이름);  // 에러
+
+    // for (let v = 1;){   // v는 for 안에서만 존재함
+      
+    // }
+
+
+
+
   </script>
 
 
