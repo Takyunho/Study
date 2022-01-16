@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 5. 콘솔창에 1초에 한번씩 1부터 5까지의 정수를 출력해주고 싶습니다. 그래서 코드를 이렇게 작성했습니다.
+
+      /*
+    setTimeout(function () { console.log(1); }, 1000);
+    setTimeout(function () { console.log(2); }, 2000);
+    setTimeout(function () { console.log(3); }, 3000);
+    setTimeout(function () { console.log(4); }, 4000);
+    setTimeout(function () { console.log(5); }, 5000);
+    */
+
+    // 그럼 1초마다 1~5까지의 숫자를 콘솔창에 출력해줍니다.
+    // 하지만 반복되는 코드가 보기 싫어서 반복문 안에 담았습니다.
+    
+    for(var i = 1; i < 6; i++) {
+      setTimeout(function () { console.log(i); }, i * 1000);
+    }
+    // 논리적으로 완벽한 for 반복문입니다. 
+    // 그런데 반복문으로 축약하자마자 제대로 작동하지 않습니다.
+    // 계속 5라는 숫자가 1초마다 출력되네요.
+    
+    // ⏺️ Q.위 코드는 왜 의도대로 동작하지 않는 것이죠 ? 설명해보십시오.
+    /*
+    => setTimeout함수는 X초후에 콜백함수 내의 console.log(i)를 실행해주세요~ 라는 코드임
+    그래서 그 부분은 반복문과 동시에 실행되지 않고 시간이 지나고 나중에 실행됨
+    즉, 반복문을 해석한 후.. 1초가 지나면 setTimeout 내의 console.log(i)가 출력
+    그리고 i 값은 var로 만든 전역변수임
+    그래서 i값을 쓰려고 봤더니 전역변수 i = 6밖에 없어서 6을 집어넣어서 계속 실행해서 콘솔창에 5가 계속 출력되던 것
+    */
+    
+    // ⏺️ 그리고 해결할 방법은 무엇일까요 ?
+    /*
+    해결책은 for 반복문에서 i변수를 만들 때 var 대신 let으로 바꾸는 것
+    let 변수는 범위가 중괄호랬죠? for반복문도 중괄호에 해당됩니다. 
+    그럼 이제 1초 후 console.log(i)가 실행될 때 i값을 채우려고 살펴보면
+    i값이 for 반복문 내에 남아있기 때문에 그걸 가져다 쓰게 됩니다.
+    그래서 아까처럼 계속 5를 출력해주는게 아니라 1,2,3,4,5를 출력해줍니다.
+    */
+
+
+  </script>
+</body>
+</html>

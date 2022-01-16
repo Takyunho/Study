@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+
+    // 1~4. 다음 코드의 콘솔창 출력결과는 무엇일까요?
+
+    // 1.
+    // 함수();  // 함수()를 여기다가 써도 됨. 왜냐하면 function 함수(){}가 호이스팅돼서 상단으로 가기때문
+    // function 함수() {
+    //   console.log(안녕);
+    //   let 안녕 = 'Hello!';
+    // }
+    // // 안녕은 let일때 에러가 나오고
+    // // var일때 undefined가 출력된다.
+    // // let, const는 Hoisting시 undefined 자동으로 할당 안되고 에러 출력
+    /*
+    let 변수는 hoisting 되지만 var 변수처럼 지동으로 undefined 라는 값을 할당(일명 initialization) 해주지 않습니다.
+    선언과 할당 사이에 시간차가 있기 때문에 그런 현상이 일어나는 것이고 let 변수는 그래서 쓸 수 없습니다
+    그래서 그냥 let const 변수는 그래서 엄격하게 쓸 수 있는 변수구나 외우시면 되겠습니다.
+    */
+
+
+
+    // 2.
+    // 함수();
+    // var 함수 = function () {
+    //   console.log(안녕);
+    //   var 안녕 = 'Hello!';  // 안녕은 var일때 undefined가 출력된다.
+    // }
+    // // Uncaught TypeError: 함수 is not a function 어쩌구가 출력됨
+    // // 함수는 function이 아니다.
+    /*
+    둘째줄에 있는 함수 선언부분을 잘 보시면 function 키워드 대신 변수만드는 것 처럼 함수를 선언과 할당하고 있습니다. 
+    역시 이렇게 함수를 만드셔도 Hoisting이 되는데, 근데 Hoisting은 변수의 선언부분만 된다고 했었습니다. 
+    그래서 변수 선언부분만 맨 위로 끌어올려지는데
+    그 변수에다가 소괄호를 붙여봤자 아직 함수가 아니기 때문에 실행이 되지 않습니다. (에러가 납니다. 함수가 아닌 변수에다가 소괄호 붙이면 함수 아니라고 에러를 뿜어줍니다.)
+    */
+
+
+
+    // 3.
+    // let a = 1;
+    // var 함수 = function () {
+    //   a = 2;
+    // }
+    // console.log(a);      // a는 1이 출력된다.
+    /*
+    a는 1이라는 변수를 만들고
+    그 다음에 함수를 만들고 함수 안에서 a = 2라고 값을 변경시켰는데
+    함수를 정의만 했지 실행을 안시켜서 a = 2라는 부분은 없는 코드나 마찬가지입니다. 
+    그래서 a 는 그냥 1입니다.
+    함수 실행하면 a는 2가 됨
+    */
+
+
+    
+    // 4.
+    let a = 1;    
+    var b = 2;    
+    window.a = 3; // 전역변수
+    window.b = 4; // 전역변수
+
+    console.log(a + b);
+      /*
+      b가 4가 되는 이유는 var b = 2 이것과 window.b = 4 이건 거의 동일한 기능을 하는 코드기 때문에 b는 그냥 4로 재할당이 되었다고 보면 됩니다.
+
+      a는 let 변수로 1을 할당하고 글로벌 변수로 3을 할당했습니다. 
+      이 경우 우리가 a를 사용했을 때 조금 더 범위가 작고 가까운 1을 참조해서 사용합니다. 
+      (자바스크립트 변수를 사용할 때 참조할만한 변수가 내 주변에 없으면 계속 상위 중괄호로 시선을 돌리면서 참조합니다.)
+      */
+
+  </script>
+</body>
+
+</html>

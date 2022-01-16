@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- 6. 버튼을 누르면 모달창을 띄우고 싶습니다.  -->
+  <!-- 버튼(button)과 모달창(div)가 3개 있습니다.  -->
+
+  <div style="display : none">모달창0</div>
+  <div style="display : none">모달창1</div>
+  <div style="display : none">모달창2</div>
+
+  <button>버튼0</button>
+  <button>버튼1</button>
+  <button>버튼2</button>
+  <!--
+  지금 display : none 덕분에 모달창이 아무것도 안보이는 상태입니다. 
+  자바스크립트를 잘 짜서
+  0번째 버튼을 누르면 0번째 모달창, 
+  1번째 버튼을 누르면 1번째 모달창을 보여주고 싶습니다. 
+  그럼 코드를 어떻게 짜면 될까요? 
+  -->
+  <script>
+    var 버튼들 = document.querySelectorAll('button');
+    var 모달창들 = document.querySelectorAll('div');
+
+    // 버튼들[0].addEventListener('click', function(){
+    //   모달창들[0].style.display = 'block';
+    // })
+
+    // 버튼들[1].addEventListener('click', function(){
+    //   모달창들[1].style.display = 'block';
+    // })
+
+    // 버튼들[2].addEventListener('click', function(){
+    //   모달창들[2].style.display = 'block';
+    // })
+
+    // 반복되는 부분이 많으니까 반복문을 사용
+    for (var i = 0; i < 3; i++) {
+      버튼들[i].addEventListener('click', function () {
+        모달창들[i].style.display = 'block';
+      })
+    }
+    /*
+    이렇게 반복문으로 반복적인 코드를 축약가능합니다. 
+    그런데 문법에 맞게 쓰긴 했는데 모달창이 제대로 작동하지않고 있습니다. 
+    
+    ⏺️ Q.위 코드는 왜 의도대로 동작하지 않는 것이죠? 설명해보십시오.
+    => 자바스크립트는 일단 반복문을 만나면 반복문 내의 코드를 반복해서 실행합니다. 
+    지금 반복문이 i가 0부터 3이 되기 전까지 반복해주세요~라고 써놓았으니 총 3번 반복이 되겠네요.
+    근데 내부 코드는 addEventListener 어쩌구 입니다. 클릭 되면 콜백함수 내의 모달창들[i].style.display = 'block'; 을 실행해주세요~ 라는 코드입니다. 
+    그래서 그 부분은 반복문과 동시에 실행되지 않습니다. 좀 나중에 클릭 되면 실행되겠죠 뭐
+    반복문 끝입니다.
+
+    반복문을 해석한 후..  누군가 버튼을 클릭하면 addEventListener 내의 모달창들[i].style.display = 'block'; 코드가 발동됩니다. 
+    근데 i를 쓰고싶어서 주변을 살펴보았더니 i값은 3밖에 없는 것입니다. 
+    왜냐면 아까 반복문이 3번 실행되면서 i값은 0,1,2,3 ... 이렇게 차례로 변하다가 i값이 3이 되어 종료했습니다. 
+    그리고 i 값은 var로 만든 전역변수입니다. 
+    그래서 i값을 쓰려고 봤더니 전역변수 i = 3밖에 없어서 3을 집어넣어서 계속 에러가 났던 것입니다. 
+    
+    
+    ⏺️ 그리고 해결할 방법은 무엇일까요?
+    => for 반복문에서 i변수를 만들 때 var 대신 let으로 바꾸는 것
+    let 변수는 범위가 중괄호랬죠? for반복문도 중괄호에 해당됩니다. 
+    반복문이 돌고 나서도 let i = 어쩌구 값이 {for 반복문} 내에 남아있기 때문에 그걸 모달창들[i].style.display = 'block'; 의 i값으로 가져다 쓰게 됩니다.
+    그럼 이제 의도된 i값으로 코드가 잘 실행됩니다. 
+    */
+  </script>
+
+</body>
+
+</html>
