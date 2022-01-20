@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 1️⃣ 모든 파라미터를 전부 하나씩 콘솔창에 출력해주는 함수만들기
+    function 함수(...rest) {
+
+      for (var i = 0; i < rest.length; i++) {
+
+        console.log(rest[i]);
+      }
+    }
+
+    함수(1, 2, 3);
+
+
+
+    // 2️⃣ spread 문제 1
+    var a = [1, 2, 3];
+    var b = '김밥';
+    var c = [...b, ...a];
+    console.log(c);
+    // 위 코드의 출력 결과는? 
+
+    /* ['김', '밥', 1, 2, 3] */
+
+
+
+    // 3️⃣ spread 문제 2
+    var a = [1, 2, 3];
+    var b = ['you', 'are'];
+    var c = function (a, b) {
+      console.log([[...a], ...[...b]][1])
+    }
+
+    c(a, b);
+    // 대괄호가 가득한 위 코드의 출력 결과는?
+    /*
+    [[1, 2, 3], ...['you', 'are']][1]
+    [[1, 2, 3], 'you', 'are' ][1]
+    you가 출력
+    */
+
+
+
+    // 4️⃣ default 파라미터 문제 1
+    function 함수(a = 5, b = a * 2) {
+      console.log(a + b);
+      return 10
+    }
+
+    함수(3);
+
+    /*
+    a = 3 / b = 6
+    3 + 6 = 9
+    */
+
+
+
+    // 5️⃣ default 파라미터 문제 2
+    function 함수(a=5, b=a*2){
+      console.log(a + b);
+    }
+    
+    함수(undefined, undefined); // 파라미터에 아무것도 안집어넣었다고 판단하므로 default 파라미터가 발동
+
+    /*
+    a = 5 / b = 10
+    5 + 10 = 15
+    */
+
+
+
+    // 6️⃣ array를 만들어주는 함수를 제작하고 싶습니다.
+    // 실용성은 0이지만 일단 해보도록 합시다. 파라미터로 자료들을 입력하면 그걸 그대로 array를 만들어주는 함수를 만들고 싶습니다. 
+
+    function 어레이(...rest){
+      // 여기에 뭐가 들어가야 될까
+      return rest;
+    }
+
+    var newArray = 어레이(1,2,3,4,5);
+    console.log(newArray);
+
+
+
+    // 7️⃣ 최댓값 구하기
+    // 자바스크립트에서 최댓값을 구하고 싶으면.. Math.max()라는 기본 내장함수를 쓸 수 있습니다.
+    // Math.max(5,6,4,3) 
+    // 이렇게 쓰시면 6이라고 최댓값을 출력해줍니다. 그냥 소괄호 안에 있는 모든 숫자 중에 가장 큰 숫자를 퉤 뱉는다는 소리입니다. 
+    // 근데 최댓값을 검사하고 싶은 숫자들이 좀 많습니다. 
+
+    var numbers = [2,3,4,5,6,1,3,2,5,5,4,6,7];
+    
+    // numbers 안에 있는 숫자들을 Math.max()에 집어넣어서 쓰고 싶은데 직접 소괄호 안에 10개넘는 숫자를 손수 기입하기 귀찮습니다. 이럴 땐 어떻게 코드를 짜면 좋을까요? 
+    // 답
+    console.log(Math.max(...numbers));
+
+
+
+    // 8️⃣ 글자를 알파벳순으로 정렬해주는 함수를 만들고 싶습니다. 
+    // 일단 자바스크립트는 array 내의 데이터를 알파벳순으로 정렬하고 싶을 때 sort()라는 array 내장함수를 붙여 사용합니다. (array에만 적용가능)
+
+    console.log( [ 'b', 'c', 'a' ].sort() );    // [ 'a', 'b', 'c' ] 출력됨
+    // 이렇게 sort()만 붙이면 쉽게 정렬이 가능합니다. 끝입니다. 
+
+    // 그런데 우리는 array가 아니라 문자열에도 적용할 수 있는 알파벳순 정렬함수를 하나 만들고 싶습니다. 
+
+    function 정렬(a) {
+      // 여기 뭐가 들어가야할까?
+      
+      var 쪼개진문자열 = [...a] // 일반 문자열을 하나씩 쪼개기
+      console.log(쪼개진문자열);
+      
+      console.log(쪼개진문자열.sort());
+      console.log(...쪼개진문자열.sort());
+      console.log( 쪼개진문자열.sort().join() );  // array내의 자료를 전부 붙여서 문자로 만들고 싶을때 join() 사용
+    }
+    정렬('bear');
+
+    
+
+    // 9️⃣ 데이터마이닝 기능 만들기 
+    // 데이터분석 하는 사람들이 자주 만들어 쓰는 함수가 있습니다. 알파벳들의 출현 갯수를 세어주는 함수입니다. 우리도 한번 만들어봅시다. 
+
+    // 글자세기('aacbbb') 라고 입력하면 콘솔창에
+    // { a : 2, b : 3, c : 1 }
+    // ▲ 이렇게 출력해주는 글자세기() 라는 함수를 만들고 싶습니다.
+    // 쉽게말하자면 입력한단어에 들어있는 알파벳의 개수를 세어서 오브젝트에 기록해주고 출력까지 해주는 함수입니다. 
+    // 글자세기라는 함수를 어떻게 만들면 될까요? 
+
+
+    // function 글자세기(a) {
+      
+    //   var text = a;
+    //   console.log(text);
+
+    //   // console.log(text.indexOf('a'));
+    //   // console.log(text.indexOf('a', 1)); // indexOf의 두 번째 파라미터인 fromIndex를 사용하면 검색의 시작 위치를 변경할 수 있다.
+    //   // console.log(text.indexOf('a', 3));
+    //   // console.log(text.indexOf('a', 4));
+      
+    //   var countA = 0;
+    //   var countB = 0;
+    //   var countC = 0;
+    //   var 찾을문자a = 'a'; // 찾으려는 문자
+    //   var 찾을문자b = 'b'; // 찾으려는 문자
+    //   var 찾을문자c = 'c'; // 찾으려는 문자
+    //   var posA = text.indexOf(찾을문자a);
+    //   var posB = text.indexOf(찾을문자b);
+    //   var posC = text.indexOf(찾을문자c);
+
+    //   while(posA !== -1){
+    //     countA++;
+    //     posA = text.indexOf(찾을문자a, posA + 1);  // 첫 번째 a 이후의 인덱스부터
+    //   }
+    //   while(posB !== -1){
+    //     countB++;
+    //     posB = text.indexOf(찾을문자b, posB + 1);  // 첫 번째 a 이후의 인덱스부터
+    //   }
+    //   while(posC !== -1){
+    //     countC++;
+    //     posC = text.indexOf(찾을문자c, posC + 1);  // 첫 번째 a 이후의 인덱스부터
+    //   }
+
+    //   console.log( `{a : ${countA}, b : ${countB}, c : ${countC}}` )
+    // }
+    // 글자세기('aacbbb');
+
+    
+
+    function 문자세기(글자) {
+      console.log([...글자]); // [...글자] => 일반 문자열을 스프레드 오퍼레이터로 하나하나 나눈 후 어레이로 만들기
+
+      var 결과 = {};  // 결과를 오브젝트에 담기 위해서 {}
+
+      [...글자].forEach(function(a){
+        // 만약에 결과에 a가 있으면 +1 해주시고
+        // 없으면 a : 1 집어넣어주세요
+        if( 결과[a] > 0) {
+          결과[a] = 결과[a] + 1;
+        } else {
+          결과[a] = 1;
+        }
+      })
+      
+      console.log(결과);
+    }
+
+    문자세기('aacbbb');
+  </script>
+
+
+</body>
+
+</html>
