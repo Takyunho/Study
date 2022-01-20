@@ -13,73 +13,31 @@
 
   <script>
 
-    // ⭐ 자바스크립트 함수 업그레이드하기 (default parameter / arguments)
+    // ⭐ Rest 파라미터 = 파라미터를 어레이로 묶어서 보관해줌
+    // arguments는 파라미터를 몇개 넣을건지 미리 선언해야 하지만, ...rest는 파라미터가 몇개 들어올지 미리 지정안해도 되므로 더 편리
+    // ...rest 파라미터 주의점
+    // 1. 가장 뒤에 써야함
+    // 2. 한번만 쓸 수 있음 / 두번이상 못씀
 
-    // ⭐ (1). 함수의 default 파라미터 넣기
-
-    // 1️⃣ 예시 
-    function 더하기(a, b = 10) { // 함수를 만들 때 파라미터값을 실수로 안적거나 했을 경우 파라미터에 기본값(default 값)을 줄 수 있다.
-      console.log(a + b);
+    function 함수(a, b, ...rest){  // 여기서 ...은 'rest파라미터'라는 뜻 // rest자리는 아무이름으로 작명하면 됨
+    // 파라미터에서 오는건 무조건 rest파라미터이고 그 외에는 spread operator
+      console.log(rest)
     }
 
-    더하기(1);  // 두번째 파라미터를 안쓰면 b는 default parameter여서 10이 적용된다.
-
-    // 2️⃣ 예시
-    function 더하기(a, b = 2 * 5) { // 수학 연산자도 사용 가능하다. b 자리에 파라미터가 없으면 2*5라는 값을 할당해준다.\
-      console.log(a + b)
-    }
-
-    더하기(1);
-
-    // 3️⃣ 예시
-    function 더하기(a, b = 2 * a) { // 다른 파라미터와 연산도 가능하다. a가 3이 입력되었으니 b는 6이된다.
-      console.log(a + b)
-    }
-
-    더하기(3);
-
-    // 4️⃣ 예시
-    function 임시함수() {
-      return 10
-    }
-
-    function 더하기(a, b = 임시함수()) {  // 심지어 default 파라미터엔 함수입력도 가능하다.
-      // b자리에 파라미터가 들어오지 않으면 임시함수()를 실행한 값 10을 b 파라미터에 할당
-      console.log(a + b);
-    }
-
-    더하기(3);
+    함수(1,2,3,4,5,6,7); // 함수안에 들어온 파라미터를 전부 담은 array를 출력해줌
+    // [3,4,5,6,7] 출력 / a,b 그 뒤에 나오는 모든 파라미터만 출력하는거임
 
 
-    // ⭐ (2). 함수의 arguments
-    // arguments는 함수 안에서 쓸 수 있는 미리 정의된 키워드 혹은 변수이다.
-    // 쉽게 말해서 모든 입력된 파라미터를 [ ] 안에 싸매주는 고마운 키워드
-    // 파라미터들을 한꺼번에 다루고 싶을 때 자주 활용
-
-    function 함수(a, b, c) {
-      console.log(arguments)  // 콘솔창에 [2,3,4]를 담은 array 비슷한 자료가 출력된다.
-    }
-
-    함수(2, 3, 4);
-
-    // 콘솔창에 모든 파라미터를 하나씩 출력하고 싶은 경우
-    function 함수(a, b, c) {
-      console.log(arguments[0])
-      console.log(arguments[1])
-      console.log(arguments[2])
-    }
-
-    함수(2, 3, 4);
-
-    // 위의 내용을 반복문으로(확장성)
-    function 함수(a, b, c) {
-      for (var i = 0; i < arguments.length; i++) {
-        console.log(arguments[i]);
+    // 모든 파라미터들을 하나씩 콘솔창에 출력해주는 함수
+    function 함수2(...rest) {
+      
+      for(var i=0; i < rest.length; i++){
+        console.log(rest[i])
+        
       }
     }
 
-    함수(2, 3, 4);
-
+    
 
   </script>
 
