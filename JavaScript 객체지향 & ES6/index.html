@@ -13,50 +13,51 @@
 
   <script>
 
-    // ⭐ prototype은
-    // (1) constructor 함수에만 몰래 생성된다. (어레이나 오브젝트에 .찍고 prototype 해도 안나옴)
-    function 기계(파라미터, 파라미터2) {
-      this.name = 파라미터;
-      this.age = 파라미터2;
-      this.sayHi = function () {
-        console.log('저의 이름은' + this.name + '입니다.');
-      }
-    }
+    // ⭐ ES5 방식으로 상속기능 쉽게 구현하기
+    // 상속을 이용해서 오브젝트를 만들고 싶을 때 사용함
+    // 하지만 class문법에 밀려 인지도는 낮음
 
-    기계.prototype.gender = '남';
-    console.log(기계.prototype.gender);
+    // Object.create() 사용하기
+    // 문법 : Object.create(부모object);
+    // 이렇게 사용하면 이 자리에 오브젝트 자료형 하나가 남는다.
+    // 그리고 소괄호 안에 적은 부모object가 prototype이 된다.
 
-    var 학생1 = new 기계('손흥민', 20);
+    var 부모 = { name : 'Kim', age : 50 };
+    var 자식 = Object.create(부모);
 
-    console.log(학생1.__proto__); // (2) 모든 자식들은 유전자(prototype)를 검사할 수 있다.
-    //  - 내 부모 유전자(부모의 prototype)를 검사하고 싶으면 __proto__ 사용
-    // 즉, __proto__는 부모의 prototype과 같은 의미이며, 내 부모 유전자가 뭔지 검사하고싶을때 사용하는 값이라고 생각하면 된다.
-    console.log(기계.prototype);
-    // 학생1.__proto__과 기계.prototype 을 각각 출력해보면 똑같은게 나온다.
+    console.log(자식);      // {}가 나옴
+    console.log(자식.name); // Kim이 나옴
+
+    // 자식이라는 object는 부모를 prototype으로 두게 된다.
+    // 그럼 자식.name해도 Kim이 출력되고 자식.age 해도 50이 출력된다.
+    // 자식이 부모속성들을 상속했기 때문
+
+    // 만약에 자식이 age를 바꾸고 싶으면?
+    자식.age = 20;
+    
+    console.log(자식.age);    // 20이 나옴
+    // 그냥 자식이라는 object에 age : 20 이라는 값을 부여했을 뿐
+
+    /* 
+    Q. 부모로부터 상속받은 50이라는 age가 출력되지 않는 이유는?
+    자바스크립트는 오브젝트 자료형에서 특정 자료를 꺼낼 때 묻는 순서가 있다.
+    자식.age를 출력해달라고 하면
+    먼저 자식이라는 object가 직접 age를 갖고 있는지 판단하고 갖고 있으면 출력한다.
+    자식 object가 age를 갖고있지 않으면 부모 prototype에서 age를 찾고, age가 부모 프로토타입에 있으면 그것을 출력하는 것.
+    이런 순서로 age를 출력하는 것이다.
+    */
+    
+
+    // 자식의 자식도 만들 수 있다.
+    // 부모가 가진 속성과 자식이 가진 속성 전부를 상속받는 손자를 만들어보자.
+
+    var 손자 = Object.create(자식);
+    
+    console.log(손자);
+    console.log(손자.age);
 
 
-    // (3) __proto__를 직접 등록하면 object끼리 상속기능을 구현가능
-    var 부모 = { name: 'Kim' };
-    var 자식 = {};
 
-    자식.__proto__ = 부모;  // 자식 오브젝트의 __proto__에 부모를 집어넣으면
-    // 자식의 부모 프로토타입은 { name : 'kim'}이라는 오브젝트가 되는 것
-    // 그렇게 되면 자식은 이제 자식.name 을 사용할 수 있게됨
-    console.log(자식.name);
-
-
-    // (4) 콘솔창에 prototype 정보들이 항상 출력된다.
-    // function 기계() {
-    //   this.name = 'Kim';
-    //   this.age = 15;
-    // }
-    // 기계.prototype.gender = '남';
-
-    // var 학생1 = new 기계();
-    // 학생1을 콘솔창에 출력해서 __proto__를 통해 부모의 부모까지 탐색할 수 있음
-    // 탐색해보면 모든 object 자료형의 조상은 Object() 라는 기계이며 (일명 Object.prototype)
-    // 모든 array 자료형의 조상도 Object()이다. (중간에 Array()라는 부모도 있음)
-    // 모든 함수 자료형의 조상도 Object() 임 (그래서 자바스크립트는 모든게 다 Object라고 말하는 것)
 
   </script>
 
