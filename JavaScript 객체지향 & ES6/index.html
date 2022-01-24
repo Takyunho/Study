@@ -13,51 +13,45 @@
 
   <script>
 
-    // ⭐ ES5 방식으로 상속기능 쉽게 구현하기
-    // 상속을 이용해서 오브젝트를 만들고 싶을 때 사용함
-    // 하지만 class문법에 밀려 인지도는 낮음
+    // ⭐ ES6 방식으로 상속기능 구현하기  (class)
 
-    // Object.create() 사용하기
-    // 문법 : Object.create(부모object);
-    // 이렇게 사용하면 이 자리에 오브젝트 자료형 하나가 남는다.
-    // 그리고 소괄호 안에 적은 부모object가 prototype이 된다.
+    // class 문법은
+    // 기존 function부터 시작하던 문법과 기능상 차이는 크게 없고, 약간 더 보기쉽게 표현해줄 뿐이다.
 
-    var 부모 = { name : 'Kim', age : 50 };
-    var 자식 = Object.create(부모);
-
-    console.log(자식);      // {}가 나옴
-    console.log(자식.name); // Kim이 나옴
-
-    // 자식이라는 object는 부모를 prototype으로 두게 된다.
-    // 그럼 자식.name해도 Kim이 출력되고 자식.age 해도 50이 출력된다.
-    // 자식이 부모속성들을 상속했기 때문
-
-    // 만약에 자식이 age를 바꾸고 싶으면?
-    자식.age = 20;
-    
-    console.log(자식.age);    // 20이 나옴
-    // 그냥 자식이라는 object에 age : 20 이라는 값을 부여했을 뿐
-
-    /* 
-    Q. 부모로부터 상속받은 50이라는 age가 출력되지 않는 이유는?
-    자바스크립트는 오브젝트 자료형에서 특정 자료를 꺼낼 때 묻는 순서가 있다.
-    자식.age를 출력해달라고 하면
-    먼저 자식이라는 object가 직접 age를 갖고 있는지 판단하고 갖고 있으면 출력한다.
-    자식 object가 age를 갖고있지 않으면 부모 prototype에서 age를 찾고, age가 부모 프로토타입에 있으면 그것을 출력하는 것.
-    이런 순서로 age를 출력하는 것이다.
-    */
-    
-
-    // 자식의 자식도 만들 수 있다.
-    // 부모가 가진 속성과 자식이 가진 속성 전부를 상속받는 손자를 만들어보자.
-
-    var 손자 = Object.create(자식);
-    
-    console.log(손자);
-    console.log(손자.age);
+    // ⭐ class 키워드로 constructor 만들기
+    class 부모 {
+      constructor(파라미터){
+        this.name = 파라미터;
+        // ✅ 함수를 추가하고 싶을때
+        // (1) constructor 안에 추가하던가 (여기에 추가하면 자식이 직접 함수를 가짐)
+        // this.sayHi = function(){ console.log('hello')}
+      }
+      // (2) constructor 바깥인 여기에 쓰던가
+      // 근데 여기에 쓰면 부모.prototype에 추가됨
+      sayHi() {
+        console.log('hello')
+      }
+      // ✅ 함수를 여러개 추가하고 싶으면?
+      // (1) 나란히 쓰거나
+      // sayHi2() {
+      //   console.log('hello2')
+      // }
+    }
+    // (2) 부모 prototype을 이용해서 함수 만들면됨
+    부모.prototype.sayHi2 = function(){ console.log('hello2')}
 
 
+    var 자식 = new 부모('파라미터');    // 자식 오브젝트 만들기
 
+    // 참고
+    // 자식.__proto__;  // 부모의 prototype이 출력됨
+    // Object.getPrototypeOf(자식);  // 부모 prototype이 출력
+    // 둘이 같은 의미임
+
+
+    // 객체지향 문법은 왜쓸까?
+    // 이유 (1). object 여러개를 만들어 쓰기 위해 사용하는 것!
+    // 
 
   </script>
 
