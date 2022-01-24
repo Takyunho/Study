@@ -13,40 +13,53 @@
 
   <script>
 
-    // ⭐ ES6 방식으로 상속기능 구현하기  (class)
+    // ⭐ 객체지향문법
+    // class를 복사하는 extends / super
 
-    // class 문법은
-    // 기존 function부터 시작하던 문법과 기능상 차이는 크게 없고, 약간 더 보기쉽게 표현해줄 뿐이다.
-
-    // ⭐ class 키워드로 constructor 만들기
-    class 부모 {
-      constructor(파라미터){
-        this.name = 파라미터;
-        // ✅ 함수를 추가하고 싶을때
-        // (1) constructor 안에 추가하던가 (여기에 추가하면 자식이 직접 함수를 가짐)
-        // this.sayHi = function(){ console.log('hello')}
+    class 할아버지 {
+      constructor(name){
+        this.성 = '김';
+        this.이름 = name;
       }
-      // (2) constructor 바깥인 여기에 쓰던가
-      // 근데 여기에 쓰면 부모.prototype에 추가됨
       sayHi() {
-        console.log('hello')
+        console.log('안녕 저는 할아버지에요');  // 할아버지.prototype에 추가되는 함수(아래 아버지클래스에서 사용가능하다.)
       }
-      // ✅ 함수를 여러개 추가하고 싶으면?
-      // (1) 나란히 쓰거나
-      // sayHi2() {
-      //   console.log('hello2')
-      // }
     }
-    // (2) 부모 prototype을 이용해서 함수 만들면됨
-    부모.prototype.sayHi2 = function(){ console.log('hello2')}
+    
+    var 할아버지1 = new 할아버지('만덕');
+
+    class 아버지 extends 할아버지 { // 아버지 클래스를 만들건데 할아버지 클래스(부모클래스)에서 확장해서 만들거야라는 뜻
+      constructor(name){
+        super(name);  // ⭐ 부모 class의 constructor를 의미 
+        // 즉, super()는 물려받는 class의 constructor라는 뜻
+        // 부모의 constructor와 파라미터도 맞춰야함
+
+        this.나이 = 50; // extends해서 만든 class는 this를 그냥 못씀
+        // 따라서 위에다가 super();를 써야함
+      }
+      sayHi(){
+        console.log('안녕 저는 아버지에요');  // 그런데 아버지 클래스의 constructor 밖에다가 sayHi함수를 만들면 그것이 출력됨
+        // 조금 더 가까운 prototype에 있는걸 먼저 출력하기 때문
+        super.sayHi();    // ⭐ prototype 함수 안에서 super는 부모 class의 prototype을 의미
+        // super.sayHi() = console.log('안녕 저는 할아버지에요')
+      }
+    }
+
+    var 아버지1 = new 아버지('만수');
+    // 아버지1.sayHi() 사용가능
+    // 왜냐하면 아버지 클래스는 할아버지 클래스에서 상속받은건데
+    // 아버지의 부모 프로토타입중에 sayHi()가 있기 때문에 아버지 클래스도 sayHi함수 사용가능
+
+    
 
 
-    var 자식 = new 부모('파라미터');    // 자식 오브젝트 만들기
+    // 중요!!
+    // super는 뜻이 두개
+    // 1. constructor 안에서 쓰면 부모 class의 constructor
+    // 2. prototype 함수 안에서 쓰면 부모 class의 prototype
 
-    // 참고
-    // 자식.__proto__;  // 부모의 prototype이 출력됨
-    // Object.getPrototypeOf(자식);  // 부모 prototype이 출력
-    // 둘이 같은 의미임
+
+
 
 
     // 객체지향 문법은 왜쓸까?
