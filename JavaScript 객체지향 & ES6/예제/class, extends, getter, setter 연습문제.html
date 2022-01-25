@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 1. 직접 class 구조 만들어보기
+
+    // 갑자기 강아지 SNS를 만들고 싶어서 자바스크립트로 열심히 코딩하던 중, 
+    // 여러 강아지 정보들을 담은 유사한 오브젝트 자료형을 테스트삼아 몇개 만들려고 합니다. 
+
+    // var 강아지1 = { type: '말티즈', color: 'white' };
+    // var 강아지2 = { type: '진돗개', color: 'brown' }; 
+
+    // 이렇게 쭉 많이 만들고 싶은데 하드코딩하기 싫어서 class를 만들어 강아지 오브젝트들을 뽑고 싶습니다.
+    // 그럼 class를 어떻게 만드는게 좋을까요 ?
+
+    // class 강아지 {
+    //   constructor(type, color) {
+    //     this.type = type;
+    //     this.color = color;
+    //   }
+    // }
+
+    // var 강아지1 = new 강아지('말티즈', 'white');
+    // var 강아지2 = new 강아지('진돗개', 'brown');
+
+
+
+
+    // 2. 이번엔 고양이관련 object들을 만들고 싶습니다. 
+
+    // 이번엔 class를 이용해 고양이 오브젝트 여러개를 뽑고 싶습니다.
+
+    // var 고양이1 = { type: '코숏', color: 'white', age: 5 };
+    // var 고양이2 = { type: '러시안블루', color: 'brown', age: 2 };
+
+    // type, color는 이전에 만든 강아지 object와 유사한데
+    // 고양이들만 특별하게 age라는 속성을 하나 더 추가하고 싶습니다.어떻게 class를 만들면 될까요 ?
+    // 1번 문제에서 만들었던 강아지 class와 유사하기 때문에 extends라는 문법을 쓰는 것도 좋겠군요.
+
+    // class 고양이 extends 강아지 {
+    //   constructor(type, color, age) {
+    //     super(type, color);
+    //     this.age = age;
+    //   }
+    // }
+
+    // var 고양이1 = new 고양이('코슛', 'white', 5);
+    // var 고양이2 = new 고양이('러시안블루', 'brown', 2);
+
+
+
+
+    // 3. 고양이와 강아지 object들에 기능을 하나 추가하고 싶습니다. 
+
+    // 모든 고양이와 강아지 object들은 .한살먹기() 라는 함수를 사용할 수 있습니다. 
+    // (1) 한살먹기 함수는 강아지 class로부터 생성된 오브젝트가 사용하면 콘솔창에 에러를 출력해주어야합니다. 
+    // (2) 한살먹기 함수는 고양이 class로 부터 생성된 오브젝트가 사용하면 현재 가지고있는 age 속성에 1을 더해주는 기능을 실행해야합니다.
+
+    // 한살먹기 함수는 어떻게 만들면 좋을까요 ? (검색이 필요할 수 있습니다)
+
+    class 강아지 {
+      constructor(type, color) {
+        this.type = type;
+        this.color = color;
+      }
+    }
+
+    var 강아지1 = new 강아지('말티즈', 'white');
+    var 강아지2 = new 강아지('진돗개', 'brown');
+
+
+    class 고양이 extends 강아지 {
+      constructor(type, color, age) {
+        super(type, color);
+        this.age = age;
+        this.한살먹기 = function() {
+          return this.age + 1;
+        }
+      }
+
+    }
+
+    var 고양이1 = new 고양이('코슛', 'white', 5);
+    var 고양이2 = new 고양이('러시안블루', 'brown', 2);
+
+    console.log(고양이1.한살먹기());  // 6
+    console.log(고양이2.한살먹기());  // 3
+
+    console.log(강아지1.한살먹기());  // 오류발생
+    console.log(강아지2.한살먹기());  // 오류발생
+
+
+  </script>
+</body>
+
+</html>
