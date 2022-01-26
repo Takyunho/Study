@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // Destructuring 문법 예제
+    // (1) 변수를 마구 만들었는데 말입니다..
+
+    var [number, address] = [30, 'seoul'];    // number = 30 / address = 'seoul'
+    var { address: a, number = 20 } = { address, number };  // address : address, number : number
+
+    // 약간 복잡해서 여러분께 물어보겠습니다.
+    // a와 address와 number라는 변수는 각각 무슨 값을 가지고 있을까요 ?
+    // a는 'seoul'
+    // address는 'seoul'
+    // number는 30
+
+
+
+
+    // (2) 다음과 같은 Object에서 데이터를 뽑아서 변수를 만들고 싶습니다. 
+
+    let 신체정보 = {
+      body: {
+        height: 190,
+        weight: 70
+      },
+      size: ["상의 Large", "바지 30인치"],
+    };
+
+    // 여러분의 뛰어난 신체 정보를 담은 Object입니다. 
+    // 여기서 키, 몸무게, 상의사이즈, 하의사이즈 정보를 각각 뽑아서 4개의 변수를 만들고 싶습니다.
+    // 어떻게 만들면 될까요 ?
+    // (참고: 데이터가 얼마나 복잡하든간에 좌우 형태를 똑같이 맞추시면 destructuring 문법으로 변수를 만들 수 있습니다.)
+
+    let {
+      body: {
+        height,
+        weight
+      },
+      size: [상의, 하의]
+    } = 신체정보; // ⭐ 왼쪽에는 변수명들을 적고, 오른쪽에는 위의 오브젝트를 적음
+    // 좌우를 맞춰서 변수를 만들 수 있다. (destructuring 문법)
+
+    /*
+    let {
+      body: {
+        height,
+        weight
+      },
+      size: [상의, 하의]
+    } = 
+    {
+      body: {
+        height: 190,
+        weight: 70
+        },
+      size: ["상의 Large", "바지 30인치"],
+    };
+    */
+
+    // 내가 푼 답
+    // var { height: 키, weight: 몸무게 } = { height: 190, weight: 70 };
+    // var [상의size, 하의size] = ["상의 Large", "바지 30인치"];
+
+
+  </script>
+
+</body>
+
+</html>
