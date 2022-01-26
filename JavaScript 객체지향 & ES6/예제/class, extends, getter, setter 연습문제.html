@@ -68,38 +68,67 @@
 
     // 한살먹기 함수는 어떻게 만들면 좋을까요 ? (검색이 필요할 수 있습니다)
 
+    // class 강아지 {
+    //   constructor(type, color) {
+    //     this.type = type;
+    //     this.color = color;
+    //   }
+    // }
+
+    // var 강아지1 = new 강아지('말티즈', 'white');
+    // var 강아지2 = new 강아지('진돗개', 'brown');
+
+
+    // class 고양이 extends 강아지 {
+    //   constructor(type, color, age) {
+    //     super(type, color);
+    //     this.age = age;
+    //     this.한살먹기 = function() {
+    //       return this.age + 1;
+    //     }
+    //   }
+
+    // }
+
+    // var 고양이1 = new 고양이('코슛', 'white', 5);
+    // var 고양이2 = new 고양이('러시안블루', 'brown', 2);
+
+    // console.log(고양이1.한살먹기());  // 6
+    // console.log(고양이2.한살먹기());  // 3
+
+    // console.log(강아지1.한살먹기());  // 오류발생
+    // console.log(강아지2.한살먹기());  // 오류발생
+
+
+    // ✅ a instanceof b 라는 연산자를 사용하면 a가 b로부터 생성된 오브젝트인지 아닌지를 true/false로 알려준다.
     class 강아지 {
       constructor(type, color) {
         this.type = type;
         this.color = color;
+      }
+      한살먹기() {
+        if(this instanceof 고양이) {    // this가 instanceof Cat인 경우에만 실행
+          this.age++;
+        }
       }
     }
 
     var 강아지1 = new 강아지('말티즈', 'white');
     var 강아지2 = new 강아지('진돗개', 'brown');
 
-
     class 고양이 extends 강아지 {
       constructor(type, color, age) {
         super(type, color);
         this.age = age;
-        this.한살먹기 = function() {
-          return this.age + 1;
-        }
       }
-
     }
+
 
     var 고양이1 = new 고양이('코슛', 'white', 5);
     var 고양이2 = new 고양이('러시안블루', 'brown', 2);
 
-    console.log(고양이1.한살먹기());  // 6
-    console.log(고양이2.한살먹기());  // 3
-
-    console.log(강아지1.한살먹기());  // 오류발생
-    console.log(강아지2.한살먹기());  // 오류발생
-
-
+    // 고양이에만 한살먹기 함수가 실행되고 강아지에는 실행 X 
+    
   </script>
 </body>
 
