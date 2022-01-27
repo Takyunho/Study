@@ -22,7 +22,7 @@
       // == setter함수 : function(...rest){}
       setter함수(...rest) {       // ✅ rest 파라미터 이용!! (파라미터로 몇개가 들어올지 모르기 때문)
         console.log([...rest])
-        입력값 = [...rest];
+        var 입력값 = [...rest];
 
         // 주어진 정수를 2로 나누면 나머지로 0 아니면 1이 나오므로, 조건식에 따라 짝수, 홀수를 판단해 출력 할 수 있다.
         // 주어진 입력값을 2로 나눈 나머지가 0이면 짝수 / 1이면 홀수
@@ -37,26 +37,56 @@
         }
       },
       getter함수() { // 숫자순으로 정렬
-        this.even.sort(function (a, b) {
-          return a - b;
-        }),
-          this.odd.sort(function (a, b) {
-            return a - b;
-          })
+        // this.even.sort(function (a, b) {
+        //   return a - b;
+        // }),
+        //   this.odd.sort(function (a, b) {
+        //     return a - b;
+        //  })
 
         // spread operator 문법을 이용해서 어레이 합친 후, sort()함수 적용
-        // var array = [...this.odd, ...this.even];
+        var array = [...this.odd, ...this.even];
         // console.log(array);
-        // array.sort(function (a, b) {
-        //   return (a - b);
-        // })
+        array.sort((a, b) => {
+          return a - b;
+          // console.log(this);  // 콜백함수에서는 window / arrow function에서는 data
+        })
+        console.log(array); // 정렬 잘 됨 = [1, 3, 4, 5, 24]
+
+        // ⭐ 정렬된 어레이를 홀수 짝수 나누기
+
+        // for (let i = 0; i < array.length; i++) {
+          
+        //   if (array[i] % 2 == 0) { 
+        //     this.even.shift();              // 1. 배열의 앞부분값 삭제
+        //     this.even.push(array[i]);       // 2. 짝수인거 even []에 저장
+        //   } else {
+        //     this.odd.shift();               // 1. 배열의 앞부분값 삭제
+        //     this.odd.push(array[i]);        // 2. 홀수인거 odd[]에 저장  
+        //   }
+
+        // }
+
+        array.forEach((a) => {
+
+          if (a % 2 == 1) {
+            this.odd.shift();
+            this.odd.push(a);
+          } else {
+            this.even.shift();
+            this.even.push(a);
+          }
+        })
+
       }
     }
 
-    data.setter함수(3, 24, 1, 4, 5);
+    data.setter함수(11, 2, 3, 4, 5);
     data.getter함수();
     console.log(data);
-    
+
+
+
     // (1) data 오브젝트안에 setter 역할 함수를 하나 만들어보십시오.
     // setter 함수에 1, 2, 3, 4 이렇게 아무 자연수나 파라미터로 입력하면 홀수는 odd, 짝수는 even 이라는 속성에 array 형태로 저장되어야합니다.
     // (2) data 오브젝트안에 getter 역할 함수를 하나 만들어보십시오.
