@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <img id = "test" src = "https://codingapple1.github.io/kona.jpg" >
+
+  <script>
+
+// Q1. <img> 이미지 로딩 성공시 특정 코드를 실행하고 싶습니다. 
+
+// HTML 안에 있는 이미지 로딩이 끝나면 무언가 코드를 실행하고 싶습니다. 
+
+  // 이 이미지가 로드가 되면 콘솔창에 성공, 로드가 실패하면 콘솔창에 실패를 출력하고 싶은데
+  // Promise 문법의 then, catch 함수를 사용해 만들고 싶습니다.어떻게 코드를 짜면 될까요 ?
+
+  // (참고) 이미지 로딩이 끝났다는 것은 < img > 에 load라는 이벤트리스너를 붙여서 체크가 가능합니다. 
+  // (참고) 이미지 로딩이 실패했다는 것은 < img > 에 error라는 이벤트리스너를 붙여서 체크가 가능합니다.
+
+    var 프로미스 = new Promise(function(성공, 실패){
+      document.getElementById('test').addEventListener('load', function(){
+        성공();
+      });
+      document.getElementById('test').addEventListener('error', function(){
+        실패();
+      })
+    })
+
+    프로미스.then(function(){
+      console.log("성공");
+    }).catch(function(){
+      console.log("실패");
+    })
+  </script>
+
+</body>
+
+</html>

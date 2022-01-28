@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+
+    // Q3. Promise chaining 
+
+    // 2번 문제에서 https://codingapple1.github.io/hello.txt 라는 경로로 GET 요청을 한 뒤에
+    // .then을 이용해 인삿말을 콘솔창에 출력해보았습니다. 
+    // 이번엔 그 직후 https://codingapple1.github.io/hello2.txt 라는 경로로 GET 요청을 또 하고
+    // .then을 이용해 인삿말을 또 출력해보고 싶습니다. 
+
+
+    // 쉽게 말하면 
+    // 1. hello.txt GET 요청
+    // 2. 그게 완료되면 hello2.txt GET 요청
+    // 3. 그게 완료되면 hello2.txt 결과를 콘솔창에 출력
+    // 을 하고 싶다는 말입니다. 
+
+    // 2번에서 만든 코드를 어떻게 업데이트하면 될까요?
+
+    // 힌트1) 프로미스.then(()=>{둘째실행할거}).then(()=>{셋째실행할거})
+    // 이렇게 then을 여러개 이어붙여 만들어봅시다.
+    // 힌트2) .then()은 당연히 new Promise()로 생성한 프로미스 오브젝트들에 붙일 수 있습니다. 
+
+
+    var 프로미스1 = new Promise(function (성공, 실패) {
+
+      $.get('https://codingapple1.github.io/hello.txt').done(function (결과1) {
+        성공(결과1);
+      })
+
+    })
+
+
+    프로미스1.then(function (결과1) {
+      console.log(결과1);
+
+      // 그럼 이제 hello2.txt도 가져와주세요.
+      var 프로미스2 = new Promise(function (성공, 실패) {
+
+        $.get('https://codingapple1.github.io/hello2.txt').done(function (결과2) {
+          성공(결과2);
+        })
+
+      });
+
+      // ⭐ .then()에서 new Promise()를 배출하면 뒤에 then을 또 쓸 수 있음
+      // then을 붙일 수 있게 프로미스2를 리턴해주자
+      // return 해주면 그 자리에 new Promise()가 남아서 거기 뒤에 .then을 붙일 수 있다
+      return 프로미스2;
+
+    })
+      .then(function (결과2) {
+        console.log(결과2);
+      })
+      .catch(function () {
+        console.log("실패");
+      })
+
+
+    /*
+    1. 첫프로미스가 성공하면 then() 안의 코드를 실행시켜줍니다.
+    2. 근데 거기 안에는 프로미스2가 있습니다. 프로미스2가 성공하면
+    3. 뒤에 있는 then() 안의 코드를 실행시켜줍니다. 
+
+    그래서 이렇게 하시면 프로미스를 이용해 단계적으로 코드를 실행할 수 있습니다. 
+    */
+
+
+
+    // ⭐ 위의 코드를 함수로 축약하기
+
+    var 프로미스1 = ajax해주는함수('https://codingapple1.github.io/hello.txt');
+
+    프로미스1.then(function (결과) {
+      console.log(결과);
+
+      // 그럼 이제 hello2.txt도 가져와주세요. (return 해야함)
+      return ajax해주는함수('https://codingapple1.github.io/hello2.txt');
+
+    })
+      .then(function (결과2) {
+        console.log(결과2);
+      })
+      .catch(function () {
+        console.log("실패");
+      })
+
+    // ⭐ 함수로 축약
+    function ajax해주는함수(URL) {
+      return new Promise(function (성공, 실패) {  
+        $.get(URL).done(function (결과) {
+          성공(결과);
+        })
+      })
+    }
+    // return 다음에 new를 아래로 내리면 오류 / return에 소괄호 써도되고 안써도 됨
+  </script>
+</body>
+
+</html>
