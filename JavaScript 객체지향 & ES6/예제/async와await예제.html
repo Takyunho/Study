@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <button id="btn" class="test-btn">버튼</button>
+
+  <script>
+
+    // <button>을 누르면 성공을 판정하는 Promise
+    // 버튼을 클릭해서 성공하면 콘솔창에 '성공했어요'를 출력
+
+    async function 성공판정(){
+      var 성공판정 = new Promise(function(성공, 실패){
+        
+        // document.querySelector('.test-btn').addEventListener('click', function(){
+        //   성공('성공했어요');
+        // })
+
+        var 버튼 = document.querySelector('#btn');  // querySelectorAll을 사용하면 에러가 난다.
+        버튼.addEventListener('click', function(){
+          성공('성공했어요');
+        })
+
+      })
+
+      var 결과 = await 성공판정;
+      console.log(결과);
+
+    }
+    성공판정();
+
+  </script>
+
+</body>
+</html>
