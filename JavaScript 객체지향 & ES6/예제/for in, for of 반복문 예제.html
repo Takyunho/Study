@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // Q1. for of 반복문을 이용해서 2~9단까지의 구구단을 콘솔창에 출력
+
+    let 데이터 = [2, 3, 4, 5, 6, 7, 8, 9]
+
+    for (var 구구단자료 of 데이터) {
+      for (let i = 1; i < 10; i++) {
+        console.log(구구단자료 * i)
+      }
+    }
+
+
+
+    // Q2. 어떤 놈이 key값 마지막 부분에 오타를 섞어놨습니다.
+    // key값 마지막에 한자릿수 숫자가 섞여있으면 그걸 다 제거하고 싶습니다. 
+    // 어떻게 코드를 짜면 될까요? 
+    // 마지막 글자가 숫자인지 판단하는 방법도 잘 찾아봐야겠군요.
+
+    // (예시)
+    // array안의 object안에 들어있는 
+    // name1 : 'chair' 이게
+    // name : 'chair' 이렇게 숫자만 깔끔하게 없어져야합니다.
+    var products = [
+      {
+        name1: 'chair',
+        price1: 7000,
+      },
+      {
+        name2: 'sofa',
+        price: 5000,
+      },
+      {
+        name1: 'desk',
+        price3: 9000,
+      },
+    ];
+
+    // isNaN을 사용
+    console.log(isNaN(parseInt('123')));  //false
+    console.log(isNaN(parseInt('가나다')));  //true
+
+    for(let item of products) {   // 배열에서의 각각의 오브젝트를 위해 for of 반복문 사용
+      for(let key in item) {    // products안에 있는 각각의 오브젝트들을 뽑기 위한 for in 반복문 사용
+        // 마지막글자를 숫자로변환했을 때 NaN이 안나오면 (숫자면)
+        if (isNaN(parseInt(key.slice(-1))) == false ){
+          let newValue = item[key];
+          // console.log(newValue);
+          let newKey = key.slice(0,-1); // //맨 뒷 문자 제거 방법
+          // console.log(newKey)
+          item[newKey] = newValue;
+          // console.log(item[newKey])
+          delete item[key];
+        } 
+      }
+    }
+    console.log(products);
+    
+
+
+
+
+      // (참고)
+      // slice 함수
+      
+      // const arr = ['a', 'b', 'c', 'd'];
+
+      // const arr1 = arr.slice(1, 3); // [ 'b', 'c' ]
+      // const arr2 = arr.slice(1); // ['b', 'c', 'd']
+      // const arr3 = arr.slice(-3, -1); // ['b', 'c'] 
+      // begin index나 end index가 음수이면, 배열의 끝에서부터의 길이를 나타냅니다. (a의 인덱스는 -4, b의 인덱스는 -3, c의 인덱스는 -2, d의 인덱스는 -1)
+
+
+
+
+  </script>
+
+</body>
+
+</html>
