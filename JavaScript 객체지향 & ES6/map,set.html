@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // ⭐ Map 자료형
+    // Object자료형과 똑같이 key, value 형태로 자료를 저장할 수 있는 자료형 (하지만, Map자료형은 자료들 간의 연관성을 표현하기 위해 쓴다!!)
+
+    var 사람 = new Map();
+    사람.set('name', 'kim');  // Map 자료형은 Key, value값에 모든 자료를 집어넣을 수 있다. (어레이, 오브젝트 등등)
+    사람.set('나이', 20);
+    // 출력해보면 오브젝트와는 약간 다르다.(화살표로 나타내줌)
+    // ⭐ Map 자료형은 자료의 연관성을 표현하기 위해 쓰임
+    // 그냥 Key, value 형식으로 저장하려면 오브젝트를 쓰자.
+
+    사람.get('나이'); // 자료 꺼내는 법
+    사람.delete('나이');  // 자료 삭제하는 법
+    사람.size;  // 자료 몇갠지 알려줌
+
+    // Map 자료 반복문 돌리기
+    for (var key of 사람.keys()) {
+      console.log(key);
+    }
+
+    // 자료를 직접 집어넣고 싶으면
+    var person = new Map([
+      ['name', 'kim'],
+      ['age', 20]
+    ]);
+
+    
+    // (참고)
+    /*
+    어레이 같은 곳에 자료를 저장할 때 자료가 엄청 많으면 Hash Map, Hash Table 이라는 걸 사용한다.
+    엄청 많은 자료중에서 예를 들어 2라는 자료가 어딨는지 찾고 싶으면 어떻게 해야 할까?
+    몇번째인지 모르니까 반복문 돌려서 하나하나 출력해봐야함 그래서 느림
+    근데 Hash Table 이런걸 쓰면 자료를 미리 abc 순으로 정돈이 가능하므로 찾기가 빠름
+    자료에 key값을 부여해놓고 정렬하면 그게 Hash Table 만들기 끝
+실은 여태까지 잘 쓰던 object 자료형이 Hash Table이랑 비슷
+    
+
+    근데 Hash Table을 만들기 위해선 쌩 자바스크립트 object 자료 쓰면 되긴 하는데
+    1. object 자료형은 hasOwnProperty, toString 이런 키들도 집어넣을 수 있어서 너무 유연하고
+    2. key값으로 들어올 수 있는게 문자형태로 제한되어있어서
+    Map 자료형을 사용. 그냥 new Map() 쓰면 끝
+*/
+
+
+
+    // ⭐ Set 자료형
+    // Array 자료형과 똑같이 생김
+    var 출석부 = new Set(['john', 'tom', 'andy', 'tom'])
+    console.log(출석부2); // 중괄호지만 Array와 유사
+
+    // ⭐ Set 자료형은 중복자료를 절대 허용하지 않는다!!
+    // 위에처럼 실수로 tom이라는걸 두개를 집어넣어도 하나만 출력됨
+    // 즉, 중복 데이터를 방지하고 싶을 때 쓰면 유용한 자료형
+
+    var 출석부2 = new Set(['john', 'tom', 'andy', 'tom']);
+
+    출석부2.add('sally');   // 자료더하기
+    출석부2.has('tom'); //자료있는지 확인
+    출석부2.size;  //자료 몇갠지 세기
+    // forEach 또는 for of 반복문으로 반복문도 돌리기 가능
+    
+
+    // Set 자료형은 Array의 데이터 중복을 제거할 때 많이 씀
+    // 어레이를 Set으로 바꾸는게 매우 쉽기 때문
+    
+    // 출석부라는 Array자료형을 Set으로 바꿨다가 다시 바로 Array로 바꾸는 예제(중복 자료들이 자동으로 제거됨)
+    var 출석부 = ['kim', 'john', 'tom'];
+
+    var 출석부2 = new Set(출석부);    // Array를 Set으로 바꾸기
+    출석부 = [...출석부2];            // Set을 Array로 바꾸기
+
+
+  </script>
+
+</body>
+
+</html>
