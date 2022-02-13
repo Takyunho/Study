@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <custom-input></custom-input>
+
+  <custom-input2 name="비번"></custom-input2>
+  <custom-input2 name="이메일"></custom-input2>
+
+  <script>
+    
+    // ⭐ Web Component 문법
+    // <커스텀태그>로 길고 복잡한 HTML 축약하는 법
+    class 클래스 extends HTMLElement {
+      connectedCallback(){  // connectedCallback() 함수는 컴포넌트가 html에 장착될 때 실행
+        // 축약할 HTML
+        this.innerHTML = `<label>이메일 인풋입니다.</label><input>`;
+        
+        // 위 방법보다 html 생성속도가 빨라짐
+        // let 변수 = document.createElement('label');
+        // this.appendChild(변수);
+      }
+    }
+    
+    customElements.define('custom-input', 클래스 ); // 축약할 HTML들을 클래스 형태로
+    
+
+    
+    // ⭐ attribute를 추가하면 각각 다른 내용을 보여줄 수도 있다.
+    class 클래스2 extends HTMLElement {
+      connectedCallback() {
+        let name = this.getAttribute('name'); // getAttribute(어쩌구)를 쓰면 현재 요소의 어쩌구라고 정의된 attribute를 가져올 수 있음. 그래서 name attribute가 있으면 그걸 가져와서 name 변수에 저장
+        this.innerHTML = `<label>${name}을 입력하세요</label><input>`
+      }
+
+      // ⭐ attribute가 변경될 때 특정 코드 실행도 가능하다.
+      static get observedAttributes() { // static get observedAttributes() 안에 감시할 attribute들을 array로 적으면됨
+        return ['name']
+      }
+      attributeChangedCallback() {
+        // attribute 변경시 실행할 코드
+        this.innerHTML = `<label>이메일 인풋입니다</label><input>`;
+      }
+
+    }
+
+    customElements.define('custom-input2', 클래스2);
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+</html>
