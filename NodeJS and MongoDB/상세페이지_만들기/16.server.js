@@ -46,7 +46,7 @@ app.post('/newPost', function (요청, 응답) {
 
   // (1). counter라는 collection에서 name : '게시물개수'인 데이터를 찾아주세요
   db.collection('counter').findOne({ name: '게시물개수' }, function (에러, 결과) {
-    console.log(결과.totalPost); 
+    console.log(결과.totalPost);
     var 총게시물개수 = 결과.totalPost;  // (2). 결과.totalPost를 총게시물개수라는 변수에 저장
 
     // (3). post라는 콜렉션에 insertOner을 써서 id와 함께 데이터 저장
@@ -90,8 +90,8 @@ app.delete('/delete', function (요청, 응답) {
   // 요청.body에 담겨온 데이터를 가진 글을 찾아서 db에서 삭제해줘
   db.collection('post').deleteOne(요청.body, function (에러, 결과) {
     console.log('삭제완료');
-    응답.status(200).send({ message : '성공했습니다.' });
-    
+    응답.status(200).send({ message: '성공했습니다.' });
+
   })
 
 })
@@ -103,30 +103,45 @@ app.delete('/delete', function (요청, 응답) {
 // (1). 어떤 사람이 /detail/:작명 로 접속하면(get요청하면)
 app.get('/detail/:id', function (요청, 응답) {
   // (2). post 콜렉션에서 { _id : :id } 인 게시물 찾음
-  db.collection('post').findOne({ _id : parseInt(요청.params.id)}, function (에러, 결과) {
-    console.log(결과);
+  db.collection('post').findOne({ _id: parseInt(요청.params.id) }, function (에러, 결과) {
+    // console.log(결과);
+    // console.log(parseInt(요청.params.id));
+    // console.log(결과._id);
     // (3). 찾은 결과를 detail.ejs로 보냄
-    응답.render('detail.ejs', { data : 결과 })
-  })
+
+    // ⭐ 없는 게시물 에러처리하기
+    if (결과 == null) {
+      // 응답.status(404).send('찾을 수 없는 페이지');
+      응답.render('error.ejs');
+    } else {
+      응답.render('detail.ejs', { data: 결과 });
+    }
+    /* ⭐
+    인터넷이 끊기거나 디비가 이상하거나 그럴 때 에러가 발생된다
+    결과가 없는 경우만 체크하려면
+    if (결과 == null) { 결과없을때 실행할코드 } 를 쓰면 된다.
+    */
   
+  })
+
 })
 
 
 
 // 파라미터 문법 이용해서 상세 페이지 만들기
 /*
-파라미터는 쉽게 말하면 URL 뒤에 무작위의 문자를 붙일 수 있게 만들어주는 URL 작명 방식입니다. 
+파라미터는 쉽게 말하면 URL 뒤에 무작위의 문자를 붙일 수 있게 만들어주는 URL 작명 방식입니다.
 
 app.get('/detail/:id', function(요청, 응답){
   응답.render('detail.ejs', {어쩌구} )
 });
 
-저렇게 콜론 (:) 기호를 붙여주면 누군가 /detail/ 뒤에 아무 문자열이나 입력하면~ 이라는 소리입니다. 
+저렇게 콜론 (:) 기호를 붙여주면 누군가 /detail/ 뒤에 아무 문자열이나 입력하면~ 이라는 소리입니다.
 이제 사용자가 /detail/ 뒤에 어떤 숫자나 문자를 붙이든 위의 코드3줄로 인식할 수 있는 것이죠.
 
 Q. 왜 id라고 썼는가?
-땡땡 기호 뒤엔 여러분이 자유롭게 작명하시면 됩니다. 전 id라는 이름이 좋아서 그랬어요. 
-그냥 detail 뒤의 무작위의 문자를 id라고 부르겠습니다~ 라는 뜻입니다. 
+땡땡 기호 뒤엔 여러분이 자유롭게 작명하시면 됩니다. 전 id라는 이름이 좋아서 그랬어요.
+그냥 detail 뒤의 무작위의 문자를 id라고 부르겠습니다~ 라는 뜻입니다.
 (참고로 파라미터는 두개 세개 계속 이어붙일 수도 있습니다.)
 
 
@@ -143,27 +158,27 @@ app.get('/detail/:id', function(요청, 응답){
 });
 
 db.어쩌구.findOne() 이라는 함수를 사용했습니다.
-이 함수는 db에서 원하는 게시물 하나 찾고싶을 때 사용합니다. 
+이 함수는 db에서 원하는 게시물 하나 찾고싶을 때 사용합니다.
 사용법은 .findOne({원하는게시물정보}, function(){ 완료시 실행할 코드 }) 이렇게 하시면 됩니다.
 
 이제 위 코드에 사용자가 URL에 입력한 :id값을 그대로 넣어주면 되는데 어떻게 할까요?
 이런건 생각해서 나오는게 아니라 구글 검색을 하셔야합니다.
-검색하시면 아마 요청.params.id 라고 나올 것입니다. 
-그래서 적용해봤습니다. 
+검색하시면 아마 요청.params.id 라고 나올 것입니다.
+그래서 적용해봤습니다.
 
 app.get('/detail/:id', function(요청, 응답){
   db.collection('post').findOne({ _id : 요청.params.id }, function(에러, 결과){
     응답.render('detail.ejs', {data : 결과} )
   })
 });
-마지막으로 셋째 줄에서 DB에서 찾은 결과를 data라는 이름으로 ejs파일로 보내고 있습니다. 
+마지막으로 셋째 줄에서 DB에서 찾은 결과를 data라는 이름으로 ejs파일로 보내고 있습니다.
 그럼 ejs파일 내에서 그 게시물 데이터를 가지고 HTML에 꽂아넣을 수 있겠죠?
 
 하지만 결과를 출력해보니 null이 나오는데요?
 
 console.log 등을 써보시면 DB에서 찾은 결과가 null이라고 출력됩니다.
 그래서 이걸 ejs에 보내도 아무 쓸모짝에도 없겠군요.
-이제 여러분이 이 문제를 찾고 해결하시면 됩니다. 
+이제 여러분이 이 문제를 찾고 해결하시면 됩니다.
 실은 DB에서 찾은 결과가 null, 즉 아무것도 없다는 뜻인데.. 그 이유는 여러분이 findOne을 잘못 썼기 때문이 아닐까요?
 
 app.get('/detail/:id', function(요청, 응답){
@@ -172,9 +187,9 @@ app.get('/detail/:id', function(요청, 응답){
   })
 });
 
-그래서 위 코드처럼 parseInt()를 이용해서 제대로 사용하시면 됩니다. 
+그래서 위 코드처럼 parseInt()를 이용해서 제대로 사용하시면 됩니다.
 왜냐면 요청.params.id를 출력해보면 '2' 이런 식으로 문자자료형으로 출력됩니다.
-그런데 DB엔 _id가 '2'인 자료는 없죠? _id가 2인 자료는 있습니다. 
+그런데 DB엔 _id가 '2'인 자료는 없죠? _id가 2인 자료는 있습니다.
 그래서 이걸 숫자로 변환하기 위해 parseInt를 쓴 것입니다.
 (parseInt는 자바스크립트에서 문자를 정수로 변환해주는 고마운 함수입니다.)
 
@@ -192,9 +207,9 @@ app.get('/detail/:id', function(요청, 응답){
 이렇게 쓰면 완성!
 
 
-그럼 지금까지의 코드를 테스트를 해보면 
+그럼 지금까지의 코드를 테스트를 해보면
 - URL란에 /detail/4를 입력시
-- detail.ejs파일이 렌더링되는데 data라는 변수에 실제 DB에 있던 _id가 4인 게시물이 담겨옵니다. 
+- detail.ejs파일이 렌더링되는데 data라는 변수에 실제 DB에 있던 _id가 4인 게시물이 담겨옵니다.
 - data.제목 이렇게 4번게시물의 제목과 날짜를 ejs파일 안에서 보여줍니다.
 상세페이지 완성 ㄷㄷ
 
