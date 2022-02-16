@@ -1,71 +1,173 @@
 <!doctype html>
 <html>
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Hello, world!</title>
-  </head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
-  <body>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Todo App</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Write</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">임시</a>
-          </li>
+  <title>Hello, world!</title>
+</head>
 
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-    <!-- Nav Bar 끝 -->
-    
+<body>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Todo App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- 서버에서 가져온 할일 리스트 -->
-    <!-- list 페이지에서 서버에 저장된 데이터 보여주기 -->
-    <% for(var i = 0; i < posts.length; i++) {  %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Write</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">임시</a>
+        </li>
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+  <!-- Nav Bar 끝 -->
+
+
+  <!-- 서버에서 가져온 할일 리스트 -->
+  <!-- list 페이지에서 서버에 저장된 데이터 보여주기 -->
+  <!-- <% for(var i = 0; i < posts.length; i++) {  %>
       <h4> 할일 제목 : <%= posts[i].title %></h4>
       <p> 할일 마감날짜 : <%= posts[i].date %></p>
-    <% } %>
-    
-    
+      <button>삭제</button>
+    <% } %> -->
 
-    
+  <h4 class="ml-2 my-3">서버에서 가져온 할 일 List</h4>
+  <ul class="list-group">
+    <% for(var i=0; i < posts.length; i++) { %>
+      <li class="list-group-item">
+        <h4> 할일 제목 : <%= posts[i].title %> </h4>
+        <p> 할일 마감날짜 : <%= posts[i].date %> </p>
+        <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>  <!-- data-id속성에 _id를 숨겨주세요 -->
+      </li>
+      <% } %>
+  </ul>
 
 
 
+  <!-- 제이쿼리 -->
+  <!-- (주의) jQuery 설치 파일보다 하단에 script 태그를 열어서 작성하셔야 잘 작동됩니다.  -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+  <script>
+    // HTML 폼에서 일반적으로 PUT, DELETE 요청을 할 수는 없다.
+    // method="DELETE" 이런거 안됨
+    // 일반적인 HTML 폼 안에선 GET, POST 요청밖에 못날린다.
+    // 그래서 삭제요청을 할 때 쓸 수 있는 3가지 방법이 있다.
+    // 1. method-override 라이브러리의 도움을 받는다.
+    // 2. AJAX로 DELETE 요청을 날린다.
+    // 3. 그냥 POST요청을 날려서 DELETE 작업을 수행한다.
+    // 3번이 가장 편하다. POST로 삭제하라고 요청해도 전혀 상관 없다.
+    // 근데 REST한 API를 만들기 위해 1번과 2번을 쓰는 것일 뿐이다.
 
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    // AJAX
+    /*
+    프론트엔드에서 JavaScript를 이용해 서버에 여러가지 요청을 할 수 있는 문법 같은 것
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
+    장점은 새로고침 없이도 서버에 몰래몰래 요청을 할 수 있습니다. 
+    그래서 새로고침이 없는 스무스한 사이트를 만들고 싶으면 많은 요청을 AJAX 문법을 이용해 처리하게 됩니다. 
+    그래서 이걸 써서 개발하면 삭제 버튼을 누르는 순간 새로고침 없이도 글 삭제가 가능합니다.
+    */
+
+    // AJAX 기본 문법
+    /*
+    $.ajax({
+      method : 'DELETE',
+      url : '요청할경로',
+      data : '요청과 함께 보낼데이터'
+    }).done(function(결과){
+      AJAX 성공시 실행할 코드는 여기
+    }).fail(function(에러){
+      실패시 실행할 코드는 여기
+    });
+    */
+
+    // 이 코드는 list.ejs 페이지를 방문할 때 마다 바로 실행되므로 버튼을 누를 때만 삭제 시키도록 해야한다.
+    /* ⭐
+    1. 버튼마다 번호달기
+      -  <button>태그에 data-id라는 속성을 추가
+        (1. HTML요소에는 data-id="1" 이런 식으로 몰래 정보를 슬쩍넣을 수 있습니다. 몰랐죠?
+        여기에 posts[i]._id 라는 게시글의 번호를 EJS문법을 이용해 집어넣었을 뿐입니다.)
+
+    2. 클릭한 버튼의 id를 파악하기
+      - (2. 그리고 자바스크립트로 버튼에 숨겨져있는 data-id="1" 이라는 정보를 가져올 수 있습니다.)
+      - e.target.dataset.id; 이런식으로
+
+    3. 그걸 DELETE 요청시 함께 넣기
+      - data : { _id : e.target.dataset.id }
+    */
+    $('.delete').click(function (e) {
+
+      var 글번호 = e.target.dataset.id; // 내가 지금 누른 요소에 숨겨진 data-id 가져오기
+      var 지금누른거 = $(this); // $(this)는 현재 클릭이벤트가 동작하는 곳(누른버튼) = $(e.target)으로 대체 가능 / e.target이나 this 같은 키워드 뒤에 jQuery 함수를 붙이고 싶다면 $() 안에 싸매야함
+
+      // /delete 경로로 DELETE 요청을 하는데 요청과 함께 '글번호'라는 data를 보내주세요
+      $.ajax({
+        method: 'DELETE',
+        url: '/delete',
+        data: { _id: 글번호 } // 요청보낼 때 삭제할 게시물(글) 번호를 함께 전송(지금 내가 클릭한 버튼에 숨겨진 data-id값)
+      }).done((결과) => { // 요청 성공시 실행(응답.status(200)이 왔을때)
+        // done 함수의 1개 파라미터는 요청시 받아온 결과가 담겨있습니다. (파일, 데이터 등)
+        
+        // 삭제요청 성공시 해당 게시물 <li>를 지워보자
+        /*
+        삭제버튼을 누르면 HTML화면은 변동이 없고 DB데이터만 지우고 있습니다.
+        (AJAX는 새로고침 없이 몰래 요청을 처리해주니깐요)
+        그럼 유저들이 삭제 된지 안된건지 모르겠죠?
+        그러니 삭제 AJAX 성공시 해당 게시물의 <li>태그를 지워보도록 합시다.
+        */ 
+        // - 페이지를 강제로 새로고침해주세요
+        // - 삭제버튼을 누른 <li> 요소를 제거해주세요(안보이게해주세요)
+          console.log('성공했어여');
+          지금누른거.parent('li').fadeOut()   // .parent('li') = 부모 HTML 중 li태그를 찾아줘
+
+      }).fail(function(xhr, textStatus, errorThrown){ // 요청 실패시 실행(응답.status(400))
+        // console.log('실패');
+        console.log(xhr, textStatus, errorThrown );
+        // xhr : jQuery의 XMLHttpRequest(몰라도됨)
+        // textStatus : 응답(에러)코드
+        // errorThrown : 에러메시지
+      })
+
+    })
+
+
+  </script>
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
     -->
-  </body>
+</body>
+
 </html>
