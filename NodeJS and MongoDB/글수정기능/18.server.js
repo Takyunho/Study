@@ -58,7 +58,7 @@ app.post('/newPost', function (요청, 응답) {
       // (4). post라는 콜렉션에 데이터를 저장하고 나면, counter라는 콜렉션에 있는 totalPost 라는 항목도 1 증가시켜야함
       db.collection('counter').updateOne({ name: '게시물개수' }, { $inc: { totalPost: 1 } }, function (에러, 결과) { if (에러) { return console.log(에러) } })
 
-      응답.send('전송완료');
+      응답.redirect('/list');
     })
 
   });
@@ -136,6 +136,22 @@ app.get('/edit/:id', function (요청, 응답) {
       응답.render('edit.ejs', { postData : 결과 } )
     }
   
+  })
+
+})
+
+// PUT 요청 (글수정)
+app.put('/edit', function (요청, 응답) {
+  
+  console.log(요청.body);
+  // 폼에담긴 제목데이터, 날짜데이터를 가지고 db.collection에다가 업데이트함
+  // 요청.body.인풋의name으로 값 꺼내기 (input의 name을 불러온다는거 중요함 !! )
+  // title과 date는 db에 있는 post의 키 이름 /요청.body.title에서의 title은 input의 name(헷갈리지말자)
+  db.collection('post').updateOne({ _id: parseInt(요청.body.id) }, { $set: { title: 요청.body.title , date: 요청.body.date } }, function (에러, 결과) { 
+    
+    // 수정 완료시 다른 페이지로 이동시키기
+    // 무조건 응답은 필수(응답을 안해주면 브라우저가 멈출 수 있다.)
+    응답.redirect('/list')  // 요청이 성공하면 /list로 이동
   })
 
 })

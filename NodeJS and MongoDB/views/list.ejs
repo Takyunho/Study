@@ -33,7 +33,7 @@
     <h4 class="ml-2 my-3 text-center">서버에서 가져온 할 일 List</h4>
     <ul class="list-group">
       <% for(var i=0; i < posts.length; i++) { %>
-        <a class="detail-link" href="/detail/<%= posts[i]._id %>" target="_blank"> <!-- http://localhost:8080 쓸 필요 X-->
+        <a class="detail-link" href="/detail/<%= posts[i]._id %>" > <!-- http://localhost:8080 쓸 필요 X-->
           <li class="list-group-item mt-2">
             <h4> 할일 제목 : <%= posts[i].title %>
             </h4>

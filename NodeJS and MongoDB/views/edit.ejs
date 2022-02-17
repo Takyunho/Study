@@ -20,7 +20,7 @@
 
   <!-- 글작성 form -->
   <div class="container mt-4">
-    <form action="/newPost?_method=PUT" method="POST">
+    <form action="/edit?_method=PUT" method="POST">
       <!-- 수정(PUT)요청은 안되니까 메소드 오버라이드 설치하자 -->
       <!--
         ⭐ 메소드 오버라이드는 HTML에서 PUT/DELETE 요청할 수 있도록 도와주는 라이브러리
@@ -32,6 +32,8 @@
       -->
       <div class="form-group">
         <label for="exampleInputEmail1">오늘의 할 일</label>
+        <!-- ⭐ 폼 전송시 _id:?? 정보도 함께 보내기(안보이는 input을 만들고 value에다가 id를 넣어서 서버로 전달) -->
+        <input type="text" value="<%= postData._id %>" name="id" style="display: none;">
         <input type="text" class="form-control" name="title" value="<%= postData.title %>">
         <!-- ⭐ input에다가 value 속성을 이용해 미리 값을 채울 수 있다. -->
       </div>
@@ -39,7 +41,7 @@
         <label for="exampleInputPassword1">날짜</label>
         <input type="text" class="form-control" name="date" value="<%= postData.date %>">
       </div>
-      <button type="submit" class="btn btn-danger">수정하기</button>
+      <button type="submit" class="btn btn-info">수정하기</button>
     </form>
   </div>
   <!-- 글작성 form 끝 -->
