@@ -9,39 +9,15 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
     integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-  <link rel="stylesheet" href="/16.style.css">
+  <link rel="stylesheet" href="/public/16.style.css">
 
   <title>Hello, world!</title>
 </head>
 
 <body>
   <!-- Nav Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Todo App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Write</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">임시</a>
-        </li>
-
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
+  <!-- nav.html을 첨부해주세요~ (ejs파일에서만 ejs문법을 이용해서 가능) / 쌩 HTML파일에서는 제이쿼리를 써야함 -->
+  <%- include('nav.html') %>
   <!-- Nav Bar 끝 -->
 
 
@@ -53,19 +29,23 @@
       <button>삭제</button>
     <% } %> -->
 
-  <h4 class="ml-2 my-3">서버에서 가져온 할 일 List</h4>
-  <ul class="list-group">
-    <% for(var i=0; i < posts.length; i++) { %>
-      <a class="detail-link" href="http://localhost:8080/detail/<%= posts[i]._id %>" target="_blank" >
-      <li class="list-group-item">
-        <h4> 할일 제목 : <%= posts[i].title %> </h4>
-        <p> 할일 마감날짜 : <%= posts[i].date %> </p>
-      </a>
-        <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>  <!-- data-id속성에 _id를 숨겨주세요 -->
-      </li>
-    
-      <% } %>
-  </ul>
+  <div class="container">
+    <h4 class="ml-2 my-3 text-center">서버에서 가져온 할 일 List</h4>
+    <ul class="list-group">
+      <% for(var i=0; i < posts.length; i++) { %>
+        <a class="detail-link" href="/detail/<%= posts[i]._id %>" target="_blank"> <!-- http://localhost:8080 쓸 필요 X-->
+          <li class="list-group-item mt-2">
+            <h4> 할일 제목 : <%= posts[i].title %>
+            </h4>
+            <p> 할일 마감날짜 : <%= posts[i].date %>
+            </p>
+        </a>
+        <button type="button" class="delete btn btn-info" data-id="<%= posts[i]._id %>">삭제</button><!-- data-id속성에 _id를 숨겨주세요 -->
+        </li>
+
+        <% } %>
+    </ul>
+  </div>
 
 
 
@@ -132,22 +112,22 @@
         data: { _id: 글번호 } // 요청보낼 때 삭제할 게시물(글) 번호를 함께 전송(지금 내가 클릭한 버튼에 숨겨진 data-id값)
       }).done((결과) => { // 요청 성공시 실행(응답.status(200)이 왔을때)
         // done 함수의 1개 파라미터는 요청시 받아온 결과가 담겨있습니다. (파일, 데이터 등)
-        
+
         // 삭제요청 성공시 해당 게시물 <li>를 지워보자
         /*
         삭제버튼을 누르면 HTML화면은 변동이 없고 DB데이터만 지우고 있습니다.
         (AJAX는 새로고침 없이 몰래 요청을 처리해주니깐요)
         그럼 유저들이 삭제 된지 안된건지 모르겠죠?
         그러니 삭제 AJAX 성공시 해당 게시물의 <li>태그를 지워보도록 합시다.
-        */ 
+        */
         // - 페이지를 강제로 새로고침해주세요
         // - 삭제버튼을 누른 <li> 요소를 제거해주세요(안보이게해주세요)
-          console.log('성공했어여');
-          지금누른거.parent('li').fadeOut()   // .parent('li') = 부모 HTML 중 li태그를 찾아줘
+        console.log('성공했어여');
+        지금누른거.parent('li').fadeOut()   // .parent('li') = 부모 HTML 중 li태그를 찾아줘
 
-      }).fail(function(xhr, textStatus, errorThrown){ // 요청 실패시 실행(응답.status(400))
+      }).fail(function (xhr, textStatus, errorThrown) { // 요청 실패시 실행(응답.status(400))
         // console.log('실패');
-        console.log(xhr, textStatus, errorThrown );
+        console.log(xhr, textStatus, errorThrown);
         // xhr : jQuery의 XMLHttpRequest(몰라도됨)
         // textStatus : 응답(에러)코드
         // errorThrown : 에러메시지
