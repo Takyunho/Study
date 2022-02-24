@@ -31,6 +31,14 @@
 
   <div class="container">
     <h4 class="ml-2 my-3 text-center">서버에서 가져온 할 일 List</h4>
+
+    <!-- 검색기능 -->
+    <div class="container input-group mb-2">
+      <input class="form-control" id="search-input">
+      <button class="input-group-append btn btn-danger" id="search">검색</button>
+    </div>
+    <!-- 검색기능 끝 -->
+
     <ul class="list-group">
       <% for(var i=0; i < posts.length; i++) { %>
         <a class="detail-link" href="/detail/<%= posts[i]._id %>" > <!-- http://localhost:8080 쓸 필요 X-->
@@ -133,6 +141,19 @@
         // errorThrown : 에러메시지
       })
 
+    })
+
+
+    // 검색기능
+    // query string 작성해서 get요청
+    // 1. 검색버튼에 id를 추가
+    // 2. 그걸 누르면 현재 url 주소를 /search?value=검색어 로 이동
+    // url 주소 변경하는게 get요청이랑 똑같은 것이므로 검색버튼을 누르는 순간 /search로 get요청을 날리게 되고 value : 검색어 라는 정보가 서버로 전달되는 것!!
+    $('#search').click(function(){
+      // 1. 검색 <input>에 id를 추가
+      // 2. 그리고 거기에 사용자가 입력한 값을 query string으로 집어넣기
+      var 입력한값 = $('#search-input').val()  // input에 유저가 입력한 값
+      window.location.replace('/search?value=' + 입력한값)   // URL을 갈아치워 주세요  / get요청시 query string으로 정보전달하기
     })
 
 
