@@ -14,6 +14,9 @@
     <a v-for="a in navMenu" :key="a"> {{ a }} </a>
   </nav>
 
+  <!-- 컴포넌트 사용 -->
+  <DiscountBanner/>
+
   <!-- content -->
   <h4>부동산 사이트 만들기</h4>
   <div v-for="(a,i) in 원룸데이터" :key="i" class="content">
@@ -37,6 +40,8 @@
 // import 작명 from 경로
 // 경로로부터 작명을 가져온다.
 import data from "./assets/oneroom.js";
+import DiscountBanner from "./components/DiscountBanner.vue";
+
 
 export default {
   name: "App",
@@ -60,7 +65,10 @@ export default {
       this.추천수[i]++;
     },
   }, // , 잊지말자
-  components: {},
+  components: {
+    // 컴포넌트 사용을 위해 등록하기
+    DiscountBanner : DiscountBanner,
+  },
 };
 </script>
 
