@@ -1,30 +1,34 @@
 <template>
+<!-- 모달창 만들기 -->
+  <div class="black-bg" v-if="모달창온오프 == true">
+    <div class="white-bg">
+      <h4>상품 이름 : {{ 원룸데이터[detailCount].title }}</h4>
+      <img :src="원룸데이터[detailCount].image" style="width : 80%">
+      <p>상품 설명 : {{ 원룸데이터[detailCount].content }}</p>
+      <p>가격 : {{원룸데이터[detailCount].price}} </p>
+      <button class="btn close-btn" @click="모달창온오프 = false">❌</button>
+    </div>
+  </div>
+  <!-- nav bar -->
   <nav class="menu">
     <a v-for="a in navMenu" :key="a"> {{ a }} </a>
   </nav>
 
-  <!-- 모달창 만들기 -->
-  <div class="black-bg" v-if="모달창온오프 == true">
-    <div class="white-bg">
-      <h4>상세페이지</h4>
-      <p>상세페이지내용임</p>
-      <button class="btn close-btn" @click="모달창온오프 = false">❌</button>
-    </div>
-  </div>
-
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <!-- content -->
   <h4>부동산 사이트 만들기</h4>
-  <div v-for="(a,i) in 원룸데이터" :key="i">
+  <div v-for="(a,i) in 원룸데이터" :key="i" class="content">
     <img :src="a.image" class="room-img" />
-    <div class="content">
-      <div class="content-title" @click="모달창온오프 = true">
+    <div class="content-title" @click="모달창온오프 = true; detailCount = i">
         {{ 원룸데이터[i].title }}
-      </div>
-      <div>{{ 원룸데이터[i].price }}만원</div>
+    </div>
+
+    <div class="recommend">
       <button @click="increase(i)" class="btn">
         추천❤️ <span> {{ 추천수[i] }} </span>
       </button>
     </div>
+    <div class="price">{{ 원룸데이터[i].price }}만원</div>
+    <div style="float : none; clear : both" ></div>
   </div>
 
 </template>
@@ -44,6 +48,8 @@ export default {
       navMenu: ["Home", "Shop", "MyPage"],
       추천수: [0, 0, 0, 0, 0, 0],
       모달창온오프: false,
+      detailCount : 0,
+
     };
   },
   // 함수는 여기에다가
@@ -69,7 +75,7 @@ export default {
 }
 
 .room-img {
-  width: 80%;
+  width: 100%;
   margin-top: 30px;
 }
 
@@ -108,13 +114,23 @@ div {
 }
 
 .content {
-  margin-top: 20px;
+  width: 80%;
+  display: block;
+  margin: 20px auto 20px auto;
   letter-spacing: 1px;
   padding: 5px;
 }
 .content-title {
   font-size: 20px;
   color: rgb(29, 29, 173);
+}
+
+.recommend {
+  display: block;
+  float: left;
+}
+.price {
+  float: right;
 }
 
 .menu {
