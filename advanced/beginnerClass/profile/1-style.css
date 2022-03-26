@@ -1,0 +1,34 @@
+.profile {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;           /* 가로행을 전부 차지하게 해주세요 라는 뜻 */
+  /* 가운데 정렬 margin-left: auto; margin-right: auto; display: block; */
+}
+
+.h3 {
+  font-size: 10vw;
+  color: burlywood;
+  text-align: center;
+}
+
+.content {
+  text-align: center;
+}
+
+.box {
+  width: 200px;
+  height: 100px;
+  background: whitesmoke;
+  margin: 130px;                /* 상하좌우 바깥 여백!! */
+  padding: 40px;                /* 상하좌우 안쪽 여백!! */
+  border: 2px solid black;    /* 테두리 */
+  border-radius: 10px;          /* 테두리 둥글게 */
+  
+  margin-left: auto;
+  margin-right: auto;
+  display: block;               /* 박스에서는 display: block 기본으로 있으므로 생략 가능*/
+  text-align: center;
+  font-size: 15px;        /* div에 스타일 적용해도 자식 태그에 상속됨(적용됨)*/
+  box-shadow: 5px 5px 3px 3px teal ;
+}

@@ -1,0 +1,63 @@
+
+.flip-outer {
+  width: 400px;
+  height: 400px;
+}
+
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  transition: all 1s; /* 트랜지션 효과 */
+  transform-style: preserve-3d; /* 뒷면이 평소에도 보이는 걸 방지하기 위해 / 진짜 3D 처럼 */
+}
+
+.flip-inner:hover {
+  transform: rotateY(180deg);
+}
+
+.front {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* absolute를 이용해서 앞뒷면으로 배치 */
+  backface-visibility: hidden; /*원래 어떤 HTML 요소를 뒤집으면 뒷면의 그림자가 보이는데
+  그걸 안보이게 처리해주는 명령어 ( 이미지 뒷면 안보이게 하는 명령어) */
+}
+
+.back {
+  position: absolute; /* absolute를 이용해서 앞뒷면으로 배치 */
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 20px;
+
+  transform: rotateY(180deg);
+  /* 뒷면은 retateY(180deg)을 먼저 쥐어줘야 최종 완성본에서 마우스를 올려 회전시켰을 때 제대로 글씨가 보임.*/
+
+  background: coral;
+  border-radius: 50%;
+  box-sizing: border-box;
+
+}
+
+/* 
+1. 먼저 앞면과 뒷면 레이아웃을 각각 만든다. 
+flipouter / flipinner(싸매는 박스) / 앞면(이미지) / 뒷면(글자)에 너비, 높이 등 지정
+
+2. 앞면과 뒷면에 position: absolute를 준다.
+flipinner에 당연히 position: relative 있어야 함
+
+3. 뒷면은 rotateY(180deg)를 먼저 쥐어준다.
+그래야 최종 완성본에서 마우스를 올려 회전시켰을 때 글씨가 제대로 보임
+
+4. 그림에 마우스를 올렸을 때 Y축으로 180도 회전하도록 애니메이션을 줌
+hover시 rotateY(180deg)
+그리고 flipinner에 트랜지션 + transform-style: preserve-3d;
+
+5. 뒷면에 비치는 그림자 안보이도록 앞면에 backface-visibility: hidden; 추가
+
+6. 뒷면 꾸미기
+백그라운드 컬러, 레디우스, 박스사이징, 패딩 등
+*/
+

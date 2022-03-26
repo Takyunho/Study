@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <video controls autoplay muted>
+    <source src="bridge_m.webm" type="video/mp4"> <!-- 용량 작은순서대로 기입 -->
+    <source src="bridge.mp4" type="video/mp4">
+  </video>
+  <!-- source를 통해 비디오를 넣으면 호환성을 챙길 수 있음 -->
+  <!--
+    controls은 재생버튼 
+    autoplay는 자동재생(크롬 정책상 자동으로 재생x -> muted도 같이 기입해야함)
+    preload = ""는 페이지 방문 했을 때 미리 다운받을지 말지 정함
+    (auto, none, metadata 사용가능)
+    poster="경로"는 썸네일 이미지 정할때
+    loop은 무한 반복재생
+    스타일 적용해서 너비도 바꿀 수 있음(style="width: 100%")
+  -->
+
+  <audio controls muted>
+    <source src="bass.mp3">
+  </audio>
+  <!-- autoplay는 적용x 자바스크립트로 가능 -->
+  <!-- 그 외에 비디오와 같음 -->
+
+</body>
+
+</html>
