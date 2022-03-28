@@ -1,28 +1,29 @@
 <template>
-<!-- 모달창 만들기 -->
-  <div class="black-bg" v-if="모달창온오프 == true">
-    <div class="white-bg">
-      <h4>상품 이름 : {{ 원룸데이터[detailCount].title }}</h4>
-      <img :src="원룸데이터[detailCount].image" style="width : 80%">
-      <p>상품 설명 : {{ 원룸데이터[detailCount].content }}</p>
-      <p>가격 : {{원룸데이터[detailCount].price}} </p>
-      <button class="btn close-btn" @click="모달창온오프 = false">❌</button>
-    </div>
-  </div>
+  <!-- 모달창 -->
+  <ModalWindow :원룸데이터="원룸데이터" :ModalOnOff="ModalOnOff" :detailCount="detailCount" />
+  <!-- <ModalWindow :작명="하단의데이터이름" /> 이런 식 -->
+  <!-- 콜론(:)의 역할 1. 데이터 바인딩 2. props 전송 -->
+
   <!-- nav bar -->
   <nav class="menu">
     <a v-for="a in navMenu" :key="a"> {{ a }} </a>
   </nav>
 
   <!-- 컴포넌트 사용 -->
-  <DiscountBanner/>
+  <DiscountBanner />
 
   <!-- content -->
   <h4>부동산 사이트 만들기</h4>
-  <div v-for="(a,i) in 원룸데이터" :key="i" class="content">
+  <div v-for="(a, i) in 원룸데이터" :key="i" class="content">
     <img :src="a.image" class="room-img" />
-    <div class="content-title" @click="모달창온오프 = true; detailCount = i">
-        {{ 원룸데이터[i].title }}
+    <div
+      class="content-title"
+      @click="
+        ModalOnOff = true;
+        detailCount = i;
+      "
+    >
+      {{ 원룸데이터[i].title }}
     </div>
 
     <div class="recommend">
@@ -31,9 +32,8 @@
       </button>
     </div>
     <div class="price">{{ 원룸데이터[i].price }}만원</div>
-    <div style="float : none; clear : both" ></div>
+    <div style="float: none; clear: both"></div>
   </div>
-
 </template>
 
 <script>
@@ -41,8 +41,8 @@
 // 경로로부터 작명을 가져온다.
 import data from "./assets/oneroom.js";
 import DiscountBanner from "./components/DiscountBanner.vue";
-
-
+import ModalWindow from "./components/ModalWindow.vue";
+console.log(data);
 export default {
   name: "App",
   data() {
@@ -52,9 +52,8 @@ export default {
       원룸데이터: data,
       navMenu: ["Home", "Shop", "MyPage"],
       추천수: [0, 0, 0, 0, 0, 0],
-      모달창온오프: false,
-      detailCount : 0,
-
+      ModalOnOff: false,
+      detailCount: 0,
     };
   },
   // 함수는 여기에다가
@@ -67,7 +66,8 @@ export default {
   }, // , 잊지말자
   components: {
     // 컴포넌트 사용을 위해 등록하기
-    DiscountBanner : DiscountBanner,
+    DiscountBanner: DiscountBanner,
+    ModalWindow: ModalWindow,
   },
 };
 </script>
@@ -93,20 +93,7 @@ body {
 div {
   box-sizing: border-box;
 }
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  padding: 30px;
-}
-.white-bg {
-  width: 100%;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  position: relative;
-}
+
 .btn {
   border: none;
   background: none;
@@ -117,7 +104,8 @@ div {
   right: 5px;
   top: 5px;
 }
-.close-btn:hover, .btn:hover{
+.close-btn:hover,
+.btn:hover {
   cursor: pointer;
 }
 
