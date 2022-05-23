@@ -1,0 +1,35 @@
+@use '/Sass_study/reset';
+
+.row {
+  border: 1px solid white;
+  width: 80%;
+  margin: 20px auto 50px auto;
+}
+
+@mixin col($value) {
+  border: 1px solid rgb(211, 200, 214);
+  float: left;
+  padding: 10px;
+  background-color: rgb(240, 231, 243);
+  width: $value;
+}
+
+.row .col-6 {
+  @include col(50%);
+}
+
+.row .col-4 {
+  @include col(33.33%);
+}
+
+.row .col-3 {
+  @include col(25%);
+}
+
+.row .col-2 {
+  @include col(100% / 6);
+}
+
+.row .col-1 {
+  @include col(100% / 12);
+}

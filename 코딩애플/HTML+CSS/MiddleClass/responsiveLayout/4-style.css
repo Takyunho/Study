@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.container {
+  background: chocolate;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.contents {
+  width: 25%;
+  text-align: center;
+  float: left;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .contents {
+    width: 50%;
+  }
+  .container {
+    max-width: 700px;
+  }
+  .contents {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contents {
+    width: 100%;
+  }
+  .container {
+    max-width: 500px;
+  }
+  .contents {
+    font-size: 0.7rem;
+  }
+}

@@ -1,0 +1,205 @@
+.pseudo::first-line {
+  color: red;
+  font-size: 20px;
+}
+
+/* :pseudo-class = 다른 상태일 때 */
+/* ::pseudo-element = 내부의 일부분만 스타일을 줄 때 */
+
+/* 1. pseudo-element를 선택하려면 콜론 2개 :: 를 사용
+2. ::first-letter라고 붙이면 안에 있는 글자 중 첫 글자만 스타일을 줄 수 있음
+3. ::first-line이라고 붙이면 안에 있는 글자 중 첫 줄만 스타일을 줄 수 있음
+4. ::after라고 붙이면 내부의 맨 마지막 부분에 특정 글자같은걸 추가해줄 수 있음
+5. ::before라고 붙이면 내부의 맨 앞 부분에 특정 글자같은걸 추가해줄 수 있음. */
+
+input {
+  display: block;
+  margin-bottom: 20px;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  background: skyblue;
+  border: none;
+}
+
+input::-webkit-input-placeholder {
+  color: red;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  background-color: #eee;
+}
+input[type=range] {
+  appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;         /* 브라우저 기본 CSS 안보이게 하기 */
+  background-color: red;
+  width: 20px;
+  height: 20px;
+}
+
+progress {
+  /*기본 배경은 없애주는게 좋음*/
+  -webkit-appearance: none;
+  -moz-appearance : none;
+  appearance: none;
+  background: white;
+/* IE10 호환성용 */
+  color: red;
+}
+progress::-webkit-progress-bar {
+  background-color: lightgoldenrodyellow;
+  border-radius: 2px;
+}
+progress::-webkit-progress-value {
+  background: red;
+  border-radius: 2px;
+}
+/*파이어폭스 호환성을 위해*/
+progress::-moz-progress-bar {
+  background-color: red;
+  border-radius: 2px;
+}
+
+/* HTML 개발시 코드가 너무 복잡해지지 않기 위해 숨겨놓은 HTML 요소들이 있는데,
+이걸 Shadow DOM이라고 부름 */
+/* -webkit- 수식어는 크롬, 오페라, 사파리, Edge 브라우저에서만 동작하는 스타일을 만들고 싶을 때
+사용
+파이어 폭스는 -moz-
+익스플로러는 -ms- */
+
+/* 개발자도구에서 셀렉터를 훔쳐서 사용 */
+
+
+/* gradient progress bar */
+#btn {
+	display: block;
+	margin: 20px auto;
+	position: relative;
+	top: 45%;
+	transform: translateY(-50%);
+	font-family: "Segoe UI";
+	font-size: 20px;
+	padding: 8px 20px;
+	color: black;
+	background-color: transparent;
+	border: 1px solid black
+}
+
+#progress-bar-container {
+	width: 500px;
+	height: 60px;
+	margin: 20px auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-40%);
+	border-radius: 35px;
+	overflow: hidden;
+}
+
+.progress-bar-child {
+	width: 100%;
+	height: 100%;
+}
+
+.progress {
+	color: white;
+	text-align: center;
+	line-height: 75px;
+	font-size: 35px;
+	font-family: "Segoe UI";
+	animation-direction: reverse;
+	background: #e5405e;
+
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #e5405e 0%, #ffdb3a 45%, #3fffa2 100%);
+}
+
+.shrinker {
+	background-color: black;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+}
+
+.timelapse {
+	animation-name: timelapse;
+	animation-fill-mode: forwards;
+	animation-duration: 2s;
+	animation-timing-function: cubic-bezier(.86, .05, .4, .96);
+}
+
+@keyframes timelapse {
+	0% {
+		width: 100%;
+	}
+	100% {
+		width: 0%;
+	}
+}
+/* gradient progress bar */
+
+
+
+
+
+.product-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+
+/* Pseudo-element로 clear : both 박스 편하게 만들기 */
+.product-container::after {
+  content: '';
+  display: block;
+  clear: both;
+  float: none;
+}
+
+.product-container div {
+  width: 25%;
+  text-align: center;
+  float: left;
+  margin-bottom: 40px;
+}
+
+.product-container i {
+  background-color: burlywood;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  padding-top: 30px;
+  box-sizing: border-box;
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .product-container {
+    max-width: 700px;
+  }
+  .product-container div{
+    width: 50%;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-container {
+    max-width: 500px;
+  }
+  .product-container div {
+    width: 100%;
+    font-size: 10px;
+  }
+  #progress-bar-container {
+    width: 300px;
+  }
+  #btn {
+    margin-top: 50px;
+  }
+}

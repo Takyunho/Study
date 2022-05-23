@@ -1,9 +1,0 @@
-div {
-  box-sizing : border-box;  /*박스의 폭은 border까지 포함입니다*/
-}
-body {
-  margin : 0;  /* 배경화면 꽉차도록 마진0*/
-}
-html {
-  line-height : 1.15; /*기본 행간 높이*/
-}
