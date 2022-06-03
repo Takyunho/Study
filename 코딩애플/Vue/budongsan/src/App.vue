@@ -1,7 +1,11 @@
 <template>
   <!-- 모달창 -->
-  <ModalWindow :원룸데이터="원룸데이터" :ModalOnOff="ModalOnOff" :detailCount="detailCount" />
-  <!-- <ModalWindow :작명="하단의데이터이름" /> 이런 식 -->
+  <ModalWindow
+    :oneroomData="oneroomData"
+    :ModalOnOff="ModalOnOff"
+    :detailCount="detailCount"
+  />
+  <!-- <ModalWindow :작명="하단의데이터이름" /> 이런 식으로 작성해서 props를 하위 컴포넌트(또는 자식 컴포넌트)로 전송 -->
   <!-- 콜론(:)의 역할 1. 데이터 바인딩 2. props 전송 -->
 
   <!-- nav bar -->
@@ -14,26 +18,7 @@
 
   <!-- content -->
   <h4>부동산 사이트 만들기</h4>
-  <div v-for="(a, i) in 원룸데이터" :key="i" class="content">
-    <img :src="a.image" class="room-img" />
-    <div
-      class="content-title"
-      @click="
-        ModalOnOff = true;
-        detailCount = i;
-      "
-    >
-      {{ 원룸데이터[i].title }}
-    </div>
-
-    <div class="recommend">
-      <button @click="increase(i)" class="btn">
-        추천❤️ <span> {{ 추천수[i] }} </span>
-      </button>
-    </div>
-    <div class="price">{{ 원룸데이터[i].price }}만원</div>
-    <div style="float: none; clear: both"></div>
-  </div>
+  <CardBox :oneroomData="oneroomData" :goodCount="goodCount" @increase="increase"></CardBox>
 </template>
 
 <script>
@@ -42,16 +27,19 @@
 import data from "./assets/oneroom.js";
 import DiscountBanner from "./components/DiscountBanner.vue";
 import ModalWindow from "./components/ModalWindow.vue";
+import CardBox from './components/CardBox.vue';
 console.log(data);
+
+
 export default {
   name: "App",
   data() {
     return {
       price: [50, 40, 70],
       // products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
-      원룸데이터: data,
+      oneroomData: data,
       navMenu: ["Home", "Shop", "MyPage"],
-      추천수: [0, 0, 0, 0, 0, 0],
+      goodCount: [0, 0, 0, 0, 0, 0],
       ModalOnOff: false,
       detailCount: 0,
     };
@@ -61,14 +49,15 @@ export default {
     increase(i) {
       // this.데이터이름
       // 메소드 안에서 this는 메소드를 가지고 있는 오브젝트를 뜻한다.
-      this.추천수[i]++;
+      this.goodCount[i]++;
     },
-  }, // , 잊지말자
+  }, // 쉼표 잊지말자
   components: {
     // 컴포넌트 사용을 위해 등록하기
     DiscountBanner: DiscountBanner,
     ModalWindow: ModalWindow,
-  },
+    CardBox
+},
 };
 </script>
 
@@ -130,7 +119,7 @@ div {
 }
 
 .menu {
-  background: lightskyblue;
+  background: linear-gradient(#4a82b9, lightskyblue);
   padding: 16px;
 }
 .menu a {

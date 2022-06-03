@@ -2,10 +2,10 @@
   <!-- 모달창 만들기 -->
   <div class="black-bg" v-if="ModalOnOff == true">
     <div class="white-bg">
-      <h4>상품 이름 : {{ 원룸데이터[detailCount].title }}</h4>
-      <img :src="원룸데이터[detailCount].image" style="width: 80%" />
-      <p>상품 설명 : {{ 원룸데이터[detailCount].content }}</p>
-      <p>가격 : {{ 원룸데이터[detailCount].price }}</p>
+      <h4>상품 이름 : {{ oneroomData[detailCount].title }}</h4>
+      <img :src="oneroomData[detailCount].image" style="width: 80%" />
+      <p>상품 설명 : {{ oneroomData[detailCount].content }}</p>
+      <p>가격 : {{ oneroomData[detailCount].price }}</p>
       <!-- <button class="btn close-btn" @click="ModalOnOff = false">❌</button> -->
       <!-- props로 받아온 데이터는 read-only 상태 이므로 수정하면 안됨 -->
     </div>
@@ -16,8 +16,9 @@
 
 export default {
   name: "ModalWindow",
-  props : {
-    원룸데이터 : Array,   // props : { 데이터이름 : 자료형, }
+  //^ 부모 컴포넌트로부터 받은 데이터를 props에 등록
+  props : {               // 형식 => props : { 데이터이름(oneroomData) : 자료형(Array), () : (), ... }
+    oneroomData : Array,   
     detailCount : Number,
     ModalOnOff : Boolean,
   },
