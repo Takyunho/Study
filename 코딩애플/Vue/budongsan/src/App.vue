@@ -4,6 +4,7 @@
     :oneroomData="oneroomData"
     :ModalOnOff="ModalOnOff"
     :detailCount="detailCount"
+    @ModalOnOff="ModalOnOff = false"
   />
   <!-- <ModalWindow :작명="하단의데이터이름" /> 이런 식으로 작성해서 props를 하위 컴포넌트(또는 자식 컴포넌트)로 전송 -->
   <!-- 콜론(:)의 역할 1. 데이터 바인딩 2. props 전송 -->
@@ -18,7 +19,12 @@
 
   <!-- content -->
   <h4>부동산 사이트 만들기</h4>
-  <CardBox :oneroomData="oneroomData" :goodCount="goodCount" @increase="increase"></CardBox>
+  <CardBox
+    :oneroomData="oneroomData"
+    :ModalOnOff="ModalOnOff"
+    @ModalOnOff="ModalOnOff = true; detailCount = $event"
+    >
+  </CardBox>
 </template>
 
 <script>
@@ -39,24 +45,23 @@ export default {
       // products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
       oneroomData: data,
       navMenu: ["Home", "Shop", "MyPage"],
-      goodCount: [0, 0, 0, 0, 0, 0],
       ModalOnOff: false,
       detailCount: 0,
     };
   },
   // 함수는 여기에다가
-  methods: {
-    increase(i) {
-      // this.데이터이름
-      // 메소드 안에서 this는 메소드를 가지고 있는 오브젝트를 뜻한다.
-      this.goodCount[i]++;
-    },
-  }, // 쉼표 잊지말자
+  // methods: {
+  //   increase(i) {
+  //     // this.데이터이름
+  //     // 메소드 안에서 this는 메소드를 가지고 있는 오브젝트를 뜻한다.
+  //     this.goodCount[i]++;
+  //   },
+  // }, // 쉼표 잊지말자
   components: {
     // 컴포넌트 사용을 위해 등록하기
     DiscountBanner: DiscountBanner,
     ModalWindow: ModalWindow,
-    CardBox
+    CardBox: CardBox,
 },
 };
 </script>
