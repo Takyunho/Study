@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import "../css/Login.css";
 
 
-const LOGIN_API = 'http://203.243.17.90:5001/login';
-const SIGNUP_API = 'http://203.243.17.90:5001/register';
+// const LOGIN_API = 'http://203.243.17.90:5001/login';
+// const SIGNUP_API = 'http://203.243.17.90:5001/register';
 
 
 const Login = () => {
