@@ -6,6 +6,9 @@
     <h4>{{ blogList[$route.params.parameter].title }}</h4>
     <p>{{ blogList[$route.params.parameter].date }}</p>
     <p>{{ blogList[$route.params.parameter].content }}</p>
+    <!--! $route는 현재경로 / $router는 페이지 이동관련 기능 -->
+    <router-view></router-view>
+
   </div>
 
 </template>

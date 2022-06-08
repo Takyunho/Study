@@ -1,18 +1,15 @@
 <template>
   <!-- 글목록(WriteList) 페이지 -->
   <div class="list-container">
+    
     <div v-for="(list, i) in blogList.length" :key="i">
-      <h4>{{ blogList[i].title }}</h4>
+      <h4 class="list-title" @click="$router.push('/detail/' + i)">{{ blogList[i].title }}</h4>
+      <!--! $route는 현재경로 / $router는 페이지 이동관련 기능 -->
+      <!-- $router.go(1) = 앞으로가기 -->
+      <!-- $router.go(-1) = 뒤로가기 -->
       <p>{{ blogList[i].date }}</p>
     </div>
-    <!-- <div>
-      <h4>{{ blogList[1].title }}</h4>
-      <p>{{ blogList[1].date }}</p>
-    </div>
-    <div>
-      <h4>{{ blogList[2].title }}</h4>
-      <p>{{ blogList[2].date }}</p>
-    </div> -->
+
   </div>
   
 </template>
@@ -38,4 +35,9 @@ export default {
   .list-container {
     margin-top: 30px;
   }
+  .list-title {
+    cursor: pointer;
+  }
+
+
 </style>
