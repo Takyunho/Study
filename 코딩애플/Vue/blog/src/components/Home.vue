@@ -1,5 +1,5 @@
 <template>
-  
+  <!-- Home -->
   <div class="home-container">
     <h2>페이지 제작중</h2>
     <h2>Vue</h2>

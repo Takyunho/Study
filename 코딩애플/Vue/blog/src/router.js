@@ -13,9 +13,9 @@
 
 import { createWebHistory, createRouter } from "vue-router";
 
-import WriteList from './components/WriteList.vue'  // WriteList가져오기
+import WriteList from './components/WriteList.vue'  // WriteList 가져오기
 import Home from './components/Home.vue'    // MainHome 가져오기
-
+import Detail from './components/Detail.vue'  // Detail 가져오기
 
 const routes = [
   {
@@ -25,6 +25,10 @@ const routes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/detail",
+    component: Detail,
   }
 ];
 
