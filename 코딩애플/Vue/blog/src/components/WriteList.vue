@@ -18,8 +18,10 @@
 </template>
 
 <script>
+
+
 export default {
-  name: 'WritePost',
+  name: 'WriteList',
   data() {
     return {
 

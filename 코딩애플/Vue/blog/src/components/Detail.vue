@@ -2,19 +2,25 @@
   <!-- Detail Page -->
   <div>
     <h3>detail page</h3>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure amet laudantium atque possimus accusamus facere dolores asperiores rerum similique nisi illo eveniet a eligendi, maiores officiis temporibus! Quae, harum quisquam.</p>
+    <!-- 접속한 url의 파라미터를 박아 넣으면 된다. -->
+    <h4>{{ blogList[$route.params.parameter].title }}</h4>
+    <p>{{ blogList[$route.params.parameter].date }}</p>
+    <p>{{ blogList[$route.params.parameter].content }}</p>
   </div>
 
 </template>
 
 <script>
 export default {
+  name: 'Detail',
   data() {
     return {
 
     }
   },
-
+  props: {
+    blogList: Array,
+  },
 
 
 
