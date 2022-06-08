@@ -1,7 +1,12 @@
 <template>
   <nav class="navbar" style="background-color: #e3f2fd;">
     <div class="container-fluid">
-      <a class="navbar-brand">Navbar</a>
+      <router-link to="/" class="navbar-brand">
+        Logo
+      </router-link>
+      <router-link to="/writelist" class="navbar-brand">
+        글목록
+      </router-link>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -9,13 +14,17 @@
     </div>
   </nav>
 
-  <!-- ListPost 컴포넌트 -->
-  <WriteList :blogList="blogList"></WriteList>
+  <!-- WriteList 컴포넌트 -->
+  <!-- <WriteList :blogList="blogList"></WriteList> -->
 
+  <!-- WriteList 라우팅해서 보여주기 -->
+  <!-- 라우팅해서 보여주는 경우, 컴포넌트관련된 파일은 주석처리나 지워야함(import해온거, component에 등록해놓은거 등) -->
+  <router-view :blogList="blogList"></router-view>
+  <!-- MainHome이랑 WriteList 컴포넌트 둘다 라우팅됨 -->
 </template>
 
 <script>
-import WriteList from './components/WriteList.vue'
+// import WriteList from './components/WriteList.vue'
 import writeData from './assets/writeData.js'
 
 
@@ -27,7 +36,7 @@ export default {
     }
   },
   components: {
-    WriteList: WriteList,
+    // WriteList: WriteList,
   },
   mounted() {
 
@@ -43,5 +52,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.navbar {
+  margin-bottom: 30px;
 }
 </style>

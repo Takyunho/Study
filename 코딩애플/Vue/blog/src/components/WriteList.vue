@@ -1,17 +1,17 @@
 <template>
   <div class="list-container">
-    <div>
-      <h4>{{ blogList[0].title }}</h4>
-      <p>{{ blogList[0].date }}</p>
+    <div v-for="(list, i) in blogList.length" :key="i">
+      <h4>{{ blogList[i].title }}</h4>
+      <p>{{ blogList[i].date }}</p>
     </div>
-    <div>
+    <!-- <div>
       <h4>{{ blogList[1].title }}</h4>
       <p>{{ blogList[1].date }}</p>
     </div>
     <div>
       <h4>{{ blogList[2].title }}</h4>
       <p>{{ blogList[2].date }}</p>
-    </div>
+    </div> -->
   </div>
   
 </template>
