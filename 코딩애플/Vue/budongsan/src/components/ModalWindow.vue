@@ -65,6 +65,12 @@ export default {
     ModalOnOff: Boolean,
     
   },
+  updated() {
+    if (this.month == 2) {
+      alert('2개는 안되요');
+      this.month = 1; // 초기값 1로 다시
+    }
+  },
   
 };
 

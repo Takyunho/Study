@@ -16,7 +16,7 @@
       />  
     </transition>
   <!-- </div> -->
-  <!-- <ModalWindow :작명="하단의데이터이름" /> 이런 식으로 작성해서 props를 하위 컴포넌트(또는 자식 컴포넌트)로 전송 -->
+  <!--! <ModalWindow :작명="하단의데이터이름" /> 이런 식으로 작성해서 props를 하위 컴포넌트(또는 자식 컴포넌트)로 전송 -->
   <!-- 콜론(:)의 역할 1. 데이터 바인딩 2. props 전송 -->
 
   <!-- nav bar -->
@@ -25,7 +25,7 @@
   </nav>
 
   <!-- 컴포넌트 사용 -->
-  <DiscountBanner />
+  <DiscountBanner v-if="showDiscount == true" />
 
   <!-- 정렬 버튼 -->
   <button @click="priceSort()">가격순 정렬하기</button>
@@ -64,6 +64,7 @@ export default {
       navMenu: ["Home", "Shop", "MyPage"],
       ModalOnOff: false,
       detailCount: 0,
+      showDiscount: true,
     };
   },
   // 함수는 여기에다가
@@ -105,7 +106,15 @@ export default {
     DiscountBanner: DiscountBanner,
     ModalWindow: ModalWindow,
     CardBox: CardBox,
-},
+  },
+  // mounted() { // lifecycle hook
+  //   // mount되고 나서 코드 실행
+  //   setTimeout( ()=> {  // x초 후에 뭔가 실행할 때
+  //     console.log(this);  // arrow function으로 사용해야함 / 일반함수 사용시 this는 윈도우가 된다.
+  //     this.showDiscount = false;
+  //   }, 2000)
+  // },
+  // => DiscountBanner.vue로 이동시켰음
 };
 </script>
 
