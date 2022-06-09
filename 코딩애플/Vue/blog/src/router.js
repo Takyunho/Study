@@ -20,6 +20,7 @@ import Detail from './components/Detail.vue'  // Detail 가져오기
 import ErrorPage from './components/ErrorPage.vue'    // ErrorPage 가져오기
 import Author from './components/Author.vue'
 import Comment from './components/Comment.vue'
+import MyPage from './components/MyPage.vue'
 
 
 const routes = [
@@ -50,7 +51,16 @@ const routes = [
         path: "comment",
         component: Comment,
       }
-    ]
+    ],
+    beforeEnter: () => {
+      console.log('네비게이션 가드');
+      return false // 페이지 이동 중단
+    }
+
+  },
+  {
+    path: "/mypage",
+    component: MyPage,
   },
   // 같은 라우터에 걸리면 위에 있는걸 적용시킨다. 따라서, 404 페이지같은 경우 맨 아래에 기재하자.
   {
@@ -75,6 +85,7 @@ const router = createRouter({
   */
   routes,
 });
+
 
 export default router; 
 
@@ -148,4 +159,23 @@ beforeRouteUpdate(to, from){}
 파라미터는 두개 입력가능하다.
 첫째 파라미터 = to = 목적지 페이지
 둘째 파라미터 = form = 출발 페이지
+
+예제
+
+const Login = {
+  template: '<p>Login Component</p>',
+  beforeRouteEnter (to, from, next) {
+    Login 컴포넌트가 화면에 표시되기 전에 수행될 로직
+    Login 컴포넌트는 아직 생성되지 않은 시점
+  },
+  beforeRouteUpdate (to, from, next) {
+    화면에 표시된 컴포넌트가 변경될 때 수행될 로직
+    `this`로 Login 컴포넌트를 접근할 수 있음
+  },
+  beforeRouteLeave (to, from, next) {
+    Login 컴포넌트를 화면에 표시한 url 값이 변경되기 직전의 로직
+    `this`로 Login 컴포넌트를 접근할 수 있음
+  }
+}
+
 */

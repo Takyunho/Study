@@ -7,6 +7,10 @@
       <router-link to="/writelist" class="navbar-brand">
         글목록
       </router-link>
+      <!-- <router-link to="/mypage" class="navbar-brand">
+        MyPage
+      </router-link> -->
+      <h3 @click="$router.push('/mypage')">MyPage</h3>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
