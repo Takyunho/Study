@@ -1,11 +1,14 @@
 <template>
   <div class="post">
+
     <div class="post-header">
       <div class="profile" :style="{ backgroundImage : `url(${data.userImage})`}"></div>
       <!-- style 데이터 바인딩 할때 :붙이고, {} 안에 키 : 값 형태로 가능 ( {{}} X) -->
       <span class="profile-name">{{data.name}}</span>
     </div>
+
     <div class="post-body" :style="{ backgroundImage : `url(${data.postImage})`}"></div>
+    
     <div class="post-content">
       <p>{{data.likes}} Likes</p>
       <p><strong>{{data.name}}</strong>{{data.content}}</p>
