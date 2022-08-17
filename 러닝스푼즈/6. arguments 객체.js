@@ -4,6 +4,8 @@
 function sumof() {
   var total = 0;
   for (var i = 0; i < arguments.length; i++) {
+    console.log(arguments)
+    console.log(arguments.length)
     total = total + arguments[i];
     // ^ 직접 파라미터를 넣는게 아니라, arguments를 이용해서 가변적으로 인자들을 접근할 수 있다.
   }
