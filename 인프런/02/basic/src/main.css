@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+}
+
+/* 캔버스를 그대로 놔두면 스클로바가 생길 수 있으므로 아래처럼 설정 */
+#three-cnavas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
