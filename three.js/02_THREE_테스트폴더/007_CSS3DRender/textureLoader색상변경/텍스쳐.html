@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script> -->
+</head>
+<body>
+  <canvas id="three-canvas"></canvas>
+
+
+  <script type="importmap">{
+    "imports": {
+      "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+      "GLTFLoader": "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+      "CSS3D": "https://unpkg.com/three@0.141.0/examples/jsm/renderers/CSS3DRenderer.js",
+      "OrbitControls": "https://unpkg.com/three@0.141.0/examples/jsm/controls/OrbitControls.js",
+      "TrackballControls": "https://unpkg.com/three@0.141.0/examples/jsm/controls/TrackballControls.js"
+    }
+}</script>
+  <script defer type="module">
+  import { GLTFLoader } from 'GLTFLoader';
+import * as THREE from 'three';
+import { OrbitControls } from "OrbitControls";
+
+
+document.body.style.margin = "0px";
+document.body.style.overflow = "hidden";
+const canvas = document.querySelector('#three-canvas');
+
+var 장면 = new THREE.Scene();
+var 카메라 = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+카메라.position.y = 2;
+
+var 렌더 = new THREE.WebGLRenderer({
+  canvas,
+  antialias: true
+});
+렌더.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(렌더.domElement);
+
+
+// Light
+const ambientLight = new THREE.AmbientLight('white', 0.5);
+	장면.add(ambientLight);
+
+	const directionalLight = new THREE.DirectionalLight('white', 1);
+	directionalLight.position.x = 1;
+	directionalLight.position.z = 2;
+	장면.add(directionalLight);
+
+	const controls = new OrbitControls(카메라, 렌더.domElement);
+
+// var 박스 = new THREE.Mesh(
+//   new THREE.BoxBufferGeometry(1, 1, 1),
+//   new THREE.MeshBasicMaterial({color: 0x00ff00})
+// );
+// 박스.position.set(0, 0, 2);
+// 장면.add(박스);
+
+// var 원뿔 = new THREE.Mesh(
+//   new THREE.ConeBufferGeometry(1, 1, 32),
+//   new THREE.MeshBasicMaterial({color: 0xffff00})
+// );
+// 원뿔.position.set(-2, 0, 0);
+// 장면.add(원뿔);
+
+// var 공 = new THREE.Mesh(
+//   new THREE.SphereBufferGeometry(1, 16, 16),
+//   new THREE.MeshBasicMaterial({color: 0xff0000})
+// );
+// 공.position.set(2, 0, 0);
+// 장면.add(공);
+
+// var 원기둥= new THREE.Mesh(
+//   new THREE.CylinderBufferGeometry(0.5, 0.5, 1, 16),
+//   new THREE.MeshBasicMaterial({color: 0x0000ff})
+// );
+// 원기둥.position.set(0, 0, -2);
+// 장면.add(원기둥);
+
+// var 판 = new THREE.Mesh(
+//   new THREE.PlaneBufferGeometry(1, 1),
+//   new THREE.MeshBasicMaterial({
+//     color: 0xffffff,
+//     side: THREE.DoubleSide
+//   })
+// );
+// 판.position.set(0,1.5,0);
+// 장면.add(판);
+
+var 스프라이트 = new THREE.Sprite(
+  new THREE.SpriteMaterial({
+    map: new THREE.TextureLoader().load("./그림1.png"),
+    color: 0xffffff
+  })
+);
+스프라이트.position.x = 0;
+스프라이트.position.y = 0;
+스프라이트.position.z = 1;
+console.log(스프라이트)
+장면.add(스프라이트);
+
+const meshes = [스프라이트];
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+
+window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize() {
+  카메라.aspect = window.innerWidth / window.innerHeight;
+  카메라.updateProjectionMatrix();
+
+  렌더.setSize(window.innerWidth, window.innerHeight);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  var speed = Date.now() * 0.00025;
+  카메라.position.x = Math.cos(speed) * 5;
+  카메라.position.z = Math.sin(speed) * 5;
+  카메라.lookAt(장면.position);
+
+  렌더.render(장면, 카메라);
+}
+
+animate();
+
+var colors = [
+  0xffffff,
+  0xff0000,
+  0xffff00,
+  0x0000ff,
+  0x000000
+];
+
+setInterval(function(){
+  스프라이트.material.color.set( colors[ Math.floor(Math.random() * 5)] );
+}, 1000);
+
+  </script>
+</body>
+</html>

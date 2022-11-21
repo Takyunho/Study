@@ -1,0 +1,128 @@
+body {
+  background-color: #252525;
+  margin: 0;
+  overflow: hidden;
+  height: 3000px;
+  color: #fff;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+button {
+  font-size: 2px;
+  /* border-radius: 100%; */
+}
+
+#three-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+}
+
+/* #plotly {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  background-color: #7666;
+  width: 100%;
+  height: 300px;
+  color: #fff;
+} */
+
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+
+@-webkit-keyframes pulse2 {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.8);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+@keyframes pulse2 {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.4);
+    box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.4);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+.alarmDot {
+  width: 10px;
+  height: 10px;
+  /* background-color: #ff0000; */
+  border-radius: 100%;
+  opacity: 100%;
+  /* position: absolute;
+  top: 38px;
+  left: 38px; */
+  border: none;
+
+}
+.animate_red {
+  animation: pulse 2s infinite;
+}
+.animate_green {
+  animation: pulse2 2s infinite;
+}
+.noAnimate {
+  animation: none;
+}
+
+
+
+  /* 플로틀리차트 */
+
+  /* 전체 */
+  .container {
+    /* width: 100%; */
+    /* background-color: #333; */
+    /* display: flex; */
+    transition: .5s;
+  }
+
+  .plotly-chart {
+    background-color: #333;
+  }
+
+  .modebar,
+  .none {
+    display: none;
+  }

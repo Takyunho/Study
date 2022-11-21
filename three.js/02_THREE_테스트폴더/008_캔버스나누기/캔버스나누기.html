@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./캔버스.css">
+</head>
+
+<body>
+  <!-- css3dRenderer가 위에 와야함 -->
+  <!-- 그리고 나서 webGLRenderer가 와야함 -->
+  <div id="css3D"></div>
+  <div id="three-canvas"></div>
+
+  <div id="plotly">
+    차트넣기2
+  </div>
+  
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+        "GLTFLoader": "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+        "CSS3D": "https://unpkg.com/three@0.141.0/examples/jsm/renderers/CSS3DRenderer.js",
+        "OrbitControls": "https://unpkg.com/three@0.141.0/examples/jsm/controls/OrbitControls.js",
+        "TrackballControls": "https://unpkg.com/three@0.141.0/examples/jsm/controls/TrackballControls.js"
+      }
+    }
+  </script>
+
+  <script defer type="module" src="./캔버스나누기.js"></script>
+  
+</body>
+
+</html>

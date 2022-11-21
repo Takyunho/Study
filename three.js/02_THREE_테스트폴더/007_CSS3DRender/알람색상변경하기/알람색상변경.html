@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: black;
+    }
+    @-webkit-keyframes pulse {
+  0% {
+      -webkit-box-shadow: 0 0 0 0 rgba( 255, 0, 0, .8);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 15px rgba( 255, 0, 0, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba( 255, 0, 0, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+      -moz-box-shadow: 0 0 0 0 rgba( 255, 0, 0, 0.4);
+      box-shadow: 0 0 0 0 rgba( 255, 0, 0, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 15px rgba( 255, 0, 0, 0);
+      box-shadow: 0 0 0 15px rgba( 255, 0, 0, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba( 255, 0, 0, 0);
+      box-shadow: 0 0 0 0 rgba( 255, 0, 0, 0);
+  }
+}
+.alarmDot {
+  width: 10px;
+  height: 10px;
+  background-color:#FF0000;
+  border-radius: 5px;
+  opacity:100%;
+  position:absolute;
+  top:38px;
+  left:38px;
+}
+.animate {
+  animation: pulse 2s infinite;
+}
+.noAnimate {
+  animation: none;
+}
+  </style>
+</head>
+<body>
+  
+  <div id="alarm"></div>
+  <script>
+
+    // let cmd = 'http://183.111.79.76:8086/query?db=idbSensor&q=select time, fire, img_name from fireState where time <= now() and time >= now()-10m order by time desc limit 1'
+// let image = '';
+
+// function setLamp() {
+//     fetch(cmd)
+//     .then(response => response.json())
+//     .then(parsedResponse => {
+//         console.log(parsedResponse)
+//         value = parsedResponse.results[0].series[0].values[0];
+//         image = value[2];
+//         console.log(image)
+//         // document.getElementById("alarm").addEventListener('click',function(){
+//         //     window.open("http://idb.ai:5000/get_image?fn="+image, "a", "width=800, height=500, left=100, top=50"); 
+//         // })
+
+//         setColor(value[1])
+//     })
+//     .catch( error => {
+//         document.getElementById("alarm").style = "background-color: #A0A1A3"
+//         document.getElementById("alarm").className = "noAnimate alarmDot"
+//         document.getElementById("alarm").style.transition = "all .5s";
+//         console.log(error)
+//     });
+// }
+
+setColor(1);
+function setColor(){
+    if (false) {
+        document.getElementById("alarm").style = "background-color: #FF0000"
+        document.getElementById("alarm").className = "animate alarmDot"
+        document.getElementById("alarm").style.transition = "all .5s";
+    } else {
+        document.getElementById("alarm").style = "background-color: #00B34A"
+        document.getElementById("alarm").className = "noAnimate alarmDot"
+        document.getElementById("alarm").style.transition = "all .5s";
+    }
+}
+  </script>
+</body>
+</html>

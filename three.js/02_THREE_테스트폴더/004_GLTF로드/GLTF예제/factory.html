@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #info {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      z-index: 100;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="canvas" width="1200" height="800"></canvas>
+  <div id="info">Description</div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+        "GLTFLoader": "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import { GLTFLoader } from 'GLTFLoader';
+    import * as THREE from 'three';
+    import {
+      OrbitControls
+    } from "https://cdn.jsdelivr.net/npm/three@0.124/examples/jsm/controls/OrbitControls.js";
+
+    // 장면
+    let scene = new THREE.Scene();
+    // 렌더링
+    let renderer = new THREE.WebGLRenderer({
+      canvas: document.querySelector('#canvas'),
+      antialias: true
+    });
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    // 카메라
+    let camera = new THREE.PerspectiveCamera(20, 1);
+    camera.position.set(-5, 0, 30)
+
+    // 조명
+    scene.background = new THREE.Color('#eee');
+    let light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(1, 1, 30) // 조명이 중요
+    scene.add(light)
+
+    // 마우스 드래그와 휠
+    let controls = new OrbitControls(camera, renderer.domElement);
+    console.log(renderer.domElement)
+
+    // 로더
+    let loader = new GLTFLoader();
+
+    loader.load('../factory/scene.gltf', function (gltf) {
+      scene.add(gltf.scene);
+
+      // const material = new THREE.MeshLambertMaterial({ color: 0xFF3030 })
+      function animate() {
+        requestAnimationFrame(animate);
+        // gltf.scene.rotation.y -= 0.01;
+
+        renderer.render(scene, camera);
+        controls.update();
+      }
+      animate();
+
+    });
+
+
+
+
+
+  </script>
+</body>
+
+</html>
