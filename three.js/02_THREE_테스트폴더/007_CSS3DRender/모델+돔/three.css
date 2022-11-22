@@ -1,48 +1,87 @@
 body {
-  background-color: #252525;
   margin: 0;
   overflow: hidden;
   height: 3000px;
   color: #fff;
   font-family: "Noto Sans KR", sans-serif;
+  box-sizing: border-box;
 }
 
-button {
-  font-size: 2px;
-  /* border-radius: 100%; */
-}
-
-
+/* 전체 */
 .container {
   display: flex;
-  width: 100%;
-  
-}
-#css {
-
+  width: 100vw;
 }
 
+/* 오른쪽 차트 나오는 부분 */
 .content {
-  width: 400px;
+  /* width: 400px; */
+  width: 100vw;
+  height: 100vh;
+  background-color: #0A1221;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  /* overflow-y: scroll; */
 }
 
-/* #css > div > div > div:nth-child(1) {
-  border-radius: 20px !important;
-} */
+/* 차트의 제목부분 */
+.content h3 {
+  text-align: center;
+}
 
-/* #plotly {
+/* 차트나오는 부분 */
+.chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  margin: 0 20px 20px;
+  padding: 20px;
+  position: relative;
+  background-color: #ccc;
+}
+
+
+/* 플로틀리차트 스타일 */
+.plotly-chart {
+  /* background-color: #ccc; */
+  /* width: 100%; */
+  background-color: transparent;
+  /* color: #333;/ */
+  transition: .5s;
+}
+
+/* 플로틀리차트 위의 밑줄 */
+.line {
+  width: 96%;
+  height: 30px;
+  border-bottom: 1px solid #999;
   position: absolute;
   top: 0;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-  background-color: #7666;
-  width: 100%;
-  height: 300px;
-  color: #fff;
-} */
+}
 
+/* 닫기버튼 */
+.close-btn {
+  width: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  font-size: 24px;
+  transition: .5s;
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
+.close-btn:hover {
+  color: red;
+}
 
+/* 알람(버튼) */
 @-webkit-keyframes pulse {
   0% {
     -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
@@ -118,24 +157,7 @@ button {
 }
 
 
-
-  /* 플로틀리차트 */
-
-  /* 전체 */
-  .container {
-    /* width: 100%; */
-    /* background-color: #333; */
-    /* display: flex; */
-    transition: .5s;
-  }
-
-  .plotly-chart {
-    background-color: #ccc;
-    border-radius: 20px;
-    color: #333;
-  }
-
-  .modebar,
-  .none {
-    display: none;
-  }
+.modebar,
+.none {
+  display: none;
+}
