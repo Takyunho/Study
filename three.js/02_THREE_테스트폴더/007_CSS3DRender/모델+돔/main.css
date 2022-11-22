@@ -12,12 +12,23 @@ button {
   /* border-radius: 100%; */
 }
 
-#three-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60%;
+
+.container {
+  display: flex;
+  width: 100%;
+  
 }
+#css {
+
+}
+
+.content {
+  width: 400px;
+}
+
+/* #css > div > div > div:nth-child(1) {
+  border-radius: 20px !important;
+} */
 
 /* #plotly {
   position: absolute;
@@ -89,7 +100,7 @@ button {
   height: 10px;
   /* background-color: #ff0000; */
   border-radius: 100%;
-  opacity: 100%;
+  /* opacity: 100%; */
   /* position: absolute;
   top: 38px;
   left: 38px; */
@@ -119,7 +130,9 @@ button {
   }
 
   .plotly-chart {
-    background-color: #333;
+    background-color: #ccc;
+    border-radius: 20px;
+    color: #333;
   }
 
   .modebar,

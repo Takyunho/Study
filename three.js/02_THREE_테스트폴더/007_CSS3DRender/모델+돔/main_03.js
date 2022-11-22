@@ -37,10 +37,12 @@ function init() {
 
   //! 렌더러2 
   renderer2 = new CSS3DRenderer();  //^ import 해서 쓰는경우 THREE를 제거해야한다.
-  renderer2.setSize(window.innerWidth, window.innerHeight);
+  // renderer2.setSize(window.innerWidth, window.innerHeight);
+  renderer2.setSize(900, 500);
   renderer2.domElement.style.position = "absolute";
   // renderer2.domElement.style.top = 500;
-  document.querySelector("#css").appendChild(renderer2.domElement);
+  const css = document.querySelector("#css");
+  css.appendChild(renderer2.domElement);
 
   //! 렌더러
   renderer = new THREE.WebGLRenderer({
@@ -48,7 +50,8 @@ function init() {
     antialias: true
   });
   renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1 );  
-  renderer.setSize(window.innerWidth, window.innerHeight); 
+  // renderer.setSize(window.innerWidth, window.innerHeight); 
+  renderer.setSize(900, 500); 
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
   document.querySelector("#webgl").appendChild(renderer.domElement);  //* 필수
@@ -69,9 +72,9 @@ function init() {
   //^ gltf 불러오기
   const gltfloader = new GLTFLoader();
   gltfloader.load(
-    './Machine_AMR.glb',  // T2V 올릴때 경로
     // './models/domino.glb',
-    // './models/Machine_AMR.glb',
+    // './Machine_AMR.glb',  // T2V 올릴때 경로
+    './models/Machine_AMR.glb',
     gltf => {
       // console.log("gltf : ", gltf)
       console.log("gltf : ", gltf.scene)
@@ -90,63 +93,7 @@ function init() {
       // cube.material.depthWrite = false;
       // cube.material.side = THREE.FrontSide;
 
-
-      //^ 버튼 1
-      let button = makeElementObject('div', 12, 12)
-      console.log("버튼1 : ", button)
-      button.css3dObject.element.style.border = 'none'
-      button.css3dObject.element.style.borderRadius = '100%'
-      button.css3dObject.element.style.cursor = 'pointer'
-      button.css3dObject.element.style.transition = 'all .5s'
-      button.position.x = 125;  //* x축
-      button.position.y = -18;  //* y축
-      button.position.z = 70;  //* z축
-      button.rotation.y = 1.6;
-      //@ 상태에 따라 색 변경
-      if (false) {
-        button.css3dObject.element.className = "animate_red alarmDot"
-        button.css3dObject.element.style.background = new THREE.Color("#FF0000").getStyle();
-      } else {
-        button.css3dObject.element.className = "animate_green alarmDot"
-        button.css3dObject.element.style.background = new THREE.Color("#00B34A").getStyle();
-      }
-      scene.add(button)
-      
-
-      // 차트 div박스
-      let chartBox = makeElementObject('div', 600, 240);
-
-      //@ 버튼 이벤트리스너
-      button.css3dObject.element.addEventListener('pointerdown', () => { 
-        console.log("클릭111")
-        chartBox.css3dObject.element.style.border = '1px'
-        // chartBox.css3dObject.element.style.borderRadius = '20px'
-        chartBox.css3dObject.element.style.transition = 'all .5s'
-        chartBox.css3dObject.element.innerHTML =
-        `<div id="plotly" class="container">
-          <div id="myPlot" class="plotly-chart"></div>
-        </div>`
-        // console.log("엘리먼트스타일 : ", chartBox.css3dObject.element.style)
-        // chartBox.position.set(400, -25, -150)
-        chartBox.position.x = 530;
-        // chartBox.rotation.y = 0.6;
-        // chartBox.rotation.y = 1.6;
-        // chartBox.rotation.y = 0.9;
-
-      //   button.position.x = 125;  //* x축
-      // button.position.y = -18;  //* y축
-      // button.position.z = 70;  //* z축
-      // button.rotation.y = 1.6;
-
-        button.add(chartBox)
-        getDataAndDrawChart();
-      }, false )
-      
-      // chartBox.css3dObject.element.addEventListener('pointerdown', () => {
-      //   chartBox.css3dObject.element.innerHTML = ""
-      //   scene.remove(chartBox)
-      // })
-
+      // 
       function animate2() {
         const animation = requestAnimationFrame(animate2);
         // console.log(animation)
@@ -168,9 +115,67 @@ function init() {
   )
     
   //~ 버튼 만드는 부분
+  //^ 버튼 1
+  let button = makeElementObject('div', 12, 12)
+  console.log("버튼1 : ", button)
+  button.css3dObject.element.style.border = 'none'
+  button.css3dObject.element.style.borderRadius = '100%'
+  button.css3dObject.element.style.cursor = 'pointer'
+  button.css3dObject.element.style.transition = 'all .5s'
+  button.position.x = 125;  //* x축
+  button.position.y = -18;  //* y축
+  button.position.z = 70;   //* z축
+  button.rotation.y = 1.6;
+  //@ 상태에 따라 색 변경
+  if (false) {
+    button.css3dObject.element.className = "animate_red alarmDot"
+    button.css3dObject.element.style.background = new THREE.Color("#FF0000").getStyle();
+  } else {
+    button.css3dObject.element.className = "animate_green alarmDot"
+    button.css3dObject.element.style.background = new THREE.Color("#00B34A").getStyle();
+  }
+  scene.add(button)
   
 
-  // pointerdown
+  // 차트 div박스
+  let chartBox = makeElementObject('div', 600, 240);
+  console.log(chartBox)
+  chartBox.css3dObject.element.style.borderRadius = '20';
+  // chartBox.css3dObject.element.style.opacity = 0;
+
+  //@ 버튼 이벤트리스너
+  button.css3dObject.element.addEventListener('mouseover', () => { 
+    console.log("클릭111")
+
+
+    // chartBox.css3dObject.element.style.border = '1px'
+    chartBox.css3dObject.element.style.transition = 'all .5s'
+    chartBox.css3dObject.element.innerHTML =
+    `<div id="plotly" class="container">
+      <div id="myPlot" class="plotly-chart"></div>
+    </div>`
+    // console.log("엘리먼트스타일 : ", chartBox.css3dObject.element.style)
+    // chartBox.position.set(400, -25, -150)
+    chartBox.position.x = 530;
+    chartBox.position.y = 40;
+    // chartBon.position.x = 125;  //* x축
+  // button.position.y = -18;  //* y축
+  // button.position.z = 70;  //* z축
+  // button.rotation.y = 1.6;
+
+    button.add(chartBox)
+    getDataAndDrawChart();
+  }, false )
+  
+  // 차트 안보이게 하기
+  // chartBox.css3dObject.element.addEventListener('pointerdown', () => {
+  //   chartBox.css3dObject.element.innerHTML = ""
+  //   scene.remove(chartBox)
+  // })x.rotation.y = 0.6;
+    // chartBox.rotation.y = 1.6;
+    // chartBox.rotation.y = 0.9;
+
+
 
   // //^ 버튼 2
   // let button_1 = makeElementObject('div', 5, 5);
@@ -265,8 +270,10 @@ function init() {
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer2.setSize(window.innerWidth, window.innerHeight);
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+  // renderer2.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(900, 500);
+  renderer2.setSize(900, 500);
   render();
 }
 
@@ -324,8 +331,6 @@ function makeElementObject(type, width, height) {
 
 
 //! 플로틀리차트 그리기
-
-
 // const urlParams = new URLSearchParams(window.location.search);
 
 // let dt = urlParams.get('dt');
@@ -442,7 +447,7 @@ function drawAll() {
       x: [pnr_end_dt[index], pnr_end_dt[index]],
       y: [index, index],
       // text: [`${norun_code[index]}`], textfont: { size: 17, color: '#3b4fff',  }
-      text: [`${norun_code[index]}`], textfont: { size: 16, color: '#fff', }
+      text: [`${norun_code[index]}`], textfont: { size: 16, color: '#333', }
     }
     data.push(norun_codeObj[`norun_code${index}`]);
   })
@@ -489,7 +494,7 @@ function drawAll() {
     showlegend: false,
     paper_bgcolor: 'rgba(0,0,0,0)',
     plot_bgcolor: 'rgba(0,0,0,0)',
-    font: { family: 'Noto Sans KR', size: 20, color: '#fff', weight: 800 },
+    font: { family: 'Noto Sans KR', size: 20, color: '#333', weight: 800 },
     // hovermode: 'x',
     // clickmode: "event"
     // annotations,
