@@ -26,34 +26,23 @@
 <body>
   <!-- css3dRenderer가 위에 와야함 -->
   <!-- 그리고 나서 webGLRenderer가 와야함 -->
-  <div class="container">
+  <!-- <div class="container"> -->
+
     <!-- canvas -->
     <div id="css"></div>
     <div id="webgl"></div>
+
     <!-- chart -->
-    <div id="content" class="content">
-      <h3>차트</h3>
-      <div id="chart" class="chart none">
-        <div class="line">
-          <button id="closeBtn" class="close-btn">X</button>
-        </div>
-        <div>
+      <div id="content" class="content">
+        <div id="chart" class="chart none">
+          <div class="line">
+            <button id="closeBtn" class="close-btn">X</button>
+          </div>
           <div id="myPlot" class="plotly-chart"></div>
         </div>
       </div>
 
-      <!-- <div id="chart2" class="chart2 none">
-        <div class="line">
-          <button id="closeBtn2" class="close-btn close-btn2">X</button>
-        </div>
-        <div>
-          <div id="myPlot2" class="plotly-chart"></div>
-        </div>
-      </div>
-
-      <div id="chart3" class="chart3">차트 3입니다.</div> -->
-    </div>
-  </div>
+  <!-- </div> -->
 
   <script defer type="module" src="./three.js"></script>
   <!-- <script defer type="module" src="./plotly.js"></script> -->

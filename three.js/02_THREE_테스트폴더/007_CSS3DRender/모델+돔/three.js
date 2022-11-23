@@ -15,17 +15,17 @@ function init() {
   
   //! scene(장면)
   scene = new THREE.Scene();  //* 장면 생성
-  scene.background = new THREE.Color('#0A1221')
+  scene.background = new THREE.Color('#2e2861')
 
 
   //! 카메라(camera)
   const fov = 45;
-  const aspect = (window.innerWidth / 1.7) / window.innerHeight;
+  const aspect = window.innerWidth / window.innerHeight;
   const near = 0.1;
   const far = 5000;
   //* 원근 카메라
   camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-  camera.position.set(0, 0, 900); //* 카메라 포지션 x, y, z
+  camera.position.set(900, 0, 900); //* 카메라 포지션 x, y, z
   scene.add(camera)
 
 
@@ -48,7 +48,7 @@ function init() {
   //! 렌더러2 
   renderer2 = new CSS3DRenderer();
   // renderer2.setSize(window.innerWidth, window.innerHeight);
-  renderer2.setSize(window.innerWidth / 1.7, window.innerHeight);
+  renderer2.setSize(window.innerWidth, window.innerHeight);
   renderer2.domElement.style.position = "absolute";
   // renderer2.domElement.style.top = 500;
   const css = document.querySelector("#css");
@@ -62,7 +62,7 @@ function init() {
   });
   renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1 );  
   // renderer.setSize(window.innerWidth, window.innerHeight); 
-  renderer.setSize(window.innerWidth / 1.7, window.innerHeight); 
+  renderer.setSize(window.innerWidth, window.innerHeight); 
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
   document.querySelector("#webgl").appendChild(renderer.domElement);  //* 필수
@@ -71,15 +71,19 @@ function init() {
 
 
   //! OrbitControls
-  controls = new OrbitControls(camera, renderer2.domElement);
-  // console.log(controls)
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.screenSpacePanning = false;
-  // controls.minDistance = 100;  // 최소 확대
-  // controls.maxDistance = 500;  // 최대 확대
-  // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
-  controls.addEventListener('change', render);
+  control();
+  function control() {
+    controls = new OrbitControls(camera, renderer2.domElement);
+    // console.log(controls)
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 600;  // 최소 확대
+    controls.maxDistance = 800;  // 최대 확대
+    // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
+    controls.addEventListener('change', render);
+  }
+  
 
   //^ gltf 불러오기
   const gltfloader = new GLTFLoader();
@@ -97,7 +101,7 @@ function init() {
       mesh.scale.x = 100;
       mesh.scale.y = 100;
       mesh.scale.z = 100;
-      mesh.position.set(0, -100, 0);
+      mesh.position.set(0, -150, 0);
 
       // gltf파일을 티가 안나게 돌리는 부분
       const animate2 = () => {
@@ -123,31 +127,41 @@ function init() {
   //^ 버튼 1
   let button1 = makeElementObject('div', 6, 6)
   // console.log("버튼1 : ", button1)
-  button1.css3dObject.element.style.cursor = 'pointer'
-  button1.position.x = 84.5;  //* x축
-  button1.position.y = 21;  //* y축
-  button1.position.z = 65;   //* z축
+  button1.css3dObject.element.style.cursor = 'pointer';
+  button1.position.x = 84.2;  //* x축
+  button1.position.y = -29;  //* y축
+  button1.position.z = 65.3;   //* z축
   button1.rotation.y = 1.6;
   scene.add(button1)
   
   //@ 버튼1 이벤트리스너
-  // const content = document.getElementById("content");
-  const chart = document.getElementById("chart");
+  // const content = document.getElementById('content');
+  // const chart = document.getElementById('chart');
   const closeBtn = document.getElementById('closeBtn');
+
   // 차트1 보이게 하기
   button1.css3dObject.element.addEventListener('pointerdown', () => { 
     console.log("클릭1")
-    chart.classList.remove("none");
+
     getDataAndDrawChart(5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
+    jQuery('#chart').show();
+    // chart.classList.remove("none");
   }, false )
   
+
+  //^ 닫기 버튼 클릭시 차트 안보이게 하기
+  closeBtn.addEventListener('click', () => {
+    document.getElementById('myPlot').textContent = "";
+    jQuery('#chart').hide();
+    // chart.classList.add('none');
+  })
 
   //^ 버튼 2
   let button2 = makeElementObject('div', 6, 6);
   // console.log("버튼 2 : ", button2)
-  button2.css3dObject.element.style.cursor = 'pointer'
+  button2.css3dObject.element.style.cursor = 'pointer';
   button2.position.x = 84.5;  //* x축
-  button2.position.y = 21;  //* y축
+  button2.position.y = -29;  //* y축
   button2.position.z = 56.3;   //* z축
   button2.rotation.y = 1.6;
   scene.add(button2)
@@ -156,8 +170,8 @@ function init() {
   // 차트2 보이게 하기
   button2.css3dObject.element.addEventListener('pointerdown', () => { 
     console.log("클릭2")
-    chart.classList.remove("none");
     getDataAndDrawChart(5110, '45940-2F200'); // 눌렀을 때 파라미터에 pcd, icd 전달
+    jQuery('#chart').show();
   }, false )
   
   
@@ -174,11 +188,7 @@ function init() {
     button2.css3dObject.element.style.background = new THREE.Color("#FF0000").getStyle();
   }
 
-  //^ 닫기 버튼 클릭시 차트 안보이게 하기
-  closeBtn.addEventListener('click', () => {
-    document.getElementById('myPlot').textContent = "";
-    chart.classList.add('none');
-  })
+  
 
 
   //~ 버튼 만들기 끝
@@ -187,12 +197,12 @@ function init() {
 }
 
 function onWindowResize() {
-  camera.aspect = (window.innerWidth / 1.7) / window.innerHeight;
+  camera.aspect = (window.innerWidth) / window.innerHeight;
   camera.updateProjectionMatrix();
   // renderer.setSize(window.innerWidth, window.innerHeight);
   // renderer2.setSize(window.innerWidth, window.innerHeight);
-  renderer.setSize(window.innerWidth / 1.7, window.innerHeight);
-  renderer2.setSize(window.innerWidth / 1.7, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer2.setSize(window.innerWidth, window.innerHeight);
   render();
 }
 
@@ -279,7 +289,7 @@ function getDataAndDrawChart(pcd, icd) {
     url: cmd,
     dataType: "JSON",
     contentType: 'application/json',
-    // async: false,
+    // async: true,
     timeout: 6000,
     success: function (parsedRes) {
       // console.log(parsedRes)
@@ -358,7 +368,7 @@ function getDataAndDrawChart(pcd, icd) {
             x: [pnr_end_dt[index], pnr_end_dt[index]],
             y: [index, index],
             // text: [`${norun_code[index]}`], textfont: { size: 17, color: '#3b4fff',  }
-            text: [`${norun_code[index]}`], textfont: { size: 16, color: '#333', }
+            text: [`${norun_code[index]}`], textfont: { size: 16, color: '#000', }
           }
           data.push(norun_codeObj[`norun_code${index}`]);
         })
@@ -398,14 +408,21 @@ function getDataAndDrawChart(pcd, icd) {
         let layout = {
           title: false,
           height: 320,
-          xaxis: { zeroline: false, ticks: "outside", tickcolor: 'rgba(0,0,0,0)', gridcolor: 'rgba(125, 127, 132, 0.3)' },
-          yaxis: { zeroline: false, ticks: "outside", gridcolor: 'rgba(125, 127, 132, 0.3)', showticklabels: false, },
+          // xaxis: { zeroline: false, ticks: "outside", tickcolor: 'rgba(0,0,0,0)', gridcolor: 'rgba(125, 127, 132, 0.3)' },
+          xaxis: { zeroline: false, ticks: "outside", tickcolor: 'rgba(0,0,0,0)', gridcolor: 'rgba(255, 255, 255, 0.3)' },
+          // yaxis: { zeroline: false, ticks: "outside", gridcolor: 'rgba(125, 127, 132, 0.3)', showticklabels: false, },
+          yaxis: { zeroline: false, ticks: "outside", gridcolor: 'rgba(255, 255, 255, 0.3)', showticklabels: false, },
           // margin: { t: 60, b: 70, l: 80, r: 30, pad: 20 },
-          margin: { t: 20, l: 30, r: 10, pad: 10 },
+          margin: { t: 30, b: 55, l: 30, r: 10, pad: 10 },
           showlegend: false,
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
-          font: { family: 'Noto Sans KR', size: 20, color: '#333', weight: 800 },
+          font: {
+            // family: 'Noto Sans KR',
+            size: 14,
+            color: '#333',
+            weight: 800
+          },
           // hovermode: 'x',
           // clickmode: "event"
           // annotations,
