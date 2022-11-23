@@ -250,7 +250,6 @@ function makeElementObject(type, width, height) {
 
 
 //! 플로틀리차트 그리기
-// const cmd = `http://idb.ai:5002/rest/Lv2_2?dt=2022-08-05&pcd=5112&icd=411533`
 // const cmd = `http://101.101.208.174:5002/rest/Lv2_2?dt=2022-07-28&pcd=5110&icd=${icd}`
 
 function getDataAndDrawChart(pcd, icd) {
