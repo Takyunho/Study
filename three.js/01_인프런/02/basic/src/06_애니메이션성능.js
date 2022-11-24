@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-// ----- 주제: 애니메이션 기본
+// ----- 주제: 애니메이션 성능보정
 
 export default function example() {
 	// Renderer
@@ -44,15 +44,31 @@ export default function example() {
 	scene.add(mesh);
 
 	// 그리기
-	function draw() {
-		// 0.1(각도)은 Radian(라디안)을 사용
-		// 360도는 2파이 (2 * 파이 = 6.3이므로, 6.3이 360도라고 보면 됨) 
-		mesh.rotation.y += 0.1; 
+	const clock = new THREE.Clock();
 
-		mesh.rotation.y += THREE.MathUtils.degToRad(1);		// MathUtils.degToRad(각도) => Radian(라디안)을 우리가 아는 degree(각도)로 변환해주는 three.js 내장함수
+	function draw() {
+		
+		// const time = clock.getElapsedTime();	// 실행 시점으로부터 총 경과시간을 나타낸다. (콘솔 찍어보면 1초씩 늘어남)
+		const delta = clock.getDelta();	// draw함수의 실행 간격 시간을 나타낸다.	(콘솔 찍어보면 0.~~~)
+		// console.log(time)
+		// console.log(delta)
+		//* getElapsedTime()과 getDelta()를 같이(동시에) 쓰면 안됨. -> 값이 꼬이거나 뭔가 이상하게 동작하게 된다.
+
+		//@ 회전
+		// mesh.rotation.y += 0.1; // 라디안 방식
+		// mesh.rotation.y += THREE.MathUtils.degToRad(1);	// 각도 방식
+		// mesh.rotation.y = 0.3 * time;	// getElapsedTime() 사용방식 / =만 사용
+		mesh.rotation.y += 5 * delta	// getDelta() 사용방식 / +=을 사용해야함 / 속도를 높이려면 높은 수를 곱하고, 속도를 낮추려면 낮은 수를 곱하면 됨
+
+		//@ 위치
+		// mesh.position.y += 0.01;
+		// mesh.position.y += delta;
+		mesh.position.y += 3 * delta;
+		if (mesh.position.y > 3) {
+			mesh.position.y = 0;
+		}
 
 		renderer.render(scene, camera);
-	
 		window.requestAnimationFrame(draw);
 		// renderer.setAnimationLoop(draw)
 	}
