@@ -12,7 +12,6 @@ init();
 animate();
 
 function init() {
-  
   //! scene(장면)
   scene = new THREE.Scene();  //* 장면 생성
   scene.background = new THREE.Color('#2e2861')
@@ -79,7 +78,7 @@ function init() {
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
     controls.minDistance = 600;  // 최소 확대
-    controls.maxDistance = 800;  // 최대 확대
+    controls.maxDistance = 1000;  // 최대 확대
     // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
     controls.addEventListener('change', render);
   }
@@ -103,19 +102,19 @@ function init() {
       mesh.scale.z = 100;
       mesh.position.set(0, -150, 0);
 
-      // gltf파일을 티가 안나게 돌리는 부분
-      const animate2 = () => {
-        const animation = requestAnimationFrame(animate2);
-        // console.log(animation) // 콘솔창에 프레임이 출력된다.
-        mesh.rotation.y -= 0.000000000000000000000000000000001;
-        render()
+      // // gltf파일을 티가 안나게 돌리는 부분
+      // const animate2 = () => {
+      //   const animation = requestAnimationFrame(animate2);
+      //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
+      //   mesh.rotation.y -= 0.000000000000000000000000000000001;
+      //   render()
 
-        // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
-        if (animation >= 100 * 100) {
-          cancelAnimationFrame(animation);
-        }
-      }
-      animate2();
+      //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
+      //   if (animation >= 100 * 100) {
+      //     cancelAnimationFrame(animation);
+      //   }
+      // }
+      // animate2();
 
 
       scene.add(mesh)
@@ -134,17 +133,25 @@ function init() {
   button1.rotation.y = 1.6;
   scene.add(button1)
   
+  // 참고
+  // 1. button1.position.x ~ z를 다른 변수에 할당 가능
+  // 2. raycaster를 이용해서 좌표를 구한 다음 그 좌표의 일정 위치를 더해서 그 곳에 창을 띄운다?
+  
+
   //@ 버튼1 이벤트리스너
   // const content = document.getElementById('content');
   // const chart = document.getElementById('chart');
   const closeBtn = document.getElementById('closeBtn');
+  const bg = document.querySelector(".bg");
 
   // 차트1 보이게 하기
   button1.css3dObject.element.addEventListener('pointerdown', () => { 
     console.log("클릭1")
 
     getDataAndDrawChart(5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
+    jQuery('#bg').show();
     jQuery('#chart').show();
+    // bg.classList.remove('none');
     // chart.classList.remove("none");
   }, false )
   
@@ -152,7 +159,9 @@ function init() {
   //^ 닫기 버튼 클릭시 차트 안보이게 하기
   closeBtn.addEventListener('click', () => {
     document.getElementById('myPlot').textContent = "";
+    jQuery('#bg').hide();
     jQuery('#chart').hide();
+    // bg.classList.add('bg');
     // chart.classList.add('none');
   })
 
@@ -213,13 +222,16 @@ function render() {
 }
 
 function animate(time) {
-  requestAnimationFrame(animate);
   controls.update();
+  render();
+  requestAnimationFrame(animate);
+  // renderer.setAnimationLoop(animate); // setAnimationLoop는 requestAnimationFrame과 똑같은 동작을 하는 three.js 내장 함수이다.
+  // 그러나 중요한건 setAnimationLoop는 AR이나 VR 콘텐츠를 만들 때 사용된다. (공식문서에도 써있음)
 }
 
 
 
-//^ 객체를 만드는 함수
+//^ 엘리먼트객체를 만드는 함수
 function makeElementObject(type, width, height) {
   const obj = new THREE.Object3D(); //! Object3D를 이용해 같이 이동되도록
 
@@ -260,8 +272,6 @@ function makeElementObject(type, width, height) {
 
 
 //! 플로틀리차트 그리기
-// const cmd = `http://101.101.208.174:5002/rest/Lv2_2?dt=2022-07-28&pcd=5110&icd=${icd}`
-
 function getDataAndDrawChart(pcd, icd) {
   // const urlParams = new URLSearchParams(window.location.search);
   // let dt = urlParams.get('dt');
