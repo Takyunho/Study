@@ -24,7 +24,7 @@ function init() {
   const far = 5000;
   //* 원근 카메라
   camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-  camera.position.set(900, 0, 900); //* 카메라 포지션 x, y, z
+  camera.position.set(900, 300, 900); //* 카메라 포지션 x, y, z
   scene.add(camera)
 
 
@@ -77,7 +77,8 @@ function init() {
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
-    controls.minDistance = 600;  // 최소 확대
+    // controls.enabled = true;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
+    controls.minDistance = 400;  // 최소 확대
     controls.maxDistance = 1000;  // 최대 확대
     // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
     controls.addEventListener('change', render);
@@ -122,48 +123,33 @@ function init() {
     }
   )
     
+  // 참고
+  // 1. button1.position.x ~ z를 다른 변수에 할당 가능
+  // 2. raycaster를 이용해서 좌표를 구한 다음 그 좌표의 일정 위치를 더해서 그 곳에 창을 띄운다?
+
   //~ 버튼 만드는 부분
   //^ 버튼 1
   let button1 = makeElementObject('div', 6, 6)
   // console.log("버튼1 : ", button1)
   button1.css3dObject.element.style.cursor = 'pointer';
   button1.position.x = 84.2;  //* x축
-  button1.position.y = -29;  //* y축
-  button1.position.z = 65.3;   //* z축
+  button1.position.y = -29;   //* y축
+  button1.position.z = 65.3;  //* z축
   button1.rotation.y = 1.6;
   scene.add(button1)
   
-  // 참고
-  // 1. button1.position.x ~ z를 다른 변수에 할당 가능
-  // 2. raycaster를 이용해서 좌표를 구한 다음 그 좌표의 일정 위치를 더해서 그 곳에 창을 띄운다?
-  
-
   //@ 버튼1 이벤트리스너
-  // const content = document.getElementById('content');
-  // const chart = document.getElementById('chart');
   const closeBtn = document.getElementById('closeBtn');
-  const bg = document.querySelector(".bg");
 
   // 차트1 보이게 하기
   button1.css3dObject.element.addEventListener('pointerdown', () => { 
-    console.log("클릭1")
+    console.log("버튼1 클릭")
+    // controls.enabled = false;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
 
     getDataAndDrawChart(5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
     jQuery('#bg').show();
-    jQuery('#chart').show();
-    // bg.classList.remove('none');
-    // chart.classList.remove("none");
   }, false )
   
-
-  //^ 닫기 버튼 클릭시 차트 안보이게 하기
-  closeBtn.addEventListener('click', () => {
-    document.getElementById('myPlot').textContent = "";
-    jQuery('#bg').hide();
-    jQuery('#chart').hide();
-    // bg.classList.add('bg');
-    // chart.classList.add('none');
-  })
 
   //^ 버튼 2
   let button2 = makeElementObject('div', 6, 6);
@@ -178,11 +164,17 @@ function init() {
   //@ 버튼2 이벤트리스너
   // 차트2 보이게 하기
   button2.css3dObject.element.addEventListener('pointerdown', () => { 
-    console.log("클릭2")
+    console.log("버튼2 클릭")
     getDataAndDrawChart(5110, '45940-2F200'); // 눌렀을 때 파라미터에 pcd, icd 전달
-    jQuery('#chart').show();
+    jQuery('#bg').show();
   }, false )
   
+
+  //^ 닫기 버튼 클릭시 차트 안보이게 하기
+  closeBtn.addEventListener('click', () => {
+    document.getElementById('myPlot').textContent = "";
+    jQuery('#bg').hide();
+  })
   
   //@ 상태에 따라 버튼(알람)색 변경
   if (false) {
