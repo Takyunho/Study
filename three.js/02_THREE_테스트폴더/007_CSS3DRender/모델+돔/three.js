@@ -139,6 +139,7 @@ function init() {
   scene.add(button1)
   
   //@ 버튼1 이벤트리스너
+  const chart = document.getElementById('chart');
   const closeBtn = document.getElementById('closeBtn');
 
   // 차트1 보이게 하기
@@ -146,10 +147,14 @@ function init() {
     console.log("버튼1 클릭")
     // controls.enabled = false;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
 
-    getDataAndDrawChart(5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
+    getDataAndDrawChart('myPlot', 5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
     jQuery('#bg').show();
+    chart.classList.remove('none');
   }, false )
   
+
+  const chart2 = document.getElementById('chart2');
+  const closeBtn2 = document.getElementById('closeBtn2');
 
   //^ 버튼 2
   let button2 = makeElementObject('div', 6, 6);
@@ -165,8 +170,11 @@ function init() {
   // 차트2 보이게 하기
   button2.css3dObject.element.addEventListener('pointerdown', () => { 
     console.log("버튼2 클릭")
-    getDataAndDrawChart(5110, '45940-2F200'); // 눌렀을 때 파라미터에 pcd, icd 전달
+    getDataAndDrawChart('myPlot', 5110, '45940-2F200');  // 눌렀을 때 파라미터에 pcd, icd 전달
+    getDataAndDrawChart('myPlot2', 5111, '31667 X160A'); 
     jQuery('#bg').show();
+    chart.classList.remove('none');
+    chart2.classList.remove('none');
   }, false )
   
 
@@ -174,7 +182,15 @@ function init() {
   closeBtn.addEventListener('click', () => {
     document.getElementById('myPlot').textContent = "";
     jQuery('#bg').hide();
+    chart.classList.add('none');
   })
+  // closeBtn2.addEventListener('click', () => {
+  //   document.getElementById('myPlot2').textContent = "";
+  //   // jQuery('#bg').hide();
+  //   chart2.classList.add('none');
+  // })
+
+
   
   //@ 상태에 따라 버튼(알람)색 변경
   if (false) {
@@ -264,7 +280,7 @@ function makeElementObject(type, width, height) {
 
 
 //! 플로틀리차트 그리기
-function getDataAndDrawChart(pcd, icd) {
+function getDataAndDrawChart(plot, pcd, icd) {
   // const urlParams = new URLSearchParams(window.location.search);
   // let dt = urlParams.get('dt');
   // let pcd = urlParams.get('pcd');
@@ -415,7 +431,7 @@ function getDataAndDrawChart(pcd, icd) {
           // yaxis: { zeroline: false, ticks: "outside", gridcolor: 'rgba(125, 127, 132, 0.3)', showticklabels: false, },
           yaxis: { zeroline: false, ticks: "outside", gridcolor: 'rgba(255, 255, 255, 0.3)', showticklabels: false, },
           // margin: { t: 60, b: 70, l: 80, r: 30, pad: 20 },
-          margin: { t: 30, b: 55, l: 30, r: 10, pad: 10 },
+          margin: { t: 30, b: 55, l: 35, r: 10, pad: 10 },
           showlegend: false,
           paper_bgcolor: 'rgba(0,0,0,0)',
           plot_bgcolor: 'rgba(0,0,0,0)',
@@ -430,7 +446,8 @@ function getDataAndDrawChart(pcd, icd) {
           // annotations,
         };
       
-        Plotly.newPlot('myPlot', data, layout);
+        // Plotly.newPlot('myPlot', data, layout);
+        Plotly.newPlot(plot, data, layout);
       
       } // chartDraw 끝
 

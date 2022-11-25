@@ -8,6 +8,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
+  /* overflow-y: scroll; */
   /* height: 3000px; */
   color: #fff;
   font-family: apple-system, "Noto Sans KR", BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -166,7 +167,11 @@ body {
 }
 
 
-.modebar,
+.modebar {
+  display: none;
+}
+
 .none {
   display: none;
 }
+
