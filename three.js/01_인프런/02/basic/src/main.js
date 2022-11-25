@@ -5,6 +5,7 @@
 // import example from './05_애니메이션기본.js';
 // import example from './06_애니메이션성능.js';
 // import example from './07_애니메이션성능2';
-import example from './08_안개.js';
+// import example from './08_안개.js';
+import example from './09_애니메이션라이브러리';
 
 example();
