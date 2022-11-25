@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-// ----- 주제: 애니메이션 기본
+// ----- 주제: Fog (안개)
 
 export default function example() {
 	// Renderer
@@ -14,6 +14,9 @@ export default function example() {
 
 	// Scene
 	const scene = new THREE.Scene();
+	// 안개
+	scene.fog = new THREE.Fog('blue', 3, 7)		// 3 에서 7까지 안개생성 ()
+	// 안개를 배경색과 맞추면 안보이게 하는 효과도 가능하다. (심지어 원근감도 생김)
 
 	// Camera
 	const camera = new THREE.PerspectiveCamera(
@@ -22,12 +25,15 @@ export default function example() {
 		0.1, // near
 		1000 // far
 	);
+	camera.position.x = 0;
+	camera.position.y = 1;
 	camera.position.z = 5;
 	scene.add(camera);
 
 	const light = new THREE.DirectionalLight(0xffffff, 1);	// (색, 빛의 강도)
 	light.position.x = 1;
-	light.position.z = 2;
+	light.position.y = 3;
+	light.position.z = 5;
 	scene.add(light);
 
 		/* DirectionalLight은 태양 빛하고 비슷하다고 보면 된다.
@@ -35,24 +41,39 @@ export default function example() {
 		*/
 
 
-	// Mesh
+	//^ Mesh
 	const geometry = new THREE.BoxGeometry(1, 1, 1);
 	const material = new THREE.MeshStandardMaterial({
 		color: 'red'
 	});
-	const mesh = new THREE.Mesh(geometry, material);
-	scene.add(mesh);
 
-	// 그리기
+	// 메쉬 여러개 만들어서 랜덤으로 배치시키기
+	const meshes = [];
+	let mesh;
+	for (let i = 0; i < 10; i++) {
+		mesh = new THREE.Mesh(geometry, material);
+		mesh.position.x = Math.random() * 5 - 2.5;
+		mesh.position.z = Math.random() * 5 - 2.5;
+		scene.add(mesh);
+		meshes.push(mesh);
+	}
+
+
+	//^ 그리기
+	let oldTime = Date.now();
+
 	function draw() {
-		// 0.1(각도)은 Radian(라디안)을 사용
-		// 360도는 2파이 (2 * 파이 = 6.3이므로, 6.3이 360도라고 보면 됨) 
-		mesh.rotation.y += 0.1; 
 
-		mesh.rotation.y += THREE.MathUtils.degToRad(1);		// MathUtils.degToRad(각도) => Radian(라디안)을 우리가 아는 degree(각도)로 변환해주는 three.js 내장함수
+		const newTime = Date.now();
+		const deltaTime = newTime - oldTime;
+		oldTime = newTime;
+
+		// 위에서 만든 meshes 배열을 통해 draw함수에서 애니메이션 구현
+		meshes.forEach(item => {
+			item.rotation.y += deltaTime * 0.001;
+		})
 
 		renderer.render(scene, camera);
-	
 		window.requestAnimationFrame(draw);
 		// renderer.setAnimationLoop(draw)
 	}

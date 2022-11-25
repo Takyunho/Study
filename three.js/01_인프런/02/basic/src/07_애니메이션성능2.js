@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-// ----- 주제: 애니메이션 기본
+// ----- 주제: 애니메이션 성능보정
 
 export default function example() {
 	// Renderer
@@ -43,16 +43,27 @@ export default function example() {
 	const mesh = new THREE.Mesh(geometry, material);
 	scene.add(mesh);
 
-	// 그리기
-	function draw() {
-		// 0.1(각도)은 Radian(라디안)을 사용
-		// 360도는 2파이 (2 * 파이 = 6.3이므로, 6.3이 360도라고 보면 됨) 
-		mesh.rotation.y += 0.1; 
+	//^ 그리기
+	// const clock = new THREE.Clock();
+	let oldTime = Date.now();
 
-		mesh.rotation.y += THREE.MathUtils.degToRad(1);		// MathUtils.degToRad(각도) => Radian(라디안)을 우리가 아는 degree(각도)로 변환해주는 three.js 내장함수
+	function draw() {
+
+		// 일반 캔버스에서도 사용 가능
+		const newTime = Date.now();
+		const deltaTime = newTime - oldTime;
+		oldTime = newTime;
+
+		// mesh.rotation.y = 0.3 * time;	
+		mesh.rotation.y += deltaTime * 0.005;	// deltaTime은 큰 수 이므로 작은 값을 곱해줘야한다.
+		
+		// mesh.position.y += 3 * delta;
+		mesh.position.y += deltaTime * 0.001;
+		if (mesh.position.y > 3) {
+			mesh.position.y = 0;
+		}
 
 		renderer.render(scene, camera);
-	
 		window.requestAnimationFrame(draw);
 		// renderer.setAnimationLoop(draw)
 	}
