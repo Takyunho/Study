@@ -22,14 +22,75 @@
 
 <body>
   
-    <div class="bg none" id="bg">
-      <div id="content" class="content">
-        <div id="chart" class="chart">
-          <div class="line">
-            <button id="closeBtn" class="close-btn">X</button>
-          </div>
-          <div id="myPlot" class="plotly-chart"></div>
+    <div class="bg" id="bg">
+      <div class="main-container">
+
+        <div class="btnBox">
+          <!-- <div style="flex-grow: 1"></div> -->
+          <button id="closeBtn" class="close-btn">X</button>
         </div>
+
+        <!-- <section class="first-section"> -->
+          <div id="chart-container" class="chart-container none">
+            <div class="row-1">
+              <div class="chart chart1">
+                <div id="myPlot1" class="plotly-chart"></div>
+              </div>
+              <div class="info info1">텍스트 들어갈 div </div>
+            </div>
+            <div class="row-2">
+              <div class="chart chart2">
+                <div id="myPlot2" class="plotly-chart"></div>
+              </div>
+              <div class="info info2">텍스트 들어갈 div </div>
+            </div>
+            <div class="row-3">
+              <div class="chart chart3">
+                <div id="myPlot3" class="plotly-chart"></div>
+              </div>
+              <div class="info info3">텍스트 들어갈 div2 </div>
+            </div>
+            <div class="row-4">
+              <div class="chart chart4">
+                <!-- <div id="myPlot4" class="plotly-chart"></div> -->
+              </div>
+              <div class="info info4">텍스트 들어갈 div2 </div>
+            </div>
+          </div>
+        <!-- </section> -->
+        
+
+        <!-- <section> -->
+          <div class="w-100">
+            <!-- 두번째 박스 -->
+            <div id="content-container" class="content-container-left">
+              <div class="row-1">
+                <div class="info info1">텍스트 들어갈 div </div>
+              </div>
+              <div class="row-2">
+                <div class="info info2">텍스트 들어갈 div </div>
+              </div>
+              <div class="row-3">
+                <div class="info info3">텍스트 들어갈 div2 </div>
+              </div>
+              <div class="row-4">
+                <div class="info info4">텍스트 들어갈 div2 </div>
+              </div>
+            </div>
+
+            <!-- 세번째 박스 -->
+            <div id="content-container-right" class="content-container-right">
+              <div class="row-1">
+                <div class="info info1">텍스트 들어갈 div </div>
+              </div>
+              <div class="row-2">
+                <div class="info info2">텍스트 들어갈 div </div>
+              </div>
+            </div>
+          </div>
+          
+        <!-- </section> -->
+        
       </div>
     </div>
 
