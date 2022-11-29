@@ -24,88 +24,80 @@
   
     <div class="bg" id="bg">
       <div class="main-container">
-
+        <!-- close button -->
         <div class="btnBox">
-          <!-- <div style="flex-grow: 1"></div> -->
           <button id="closeBtn" class="close-btn">X</button>
         </div>
+        <!-- bg -->
+        <div class="image-box">
+          <section class="left-section">
+            <!-- AxisLoad Chart -->
+            <p class="C1_SP_AxisLoad">93</p>
+            <p class="C3_SP_AxisLoad">97</p>
+            <div class="chart-box1">
+              <div id="myPlot1" class="plotly-chart"></div>
+            </div>
+            <div class="chart-box2">
+              <div id="myPlot2" class="plotly-chart"></div>
+            </div>
+            <!-- Part Information -->
+            <p class="impeller">175</p>
+            <p class="Orbiting">112</p>
+            <p class="Total">187</p>
+            <p class="PowerOn">233</p>
+          </section>
 
-        <!-- <section class="first-section"> -->
-          <div id="chart-container" class="chart-container none">
-            <div class="row-1">
-              <div class="chart chart1">
-                <div id="myPlot1" class="plotly-chart"></div>
-              </div>
-              <div class="info info1">
-                <h3>Part Information</h3>
-                <p>Impeller : <span>175</span></p>
-                <p>Orbiting : <span>112</span></p>
+          <section class="right-section">
+            <!-- gauge bar -->
+            <div class="cssProgress" style="margin: 0;background-color: transparent;">
+              <div class="progress1 progress-wrap">
+                <div class="cssProgress-bar1" data-percent="75" style="height: 12px; width: 40%; background-color: #6DC5B3; transition: 2s;"></div>
               </div>
             </div>
-            <div class="row-2">
-              <div class="chart chart2">
-                <div id="myPlot2" class="plotly-chart"></div>
-              </div>
-              <div class="info info2">
-                <h3>Part Information</h3>
-                <p>Total : <span>175</span></p>
-                <p>PowerOn : <span>112</span></p>
+              
+            <div class="cssProgress" style="margin: 0;background-color: transparent;">
+              <div class="progress2 progress-wrap">
+                <div class="cssProgress-bar2" data-percent="75" style="height: 12px; width: 38%; background-color: #6DC5B3; transition: 2s;"></div>
               </div>
             </div>
-            <div class="row-3">
-              <div class="chart chart3">
-                <div id="myPlot3" class="plotly-chart"></div>
-              </div>
-              <div class="info info3">
-                <h3>C1_SP_AxisLoad(%)</h3>
-                <br>
-                <p>100%</p>
+
+            <div class="cssProgress" style="margin: 0;background-color: transparent;">
+              <div class="progress3 progress-wrap">
+                <div class="cssProgress-bar3" data-percent="75" style="height: 12px; width: 70%; background-color: #6DC5B3; transition: 2s;"></div>
               </div>
             </div>
-            <div class="row-4">
-              <div class="chart chart4">
-                <!-- <div id="myPlot4" class="plotly-chart"></div> -->
-              </div>
-              <div class="info info4">
-                <!-- <h3>Part Information</h3>
-                <p>Impeller : <span>175</span></p>
-                <p>Orbiting : <span>112</span></p> -->
+
+            <div class="cssProgress" style="margin: 0;background-color: transparent;">
+              <div class="progress4 progress-wrap">
+                <div class="cssProgress-bar4" data-percent="75" style="height: 12px; width: 20%; background-color: #6DC5B3; transition: 2s;"></div>
               </div>
             </div>
-          </div>
-        <!-- </section> -->
+
+            <div class="cssProgress" style="margin: 0;background-color: transparent;">
+              <div class="progress5 progress-wrap">
+                <div class="cssProgress-bar5" data-percent="75" style="height: 12px; width: 84%; background-color: #6DC5B3; transition: 2s;"></div>
+              </div>
+            </div>
+
+            <!-- gauge percent -->
+            <p class="X1_AxisLoad">40</p>
+            <p class="X2_AxisLoad">38</p>
+            <p class="Y1_AxisLoad">70</p>
+            <p class="Z1_AxisLoad">20</p>
+            <p class="Z2_AxisLoad">84</p>
+
+            <!-- gauge value -->
+            <p class="X1_AxisPos">496.22</p>
+            <p class="X2_AxisPos">396.22</p>
+            <p class="Y1_AxisPos">496.33</p>
+            <p class="Z1_AxisPos">497.12</p>
+            <p class="Z2_AxisPos">495.14</p>
+          </section>
+        </div>
+
         
 
-        <!-- <section> -->
-          <div class="w-100">
-            <!-- 두번째 박스 -->
-            <div id="content-container" class="content-container-left">
-              <div class="row-1">
-                <div class="info info1">텍스트 들어갈 div </div>
-              </div>
-              <div class="row-2">
-                <div class="info info2">텍스트 들어갈 div </div>
-              </div>
-              <div class="row-3">
-                <div class="info info3">텍스트 들어갈 div2 </div>
-              </div>
-              <div class="row-4">
-                <div class="info info4">텍스트 들어갈 div2 </div>
-              </div>
-            </div>
-
-            <!-- 세번째 박스 -->
-            <div id="content-container-right" class="content-container-right">
-              <div class="row-1">
-                <div class="info info1">텍스트 들어갈 div </div>
-              </div>
-              <div class="row-2">
-                <div class="info info2">텍스트 들어갈 div </div>
-              </div>
-            </div>
-          </div>
-          
-        <!-- </section> -->
+        
         
       </div>
     </div>
@@ -117,6 +109,7 @@
     <div id="webgl"></div>
 
   <script defer type="module" src="./three.js"></script>
+  <!-- <script defer type="module" src="./gauge.js"></script> -->
   <!-- <script defer type="module" src="./plotly.js"></script> -->
 </body>
 
