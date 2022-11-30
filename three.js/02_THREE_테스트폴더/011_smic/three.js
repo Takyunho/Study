@@ -6,14 +6,17 @@ import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.js";
 import gaugeChartDraw from "./DaedongGaugebar.js";
 import getDataAndDrawChart from "./samboChart.js";
 import getDataAndDrawChart2 from "./genicosChart.js";
+// import DrawThresholdChart from "./threshold.js";
 
 let scene, camera, renderer, renderer2;
 let light, light2, ambientLight;
 let controls;
+let button1, button2;
 
 init();
 // animate(performance.now());
 animate();
+DrawThresholdChart();
 
 function init() {
   //! scene(장면)
@@ -116,10 +119,9 @@ function init() {
   //^ gltf 불러오기
   const gltfloader = new GLTFLoader();
   gltfloader.load(
-    // './models/domino.glb',
-    // './Machine_AMR.glb',  // T2V 올릴때 경로
-    // './models/Machine_AMR.glb',
-    "./models/machine_008g.glb",
+    // './Machine_AMR.glb',  
+    "./machine_008g.glb",  // T2V 올릴때 경로
+    // "./models/machine_008g.glb",
     (gltf) => {
       // console.log("gltf : ", gltf)
       // console.log("gltf : ", gltf.scene)
@@ -158,12 +160,12 @@ function init() {
 
   //~ 버튼 만드는 부분
   //^ 버튼 1
-  let button1 = makeElementObject("div", 6, 6);
+  button1 = makeElementObject("div", 6, 6);
   // console.log("버튼1 : ", button1)
   button1.css3dObject.element.style.cursor = "pointer";
-  button1.position.x = 21; //* x축
-  button1.position.y = 131; //* y축
-  button1.position.z = 120; //* z축
+  button1.position.x = 37;  //* x축
+  button1.position.y = 129; //* y축
+  button1.position.z = 148; //* z축
   button1.rotation.y = 1.6;
   scene.add(button1);
 
@@ -188,19 +190,21 @@ function init() {
       // 게이지바 차트
       gaugeChartDraw('A40104')
       // gaugeChartDraw("A40204")
-      // gaugeChartDraw("A40104")
-      // gaugeChartDraw("A40204")
-      // gaugeChartDraw("A40104")
-      jQuery("#bg").show();
+      jQuery(".bg").show();
+      
     },
     false
   );
 
+  //@ 버튼1 => 설비정보를 보여주는 버튼
+  button1.css3dObject.element.className = "alarmDot";
+  button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
+
+
   //^ 버튼 2
   //@TODO
   //@ 버튼2클릭시 차트 보여주고, 그 차트의 임계치에 따른 알람 구현 필요
-  
-  let button2 = makeElementObject("div", 6, 6);
+  button2 = makeElementObject("div", 6, 6);
   // console.log("버튼 2 : ", button2)
   button2.css3dObject.element.style.cursor = "pointer";
   button2.position.x = 9; //* x축
@@ -210,17 +214,11 @@ function init() {
   scene.add(button2);
 
   //@ 버튼2 이벤트리스너
-  button2.css3dObject.element.addEventListener(
-    "pointerdown",
-    () => {
-      console.log("버튼2 클릭");
-      getDataAndDrawChart2("myPlot1", "MA05", "water_rpm");
-      getDataAndDrawChart2("myPlot2", "MA05", "water_temp");
-      gaugeChartDraw('A40104')
-      jQuery("#bg").show();
-    },
-    false
-  );
+  button2.css3dObject.element.addEventListener( "pointerdown", () => {
+    console.log("버튼2 클릭");
+    DrawThresholdChart();
+    jQuery("#bg2").show();
+  }, false );
 
   const closeBtn = document.getElementById("closeBtn");
 
@@ -231,27 +229,11 @@ function init() {
     jQuery('#bg').hide();
   })
 
-  //@ 상태에 따라 버튼(알람)색 변경
-  if (false) {
-    button1.css3dObject.element.className = "animate_red alarmDot";
-    button1.css3dObject.element.style.background = new THREE.Color(
-      "#FF0000"
-    ).getStyle();
-    button2.css3dObject.element.className = "animate_green alarmDot";
-    button2.css3dObject.element.style.background = new THREE.Color(
-      "#00B34A"
-    ).getStyle();
-  } else {
-    button1.css3dObject.element.className = "animate_green alarmDot";
-    button1.css3dObject.element.style.background = new THREE.Color(
-      "#00B34A"
-    ).getStyle();
-    button2.css3dObject.element.className = "animate_red alarmDot";
-    button2.css3dObject.element.style.background = new THREE.Color(
-      "#FF0000"
-    ).getStyle();
-  }
+  const closeBtn2 = document.getElementById("closeBtn2");
 
+  closeBtn2.addEventListener('click', () => {
+    jQuery('#bg2').hide();
+  })
   
   // 일정시간마다 랜덤한 값으로 텍스트 변경하기
   setInterval(() => {
@@ -353,5 +335,185 @@ function makeElementObject(type, width, height) {
 
   return obj;
 } // makeElementObject 끝
+
+
+// 투명도 조절
+const opacitySlider = document.getElementById("opacitySlider");
+const opacitySlider2 = document.getElementById("opacitySlider2");
+
+opacitySlider.addEventListener("input", () => {
+  // console.log(opacitySlider.value)
+  let opacityValue = opacitySlider.value;
+  document.querySelector("#mainContainer1").style.opacity = opacityValue;
+})
+
+opacitySlider2.addEventListener("input", () => {
+  let opacityValue = opacitySlider2.value;
+  document.querySelector("#mainContainer2").style.opacity = opacityValue;
+} )
+
+
+function DrawThresholdChart() {
+  var message;
+  var curDate = new Date();
+  var bfDate = curDate.setHours(curDate.getHours() - 1);
+  curDate = moment(curDate).format("YYYY-MM-DD HH:mm:ss");
+  bfDate = moment(bfDate).format("YYYY-MM-DD HH:mm:ss");
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const SENSOR = urlParams.get("sensor");
+  const SENSOR = "co2";
+
+  // document.querySelector("title").innerText = SENSOR + "그래프";
+
+  let x1 = [];
+  let y1 = [];
+  let _color;
+  let defaultColor;
+  let upperLimit = 10;
+  let cmd =
+    "http://go.idb.ai:8086/query?db=idbSensor&q=select%20" +
+    SENSOR +
+    "%20from%20idbsensor%20where%20time%20%3E%3D%20now()%20-%201h%20and%20time%20%3C%3D%20now()%20order%20by%20time%20desc%20limit%20100";
+
+  setDefaultColor();
+  drawChart();
+  function drawChart() {
+    upperLimit = setUpperLimit(SENSOR); // co2 = 10
+    // console.log(cmd);
+    fetch(cmd)
+      .then((response) => response.json())
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        if (parsedResponse.results[0].series[0] != undefined) {
+
+          parsedResponse.results[0].series[0].values.forEach(function (item, index) {
+            /* 가장 최근 값일 때 */
+            if (index === 0) setColor(item[1]);  /* 표시색 지정 */
+          
+            var date = new Date(item[0]);
+            var local_date = moment.utc(date).local().format("YYYY-MM-DD HH:mm:ss");
+            x1[index] = local_date;
+            y1[index] = item[1];
+          });
+
+          const firstTrace = {
+            type: "scatter",
+            mode: "lines",
+            name: "Stat",
+            x: x1,
+            y: y1,
+            line: { color: defaultColor },
+          };
+
+          const upperLimitLine = {
+            type: "scatter",
+            mode: "lines",
+            name: "Upper_Limit",
+            x: x1,
+            y: Array.from({ length: 100 }, () => upperLimit),
+            line: { color: "red" },
+          };
+
+          const data = [firstTrace, upperLimitLine];
+
+          const layout = {
+            title: false,
+            // width: 480,
+            height: 170,
+            margin: { t: 15, b: 50, l: 30, r: 20, pad: 0 },
+            showlegend: false,
+            // paper_bgcolor: "#f0f0f0",
+            // plot_bgcolor: "#f0f0f0",
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+            font: {
+              //family: 'Jeju Gothic, truetype',
+              // family: "Nanum Barun Gothic, sans-serif",
+              size: 16,
+              // color: "#666666",
+              color: "#fff",
+              weight: 700,
+            },
+          };
+          return Plotly.newPlot("graphs-container", data, layout);
+        } else {
+          console.log("No Data");
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+
+
+  function setColor(sensorValue) {
+    _color = sensorValue >= upperLimit ? "red" : defaultColor;
+    // console.log(_color)
+     //@ 상태에 따라 버튼2(알람)색 변경
+    if (_color == "#0070C0") {
+      button2.css3dObject.element.className = "animate_green alarmDot";
+      button2.css3dObject.element.style.background = new THREE.Color("#00B34A").getStyle();
+    } else {
+      button2.css3dObject.element.className = "animate_red alarmDot";
+      button2.css3dObject.element.style.background = new THREE.Color("#FF0000").getStyle();
+    }
+
+  }
+
+  function setUpperLimit() {
+    switch (SENSOR) {
+      case "vocs":
+        return 500;
+      case "co2":
+        return 10;
+      case "co":
+        return 500;
+      case "hcho":
+        return 25;
+      case "h2s":
+        return 25;
+      case "hcl":
+        return 10;
+      case "nh3":
+        return 50;
+      case "so2":
+        return 25;
+      default:
+        break;
+    }
+  }
+
+  function setDefaultColor() {
+    switch (SENSOR) {
+      case "vocs":
+        defaultColor = "#0070C0";
+        return;
+      case "co2":
+        defaultColor = "#0070C0";
+        return;
+      case "co":
+        defaultColor = "#0070C0";
+        return;
+      case "hcho":
+        defaultColor = "#0070C0";
+        return;
+      case "h2s":
+        defaultColor = "#0070C0";
+        return;
+      case "hcl":
+        defaultColor = "#0070C0";
+        return;
+      case "nh3":
+        defaultColor = "#0070C0";
+        return;
+      case "so2":
+        defaultColor = "#0070C0";
+        return;
+      default:
+        break;
+    }
+  }
+  setInterval(drawChart, 20000);
+}
+
 
 

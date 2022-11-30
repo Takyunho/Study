@@ -1,3 +1,4 @@
+/*^ common */
 html {
   font-size: 18px;
   line-height: 1.4;
@@ -22,16 +23,16 @@ body {
   left: 0;
 }
 
-/* 전체 */
-.bg {
+/*^ 모달창 백그라운드 */
+.bg, .bg2 {
   width: 100%;
   height: 100%;
   background: transparent;
   /* background: rgba(0,0,0,0.05); */
   position: fixed;
   z-index: 5;
-  display: none; 
   transition: all .5s;
+  display: none; 
 }
 
 .main-container {
@@ -48,34 +49,31 @@ body {
   /* background-color: #fff; */
 }
 
+/* 배경사진이 들어가는 영역 */
 .image-box {
-  /* width: 100%; */
   width: 970px;
   height: 610px;
-  /* display: block; */
-  /* margin: 0 auto; */
-  /* background: #000; */
-  background-image: url('./image/SMIC_mainBG.png');
+  /* T2V 경로 */
+  background-image: url('./SMIC_mainBG.png'); 
+  /* background-image: url('./image/SMIC_mainBG.png'); */
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
   /* background-color: rgba(0, 0, 0, 0.6); */
   /* border: 5px solid rgba(54, 55, 65); */
-  
   position: relative;
 }
 
 /* 버튼을 감싸는 박스 */
 .btnBox {
-  width: 950px;
+  width: 970px;
+  height: 30px;
   /* background-color: #657c; */
   display: flex;
+  align-items: center;
   flex-direction: row-reverse;
-  margin: 0 auto;
-  /* text-align: right; */
+  margin: 0;
 }
-
-
 /* 닫기버튼 */
 .close-btn {
   /* width: 50px; */
@@ -84,12 +82,47 @@ body {
   font-size: 30px;
   transition: .5s;
   cursor: pointer;
+  color: aliceblue;
 }
 .close-btn:hover {
   color: red;
 }
 
-/* 왼쪽 차트 및 내용 */
+/* 투명도 조절 슬라이더 */
+.opacity-slider {
+  -webkit-appearance: none;
+  width: 100px; 
+  height: 10px; 
+  border-radius: 5px;
+  background: #60626D; /* 슬라이더 색상 */
+  cursor: pointer;
+  outline: none;
+}
+.opacity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  appearance: none; 
+  width: 20px; 
+  height: 15px; 
+  border-radius: 20%;
+  background: #999AA4;
+  cursor: pointer; 
+}
+
+.opacity-slider::-moz-range-thumb {
+  width: 20px; 
+  height: 15px; 
+  border-radius: 20%; 
+  background: #999AA4;
+  cursor: pointer; 
+}
+
+.opacity-value {
+  padding-left: 2px;
+  padding-right: 12px;
+}
+
+
+/*^ 왼쪽 차트 및 내용 */
 .left-section {
   width: 50%;
   height: 100%;
@@ -105,7 +138,6 @@ body {
   left: 35px;
   font-size: 24px;
 }
-
 .C3_SP_AxisLoad {
   position: absolute;
   top: 300px;
@@ -148,8 +180,7 @@ body {
 
 
 
-
-/* 오른쪽 차트 및 내용 */
+/*^ 오른쪽 차트 및 내용 */
 .right-section {
   width: 50%;
   height: 100%;
@@ -245,83 +276,65 @@ body {
 }
 
 
-/* 알람(버튼) */
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
-  }
-  70% {
-    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
-@keyframes pulse {
-  0% {
-    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
-  }
-  70% {
-    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-  }
-  100% {
-    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
-
-
-@-webkit-keyframes pulse2 {
-  0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.8);
-  }
-  70% {
-    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
-@keyframes pulse2 {
-  0% {
-    -moz-box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.4);
-    box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.4);
-  }
-  70% {
-    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-  }
-  100% {
-    -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-}
-.alarmDot {
-  width: 10px;
-  height: 10px;
-  /* background-color: #ff0000; */
-  border-radius: 100%;
-  /* opacity: 100%; */
-  /* position: absolute;
-  top: 38px;
-  left: 38px; */
-  border: none;
-
-}
-.animate_red {
-  animation: pulse 2s infinite;
-}
-.animate_green {
-  animation: pulse2 2s infinite;
-}
-.noAnimate {
-  animation: none;
-}
-
-
 .modebar,
 .none {
   display: none;
 }
+
+
+/*^ 두번째 버튼 클릭시 화면 */
+.bg2 .main-container {
+  width: 600px;
+  height: 300px;
+  position: relative;
+  top: 300px;
+  /* right: -100px; */
+  /* left: 0; */
+  margin: 0 auto;
+  transition: all 0.3s;
+  opacity: 0.5;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, .3);
+  /* border-radius: 10px; */
+}
+
+.bg2 .main-container .btnBox {
+  width: 580px;
+  height: 50px;
+  /* background-color: #657c; */
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 5px auto;
+  color: aliceblue;
+}
+
+.bg2 .main-container .btnBox .close-btn {
+  /* width: 50px; */
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+  transition: .5s;
+  cursor: pointer;
+}
+.bg2 .main-container .btnBox .close-btn:hover {
+  color: red;
+}
+
+.equip-title1 {
+  padding: 10px 10px 10px 0;
+}
+
+.bg2 .main-container .chart-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 500px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #686A75;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #323c54 0%, #1A1C26 100%);
+}
+
+
