@@ -202,8 +202,6 @@ function init() {
 
 
   //^ 버튼 2
-  //@TODO
-  //@ 버튼2클릭시 차트 보여주고, 그 차트의 임계치에 따른 알람 구현 필요
   button2 = makeElementObject("div", 6, 6);
   // console.log("버튼 2 : ", button2)
   button2.css3dObject.element.style.cursor = "pointer";
@@ -448,7 +446,7 @@ function DrawThresholdChart() {
   function setColor(sensorValue) {
     _color = sensorValue >= upperLimit ? "red" : defaultColor;
     // console.log(_color)
-     //@ 상태에 따라 버튼2(알람)색 변경
+    //@ 상태에 따라 버튼2(알람)색 변경
     if (_color == "#0070C0") {
       button2.css3dObject.element.className = "animate_green alarmDot";
       button2.css3dObject.element.style.background = new THREE.Color("#00B34A").getStyle();
