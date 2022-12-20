@@ -34,25 +34,25 @@ export default function gaugeChartDraw(PROGRESS) {
   
 
 
-  drawChart();
+  // drawChart();
 
-  function drawChart() {
-    const query = `http://183.111.79.82:8086/query?db=daedong&q=select ${PROGRESS} from sp_MON_PRD14 order by time desc limit 1`;
-    fetch(query)
-      .then((response) => response.json())
-      .then((parsedResponse) => {
-        data = parsedResponse.results[0].series[0].values[0][1];
-        drawBarChartAttribute(data);
-        // setSideText(data)
-      })
-      .catch((error) => console.log(error));
-  }
+  // function drawChart() {
+  //   const query = `http://183.111.79.82:8086/query?db=daedong&q=select ${PROGRESS} from sp_MON_PRD14 order by time desc limit 1`;
+  //   fetch(query)
+  //     .then((response) => response.json())
+  //     .then((parsedResponse) => {
+  //       data = parsedResponse.results[0].series[0].values[0][1];
+  //       drawBarChartAttribute(data);
+  //       // setSideText(data)
+  //     })
+  //     .catch((error) => console.log(error));
+  // }
 
-  function drawBarChartAttribute(data) {
-    const bar = document.querySelector(".cssProgress-bar");
-    const val = data;
-    const chartVal = data > 100 ? 100 : data;
-    bar.style.backgroundColor = GAUGE_COLOR;
-    bar.style.width = chartVal + "%";
-  }
+  // function drawBarChartAttribute(data) {
+  //   const bar = document.querySelector(".cssProgress-bar");
+  //   const val = data;
+  //   const chartVal = data > 100 ? 100 : data;
+  //   bar.style.backgroundColor = GAUGE_COLOR;
+  //   bar.style.width = chartVal + "%";
+  // }
 }
