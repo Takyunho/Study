@@ -11,7 +11,7 @@ import getDataAndDrawChart2 from "./genicosChart.js";
 let scene, camera, renderer, renderer2;
 let light, light2, ambientLight;
 let controls;
-let button1, button2;
+let button1, button2, button3;
 
 init();
 // animate(performance.now());
@@ -119,7 +119,7 @@ function init() {
   //^ gltf 불러오기
   const gltfloader = new GLTFLoader();
   gltfloader.load(
-    // './Machine_AMR.glb',  
+    // './Machine_AMR.glb',
     "./machine_008g.glb",  // T2V 올릴때 경로
     // "./models/machine_008g.glb",
     (gltf) => {
@@ -159,7 +159,7 @@ function init() {
   // 2. raycaster를 이용해서 좌표를 구한 다음 그 좌표의 일정 위치를 더해서 그 곳에 창을 띄운다?
 
   //~ 버튼 만드는 부분
-  //^ 버튼 1
+  //^ 버튼 1 (설비정보를 보여주는 버튼)
   button1 = makeElementObject("div", 6, 6);
   // console.log("버튼1 : ", button1)
   button1.css3dObject.element.style.cursor = "pointer";
@@ -167,6 +167,8 @@ function init() {
   button1.position.y = 129; //* y축
   button1.position.z = 148; //* z축
   button1.rotation.y = 1.6;
+  button1.css3dObject.element.className = "alarmDot";
+  button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
   scene.add(button1);
 
   //@ 버튼1 이벤트리스너
@@ -183,11 +185,12 @@ function init() {
       // getDataAndDrawChart('myPlot4', 5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
 
       // 제니코스 차트
-      getDataAndDrawChart2("myPlot1", "MA05", "homo_rpm");
-      getDataAndDrawChart2("myPlot2", "MA03", "water_rpm");
-      // getDataAndDrawChart2("myPlot3", "MA05", "homo_rpm"); 
+      getDataAndDrawChart2("myPlot1");
+      getDataAndDrawChart2("myPlot2");
+      // getDataAndDrawChart2("myPlot1", "MA05", "homo_rpm");
+      // getDataAndDrawChart2("myPlot2", "MA03", "water_rpm");
 
-      // 게이지바 차트
+      // 게이지바 차트(색상을 위해 호출)
       gaugeChartDraw('A40104')
       // gaugeChartDraw("A40204")
       jQuery(".bg").show();
@@ -195,10 +198,6 @@ function init() {
     },
     false
   );
-
-  //@ 버튼1 => 설비정보를 보여주는 버튼
-  button1.css3dObject.element.className = "alarmDot";
-  button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
 
 
   //^ 버튼 2
@@ -218,9 +217,29 @@ function init() {
     jQuery("#bg2").show();
   }, false );
 
-  const closeBtn = document.getElementById("closeBtn");
+
+//^ 버튼 3
+button3 = makeElementObject("div", 6, 6);
+button3.css3dObject.element.style.cursor = "pointer";
+button3.position.x = 100;  //* x축
+button3.position.y = 50; //* y축
+button3.position.z = 58; //* z축
+// button3.rotation.y = 1.6;
+button3.css3dObject.element.className = "alarmDot";
+button3.css3dObject.element.id = 'linkMove';
+button3.css3dObject.element.style.background = new THREE.Color("#f29510").getStyle();
+scene.add(button3);
+
+//@ 버튼3 이벤트리스너
+button3.css3dObject.element.addEventListener("pointerdown", () => {
+  console.log("버튼3 클릭");
+  // 새창 띄우기
+  window.open('https://www.google.co.kr/');
+}, false );
+
 
   //^ 닫기 버튼 클릭시 차트 안보이게 하기
+  const closeBtn = document.getElementById("closeBtn");
   closeBtn.addEventListener('click', () => {
     // document.getElementById('myPlot1').textContent = "";
     // document.getElementById('myPlot2').textContent = "";
@@ -228,7 +247,6 @@ function init() {
   })
 
   const closeBtn2 = document.getElementById("closeBtn2");
-
   closeBtn2.addEventListener('click', () => {
     jQuery('#bg2').hide();
   })
@@ -368,10 +386,10 @@ function DrawThresholdChart() {
   let _color;
   let defaultColor;
   let upperLimit = 10;
-  let cmd =
-    "http://go.idb.ai:8086/query?db=idbSensor&q=select%20" +
-    SENSOR +
-    "%20from%20idbsensor%20where%20time%20%3E%3D%20now()%20-%201h%20and%20time%20%3C%3D%20now()%20order%20by%20time%20desc%20limit%20100";
+  // let cmd = "http://go.idb.ai:8086/query?db=idbSensor&q=select%20" + SENSOR + "%20from%20idbsensor%20where%20time%20%3E%3D%20now()%20-%201h%20and%20time%20%3C%3D%20now()%20order%20by%20time%20desc%20limit%20100";
+
+  // https
+  let cmd = "https://t2v.kr:50010/go_idb_ai"
 
   setDefaultColor();
   drawChart();
@@ -393,7 +411,7 @@ function DrawThresholdChart() {
             x1[index] = local_date;
             y1[index] = item[1];
           });
-
+          
           const firstTrace = {
             type: "scatter",
             mode: "lines",
@@ -440,7 +458,7 @@ function DrawThresholdChart() {
       })
       .catch((error) => console.log(error));
   }
-
+  setInterval(drawChart, 20000);
 
 
   function setColor(sensorValue) {
@@ -510,8 +528,11 @@ function DrawThresholdChart() {
         break;
     }
   }
-  setInterval(drawChart, 20000);
+
 }
+
+
+
 
 
 
