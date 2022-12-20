@@ -1,9 +1,12 @@
 // 제니코스 차트 그리기
 
 export default function getDataAndDrawChart2(plot, workLine, sensor) {
-  const url = `http://14.52.100.115:5000/rest/regression/predict?work_line=${workLine}&sensor=${sensor}`;
+  // const url = `http://14.52.100.115:5000/rest/regression/predict?work_line=${workLine}&sensor=${sensor}`;
   // ex. work_line : MA05 / sensor : homo_rpm
 
+  // https
+  const url = `https://t2v.kr:50010/genicos`;
+  
   const getData = async () => {
     const response = await fetch(url);
     const resJSON = await response.json();
@@ -11,7 +14,7 @@ export default function getDataAndDrawChart2(plot, workLine, sensor) {
   };
 
   getData().then((result) => {
-    // console.log("result : ", result);
+    console.log("result : ", result);
     result.reverse(); // 시간값이 반대로 나와서 차트 그릴때 x축을 위해 reverse() 함수를 이용하여 배열 뒤집기
 
     // 데이터 가공
