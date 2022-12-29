@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
 
 
 // ⭐ 서버 실행방법
-// node 경로 + 파일이름 => nodw server.js
+// node 경로 + 파일이름 => node server.js
 
 // ⭐ nodemon으로 서버 재실행 자동화하기
 // 터미널창에 npm install -g nodemon 입력
