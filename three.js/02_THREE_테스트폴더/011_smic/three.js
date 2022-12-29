@@ -1,13 +1,25 @@
-import * as THREE from "./three.module.js";
-import { OrbitControls } from "./OrbitControls.js";
-import { GLTFLoader } from "./GLTFLoader.js";
-import { DRACOLoader } from "./DRACOLoader.js";
-import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.js";
+// import * as THREE from "./three.module.js";
+// import { OrbitControls } from "./OrbitControls.js";
+// import { GLTFLoader } from "./GLTFLoader.js";
+// import { DRACOLoader } from "./DRACOLoader.js";
+// import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.js";
 
-import gaugeChartDraw from "./DaedongGaugebar.js";
-import getDataAndDrawChart from "./samboChart.js";
-import getDataAndDrawChart2 from "./genicosChart.js";
+// import gaugeChartDraw from "./DaedongGaugebar.js";
+// // import getDataAndDrawChart from "./samboChart.js";
+// import getDataAndDrawChart2 from "./genicosChart.js";
 // import DrawThresholdChart from "./threshold.js";
+
+
+import * as THREE from "./three.module.min.js";
+import { OrbitControls } from "./OrbitControls.min.js";
+import { GLTFLoader } from "./GLTFLoader.min.js";
+import { DRACOLoader } from "./DRACOLoader.min.js";
+import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.min.js";
+
+import gaugeChartDraw from "./DaedongGaugebar.min.js";
+// import getDataAndDrawChart from "./samboChart.js";
+import getDataAndDrawChart2 from "./genicosChart.min.js";
+
 
 let scene, camera, renderer, renderer2;
 let light, light2, ambientLight;
@@ -168,8 +180,8 @@ function init() {
   loader.setDRACOLoader( new DRACOLoader() );
 
   loader.load(
-    './models/machine_008g.gltf',
-    // './machine_008g.gltf',
+    './machine_008g.glb',
+    // './models/machine_008g.gltf',
     function (gltf) {    //? load의 파라미터는 ('url', 'onLoad함수', 'onProgress함수', 'onError함수' ) 
       // console.log(geometry)   //? buffer geometry가 출력된다.
       // geometry.computeVertexNormals();    //? 이것의 역할은?
@@ -520,22 +532,22 @@ function DrawThresholdChart() {
 
   function setUpperLimit() {
     switch (SENSOR) {
-      case "vocs":
-        return 500;
+      // case "vocs":
+      //   return 500;
       case "co2":
         return 10;
-      case "co":
-        return 500;
-      case "hcho":
-        return 25;
-      case "h2s":
-        return 25;
-      case "hcl":
-        return 10;
-      case "nh3":
-        return 50;
-      case "so2":
-        return 25;
+      // case "co":
+      //   return 500;
+      // case "hcho":
+      //   return 25;
+      // case "h2s":
+      //   return 25;
+      // case "hcl":
+      //   return 10;
+      // case "nh3":
+      //   return 50;
+      // case "so2":
+      //   return 25;
       default:
         break;
     }
@@ -543,30 +555,30 @@ function DrawThresholdChart() {
 
   function setDefaultColor() {
     switch (SENSOR) {
-      case "vocs":
-        defaultColor = "#0070C0";
-        return;
+      // case "vocs":
+      //   defaultColor = "#0070C0";
+      //   return;
       case "co2":
         defaultColor = "#0070C0";
         return;
-      case "co":
-        defaultColor = "#0070C0";
-        return;
-      case "hcho":
-        defaultColor = "#0070C0";
-        return;
-      case "h2s":
-        defaultColor = "#0070C0";
-        return;
-      case "hcl":
-        defaultColor = "#0070C0";
-        return;
-      case "nh3":
-        defaultColor = "#0070C0";
-        return;
-      case "so2":
-        defaultColor = "#0070C0";
-        return;
+      // case "co":
+      //   defaultColor = "#0070C0";
+      //   return;
+      // case "hcho":
+      //   defaultColor = "#0070C0";
+      //   return;
+      // case "h2s":
+      //   defaultColor = "#0070C0";
+      //   return;
+      // case "hcl":
+      //   defaultColor = "#0070C0";
+      //   return;
+      // case "nh3":
+      //   defaultColor = "#0070C0";
+      //   return;
+      // case "so2":
+      //   defaultColor = "#0070C0";
+      //   return;
       default:
         break;
     }

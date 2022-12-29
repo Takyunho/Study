@@ -1,5 +1,4 @@
 // 제니코스 차트 그리기
-
 export default function getDataAndDrawChart2(plot, workLine, sensor) {
   // const url = `http://14.52.100.115:5000/rest/regression/predict?work_line=${workLine}&sensor=${sensor}`;
   // ex. work_line : MA05 / sensor : homo_rpm
@@ -33,13 +32,6 @@ export default function getDataAndDrawChart2(plot, workLine, sensor) {
       sensor[index] = item.sensor;
       workLine[index] = item.work_line;
     });
-    // console.log("now_date : ", nowDate);
-    // console.log("now_result : ", nowResult)
-    // console.log("predict_high : ", predictHigh)
-    // console.log("predict_low : ", predictLow)
-    // console.log("sensor : ", sensor)
-    // console.log("work_line : ", workLine)
-    // console.log("status : ", status)
 
     // 차트 그리기 함수
     drawChart(plot, nowDate, nowResult, predictHigh, predictLow, sensor);
