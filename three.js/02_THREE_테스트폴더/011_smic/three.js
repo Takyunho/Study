@@ -35,7 +35,10 @@ function init() {
   //! scene(장면)
   scene = new THREE.Scene(); //* 장면 생성
   // scene.background = new THREE.Color('#2e2861')
-  scene.background = new THREE.Color("#343549");
+  // scene.background = new THREE.Color("#343549");
+  // scene.background = new THREE.Color("#161B21");
+  scene.background = new THREE.Color("#232D43");
+  // scene.background = new THREE.Color("transparent");
 
   //! 카메라(camera)
   const fov = 45;
@@ -44,26 +47,29 @@ function init() {
   const far = 5000;
   //* 원근 카메라
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(900, 300, 900); //* 카메라 포지션 x, y, z
+  camera.position.set(900, 900, 900); //* 카메라 포지션 x, y, z
   scene.add(camera);
 
   //! light(조명)
-  ambientLight = new THREE.AmbientLight("white", 0.5);
+  ambientLight = new THREE.AmbientLight("white", 3);
   scene.add(ambientLight);
 
-  light = new THREE.DirectionalLight("white", 3);
-  light.castShadow = true; // true로 설정하면 다이나믹한 그림자가 드리워짐 (비용이 많이들고, 그림자가 제대로 보이도록 조정해야하는 단점이 있다.)
+  light = new THREE.DirectionalLight("white", 2);
+  // light.castShadow = true; // true로 설정하면 다이나믹한 그림자가 드리워짐 (비용이 많이들고, 그림자가 제대로 보이도록 조정해야하는 단점이 있다.)
   light.position.y = 300;
   light.position.z = -10;
   scene.add(light);
   // const lightHelper_d1 = new THREE.DirectionalLightHelper(light);
   // scene.add(lightHelper_d1)
 
-  light2 = new THREE.DirectionalLight("white", 3);
-  light2.castShadow = true;
-  light2.position.x = 18;
-  light2.position.y = 5;
+  light2 = new THREE.DirectionalLight("white", 1);
+  // light2.castShadow = true;
+  light2.position.x = 50;
+  light2.position.y = 0;
   scene.add(light2);
+
+  // const lightHelper_2 = new THREE.DirectionalLightHelper(light2);
+  // scene.add(lightHelper_2)
 
   // const light3 = new THREE.PointLight('white', 10, 100, 2 );
   // light3.position.set( 0, 130, 0 );
@@ -75,8 +81,9 @@ function init() {
   const light4 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
   light4.position.set(10, 400, 0);
   scene.add(light4);
-  // const lightHelper = new THREE.SpotLightHelper(light4);
-  // scene.add(lightHelper)
+
+  // const lightHelper3 = new THREE.SpotLightHelper(light4);
+  // scene.add(lightHelper3)
 
   // SpotLight2
   const light5 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
@@ -88,8 +95,8 @@ function init() {
   light6.position.set(10, 300, 400);
   scene.add(light6);
 
-  const lightHelper = new THREE.SpotLightHelper(light6);
-  // scene.add(lightHelper)
+  // const lightHelper6 = new THREE.SpotLightHelper(light6);
+  // scene.add(lightHelper6)
 
   //! 렌더러2
   renderer2 = new CSS3DRenderer();
@@ -123,224 +130,226 @@ function init() {
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
     // controls.enabled = true;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
-    controls.minDistance = 400; // 최소 확대
-    controls.maxDistance = 1000; // 최대 확대
+    controls.minDistance = 300; // 최소 확대
+    controls.maxDistance = 650; // 최대 확대
     // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
     controls.addEventListener("change", render);
   }
 
-  //^ gltf 불러오기
-  // const gltfloader = new GLTFLoader();
-  // gltfloader.load(
-  //   // './Machine_AMR.glb',
-    // "./untitled.gltf",  // T2V 올릴때 경로
-    // "./models/machine_008g.gltf",
-  //   (gltf) => {
-  //     // console.log("gltf : ", gltf)
-  //     // console.log("gltf : ", gltf.scene)
-  //     // const mesh = gltf.scene.children[0]
-  //     const mesh = gltf.scene;
-  //     console.log("gltf : ", mesh);
+  loadGLTF();
 
-  //     // console.log(mesh.material)
+  function loadGLTF() {
+    //^ gltf 불러오기
+    const gltfloader = new GLTFLoader();
+    gltfloader.load(
+      "./machine_010.gltf",
+      (gltf) => {
+        // console.log("gltf : ", gltf)
+        // console.log("gltf : ", gltf.scene)
+        // const mesh = gltf.scene.children[0]
+        const mesh = gltf.scene;
+        console.log("gltf : ", mesh);
+
+        // console.log(mesh.material)
+        mesh.scale.x = 50;
+        mesh.scale.y = 50;
+        mesh.scale.z = 50;
+        mesh.position.set(0, -50, 0);
+
+        // // gltf파일을 티가 안나게 돌리는 부분
+        // const animate2 = () => {
+        //   const animation = requestAnimationFrame(animate2);
+        //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
+        //   mesh.rotation.y -= 0.000000000000000000000000000000001;
+        //   render()
+
+        //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
+        //   if (animation >= 100 * 100) {
+        //     cancelAnimationFrame(animation);
+        //   }
+        // }
+        // animate2();
+
+        scene.add(mesh);
+        render(); // gltf 로드시 렌더링을 해줘야 함!
+
+        createBtn();
+      }
+    );
+  }
+
+  //# drc 파일을 사용하는 경우
+  // const loader = new DRACOLoader()
+  // loader.preload();
+
+  // loader.setDecoderPath('/');   //? 라이브러리 경로여서 신경 안써도 될거같다.  // 같은 경로면 / 다른 경로면 ex. draco/
+  // loader.setDecoderConfig({ type: 'js' });   //? 디코더 라이브러리에 대한 구성을 제공한다. 디코딩이 시작된 후에는 구성을 변경할 수 없다.
+
+
+  //# gltf를 drc로 압축하는 경우
+  // let loader = new GLTFLoader();
+  // // loader.setDRACOLoader( new DRACOLoader() );
+
+  // loader.load(
+  //   './machine_010g.gltf',
+  //   // './models/machine_008g.gltf',
+  //   function (gltf) {    //? load의 파라미터는 ('url', 'onLoad함수', 'onProgress함수', 'onError함수' )
+  //     // console.log(geometry)   //? buffer geometry가 출력된다.
+  //     // geometry.computeVertexNormals();    //? 이것의 역할은?
+      
+  //     // const material = new THREE.MeshStandardMaterial( { color: 0x606060 } );   //? 물체의 겉색깔
+  //     // const mesh = new THREE.Mesh( geometry, material );    //? 지오메트리 + 머테리얼 = 메쉬
+  //     // mesh.castShadow = true;   //? 부드럽게
+  //     // mesh.receiveShadow = true;    //?
+      
+  //     const mesh = gltf.scene;
+    
   //     mesh.scale.x = 50;
   //     mesh.scale.y = 50;
   //     mesh.scale.z = 50;
   //     mesh.position.set(0, 0, 0);
 
-  //     // // gltf파일을 티가 안나게 돌리는 부분
-  //     // const animate2 = () => {
-  //     //   const animation = requestAnimationFrame(animate2);
-  //     //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
-  //     //   mesh.rotation.y -= 0.000000000000000000000000000000001;
-  //     //   render()
+  //     scene.add( mesh );
 
-  //     //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
-  //     //   if (animation >= 100 * 100) {
-  //     //     cancelAnimationFrame(animation);
-  //     //   }
-  //     // }
-  //     // animate2();
-
-  //     scene.add(mesh);
-  //     render(); // gltf 로드시 렌더링을 해줘야 함!
+  //     // Release decoder resources.
+  //     // dracoLoader.dispose();
+    
   //   }
-  // );
-
-
-  // const dracoLoader = new DRACOLoader()
-  // // loader.preload();
-
-  // dracoLoader.setDecoderPath('/');   //? 라이브러리 경로여서 신경 안써도 될거같다.  // 같은 경로면 / 다른 경로면 ex. draco/
-  // dracoLoader.setDecoderConfig({ type: 'js' });   //? 디코더 라이브러리에 대한 구성을 제공한다. 디코딩이 시작된 후에는 구성을 변경할 수 없다.
-  
-  // console.log(dracoLoader)
-
-  let loader = new GLTFLoader();
-  loader.setDRACOLoader( new DRACOLoader() );
-
-  loader.load(
-    './machine_008g.glb',
-    // './models/machine_008g.gltf',
-    function (gltf) {    //? load의 파라미터는 ('url', 'onLoad함수', 'onProgress함수', 'onError함수' ) 
-      // console.log(geometry)   //? buffer geometry가 출력된다.
-      // geometry.computeVertexNormals();    //? 이것의 역할은?
-      
-      // const material = new THREE.MeshStandardMaterial( { color: 0x606060 } );   //? 물체의 겉색깔
-      // const mesh = new THREE.Mesh( geometry, material );    //? 지오메트리 + 머테리얼 = 메쉬
-      // mesh.castShadow = true;   //? 부드럽게
-      // mesh.receiveShadow = true;    //?
-      
-      const mesh = gltf.scene;
-    
-      mesh.scale.x = 50;
-      mesh.scale.y = 50;
-      mesh.scale.z = 50;
-      mesh.position.set(0, 0, 0);
-
-      scene.add( mesh );
-
-      // Release decoder resources.
-      // dracoLoader.dispose();
-    
-    }
-  )
+  // )
 
   // gltfLoader.setDRACOLoader(dracoLoader)
 
 
-  // 참고
-  // 1. button1.position.x ~ z를 다른 변수에 할당 가능
-  // 2. raycaster를 이용해서 좌표를 구한 다음 그 좌표의 일정 위치를 더해서 그 곳에 창을 띄운다?
 
   //~ 버튼 만드는 부분
   //^ 버튼 1 (설비정보를 보여주는 버튼)
-  button1 = makeElementObject("div", 6, 6);
-  // console.log("버튼1 : ", button1)
-  button1.css3dObject.element.style.cursor = "pointer";
-  button1.position.x = 37;  //* x축
-  button1.position.y = 129; //* y축
-  button1.position.z = 148; //* z축
-  button1.rotation.y = 1.6;
-  button1.css3dObject.element.className = "alarmDot";
-  button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
-  scene.add(button1);
+  const createBtn = () => {
+    button1 = makeElementObject("div", 8, 8);
+    // console.log("버튼1 : ", button1)
+    button1.css3dObject.element.style.cursor = "pointer";
+    button1.position.x = 37.4;  //* x축
+    button1.position.y = 65; //* y축
+    button1.position.z = 146; //* z축
+    button1.rotation.y = 1.6;
+    button1.css3dObject.element.className = "alarmDot";
+    button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
+    scene.add(button1);
 
-  //@ 버튼1 이벤트리스너
-  // 차트1 보이게 하기
-  button1.css3dObject.element.addEventListener(
-    "pointerdown",
-    () => {
-      console.log("버튼1 클릭");
-      // controls.enabled = false;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
+    //@ 버튼1 이벤트리스너
+    // 차트1 보이게 하기
+    button1.css3dObject.element.addEventListener(
+      "pointerdown",
+      () => {
+        console.log("버튼1 클릭");
+        // controls.enabled = false;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
       
-      // 삼보차트
-      // getDataAndDrawChart("myPlot1", 5110, "45773-4C000"); // 눌렀을 때 파라미터에 pcd, icd 전달
-      // getDataAndDrawChart("myPlot2", 5110, "45940-2F200"); // 눌렀을 때 파라미터에 pcd, icd 전달
-      // getDataAndDrawChart('myPlot4', 5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
+        // 삼보차트
+        // getDataAndDrawChart("myPlot1", 5110, "45773-4C000"); // 눌렀을 때 파라미터에 pcd, icd 전달
+        // getDataAndDrawChart("myPlot2", 5110, "45940-2F200"); // 눌렀을 때 파라미터에 pcd, icd 전달
+        // getDataAndDrawChart('myPlot4', 5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
 
-      // 제니코스 차트
-      getDataAndDrawChart2("myPlot1");
-      getDataAndDrawChart2("myPlot2");
-      // getDataAndDrawChart2("myPlot1", "MA05", "homo_rpm");
-      // getDataAndDrawChart2("myPlot2", "MA03", "water_rpm");
+        // 제니코스 차트
+        getDataAndDrawChart2("myPlot1");
+        getDataAndDrawChart2("myPlot2");
+        // getDataAndDrawChart2("myPlot1", "MA05", "homo_rpm");
+        // getDataAndDrawChart2("myPlot2", "MA03", "water_rpm");
 
-      // 게이지바 차트(색상을 위해 호출)
-      gaugeChartDraw('A40104')
-      // gaugeChartDraw("A40204")
-      jQuery(".bg").show();
+        // 게이지바 차트(색상을 위해 호출)
+        gaugeChartDraw('A40104')
+        // gaugeChartDraw("A40204")
+        jQuery(".bg").show();
       
-    },
-    false
-  );
+      },
+      false
+    );
 
 
-  //^ 버튼 2
-  button2 = makeElementObject("div", 6, 6);
-  // console.log("버튼 2 : ", button2)
-  button2.css3dObject.element.style.cursor = "pointer";
-  button2.position.x = 9; //* x축
-  button2.position.y = 105; //* y축
-  button2.position.z = 26; //* z축
-  button2.rotation.y = 0.6;
-  scene.add(button2);
+    //^ 버튼 2
+    button2 = makeElementObject("div", 8, 8);
+    // console.log("버튼 2 : ", button2)
+    button2.css3dObject.element.style.cursor = "pointer";
+    button2.position.x = 5; //* x축
+    button2.position.y = -30; //* y축
+    button2.position.z = 174.2; //* z축
+    // button2.rotation.y = 0.6;
+    scene.add(button2);
 
-  //@ 버튼2 이벤트리스너
-  button2.css3dObject.element.addEventListener( "pointerdown", () => {
-    console.log("버튼2 클릭");
-    DrawThresholdChart();
-    jQuery("#bg2").show();
-  }, false );
-
-
-//^ 버튼 3
-button3 = makeElementObject("div", 6, 6);
-button3.css3dObject.element.style.cursor = "pointer";
-button3.position.x = 100;  //* x축
-button3.position.y = 50; //* y축
-button3.position.z = 58; //* z축
-// button3.rotation.y = 1.6;
-button3.css3dObject.element.className = "alarmDot";
-button3.css3dObject.element.id = 'linkMove';
-button3.css3dObject.element.style.background = new THREE.Color("#f29510").getStyle();
-scene.add(button3);
-
-//@ 버튼3 이벤트리스너
-button3.css3dObject.element.addEventListener("pointerdown", () => {
-  console.log("버튼3 클릭");
-  // 새창 띄우기
-  window.open('https://www.google.co.kr/');
-}, false );
+    //@ 버튼2 이벤트리스너
+    button2.css3dObject.element.addEventListener("pointerdown", () => {
+      console.log("버튼2 클릭");
+      DrawThresholdChart();
+      jQuery("#bg2").show();
+    }, false);
 
 
-  //^ 닫기 버튼 클릭시 차트 안보이게 하기
-  const closeBtn = document.getElementById("closeBtn");
-  closeBtn.addEventListener('click', () => {
-    // document.getElementById('myPlot1').textContent = "";
-    // document.getElementById('myPlot2').textContent = "";
-    jQuery('#bg').hide();
-  })
+    //^ 버튼 3
+    button3 = makeElementObject("div", 8, 8);
+    button3.css3dObject.element.style.cursor = "pointer";
+    button3.position.x = 100;  //* x축
+    button3.position.y = 0; //* y축
+    button3.position.z = 57.5; //* z축
+    // button3.rotation.y = 1.6;
+    button3.css3dObject.element.className = "alarmDot";
+    button3.css3dObject.element.id = 'linkMove';
+    button3.css3dObject.element.style.background = new THREE.Color("#f29510").getStyle();
+    scene.add(button3);
 
-  const closeBtn2 = document.getElementById("closeBtn2");
-  closeBtn2.addEventListener('click', () => {
-    jQuery('#bg2').hide();
-  })
+    //@ 버튼3 이벤트리스너
+    button3.css3dObject.element.addEventListener("pointerdown", () => {
+      console.log("버튼3 클릭");
+      // 새창 띄우기
+      window.open('https://www.google.co.kr/');
+    }, false);
+
+
+    //^ 닫기 버튼 클릭시 차트 안보이게 하기
+    const closeBtn = document.getElementById("closeBtn");
+    closeBtn.addEventListener('pointerdown', () => {
+      // document.getElementById('myPlot1').textContent = "";
+      // document.getElementById('myPlot2').textContent = "";
+      jQuery('#bg').hide();
+    })
+
+    const closeBtn2 = document.getElementById("closeBtn2");
+    closeBtn2.addEventListener('pointerdown', () => {
+      jQuery('#bg2').hide();
+    })
   
-  // 일정시간마다 랜덤한 값으로 텍스트 변경하기
-  setInterval(() => {
-    // 차트 옆 퍼센트부분 텍스트 랜덤으로 변경되도록
-    document.querySelector('.C1_SP_AxisLoad').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50); 
-    document.querySelector('.C3_SP_AxisLoad').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50);
+    // 일정시간마다 랜덤한 값으로 텍스트 변경하기
+    setInterval(() => {
+      // 차트 옆 퍼센트부분 텍스트 랜덤으로 변경되도록
+      document.querySelector('.C1_SP_AxisLoad').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50);
+      document.querySelector('.C3_SP_AxisLoad').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50);
 
-    // 파트 인포메이션부분 텍스트 랜덤으로 변경되도록
-    document.querySelector('.impeller').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50);
-    document.querySelector('.Orbiting').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
-    document.querySelector('.Total').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
-    document.querySelector('.PowerOn').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
+      // 파트 인포메이션부분 텍스트 랜덤으로 변경되도록
+      document.querySelector('.impeller').innerHTML = Math.floor((Math.random() * (100 - 50)) + 50);
+      document.querySelector('.Orbiting').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
+      document.querySelector('.Total').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
+      document.querySelector('.PowerOn').innerHTML = Math.floor((Math.random() * (300 - 10)) + 10);
 
-    // 게이지 차트 랜덤으로 변경되도록 
-    const cssProgressBar1 = document.querySelector('.cssProgress-bar1').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
-    const cssProgressBar2 = document.querySelector('.cssProgress-bar2').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
-    const cssProgressBar3 = document.querySelector('.cssProgress-bar3').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
-    const cssProgressBar4 = document.querySelector('.cssProgress-bar4').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
-    const cssProgressBar5 = document.querySelector('.cssProgress-bar5').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
+      // 게이지 차트 랜덤으로 변경되도록 
+      const cssProgressBar1 = document.querySelector('.cssProgress-bar1').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
+      const cssProgressBar2 = document.querySelector('.cssProgress-bar2').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
+      const cssProgressBar3 = document.querySelector('.cssProgress-bar3').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
+      const cssProgressBar4 = document.querySelector('.cssProgress-bar4').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
+      const cssProgressBar5 = document.querySelector('.cssProgress-bar5').style.width = Math.floor((Math.random() * (99 - 10)) + 10) + '%';
 
-    // 게이지 차트의 퍼센트 텍스트 랜덤으로 변경되도록
-    document.querySelector('.X1_AxisLoad').innerHTML = cssProgressBar1.substring(0, 2);
-    document.querySelector('.X2_AxisLoad').innerHTML = cssProgressBar2.substring(0, 2);
-    document.querySelector('.Y1_AxisLoad').innerHTML = cssProgressBar3.substring(0, 2);
-    document.querySelector('.Z1_AxisLoad').innerHTML = cssProgressBar4.substring(0, 2);
-    document.querySelector('.Z2_AxisLoad').innerHTML = cssProgressBar5.substring(0, 2);
+      // 게이지 차트의 퍼센트 텍스트 랜덤으로 변경되도록
+      document.querySelector('.X1_AxisLoad').innerHTML = cssProgressBar1.substring(0, 2);
+      document.querySelector('.X2_AxisLoad').innerHTML = cssProgressBar2.substring(0, 2);
+      document.querySelector('.Y1_AxisLoad').innerHTML = cssProgressBar3.substring(0, 2);
+      document.querySelector('.Z1_AxisLoad').innerHTML = cssProgressBar4.substring(0, 2);
+      document.querySelector('.Z2_AxisLoad').innerHTML = cssProgressBar5.substring(0, 2);
     
-    // AxisPos
-    document.querySelector('.X1_AxisPos').innerHTML = ((Math.random(2) * (500 - 200)) + 200).toFixed(2);
-    document.querySelector('.Y1_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
-    document.querySelector('.Z1_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
-    document.querySelector('.X2_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
-    document.querySelector('.Z2_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
+      // AxisPos
+      document.querySelector('.X1_AxisPos').innerHTML = ((Math.random(2) * (500 - 200)) + 200).toFixed(2);
+      document.querySelector('.Y1_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
+      document.querySelector('.Z1_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
+      document.querySelector('.X2_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
+      document.querySelector('.Z2_AxisPos').innerHTML = ((Math.random() * (500 - 200)) + 200).toFixed(2);
     
-  }, 5000);
-
+    }, 5000);
+  }
 
   //~ 버튼 만들기 끝
   render();
@@ -489,7 +498,7 @@ function DrawThresholdChart() {
 
           const layout = {
             title: false,
-            // width: 480,
+            width: 500,
             height: 170,
             margin: { t: 15, b: 50, l: 30, r: 20, pad: 0 },
             showlegend: false,
