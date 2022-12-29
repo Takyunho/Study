@@ -6,9 +6,7 @@ class App {
 		/* 다른 method 에서 참조 할 수 있도록 field 화 */
 		this._divContainer = divContainer;
 
-		/* antialias : 오브젝트들의 경계선이 계단 현상 없이 부드럽게 표현되는 옵션 */
 		const renderer = new THREE.WebGLRenderer({antialias: true});
-		/* pixel ratio : 픽셀 밀도 설정 */
 		renderer.setPixelRatio(window.devicePixelRatio);
 		/* renderer.domElement : canvas 타입의 Dom 객체 */
 		divContainer.appendChild(renderer.domElement);
