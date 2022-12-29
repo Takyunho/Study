@@ -1,6 +1,7 @@
 import * as THREE from "./three.module.js";
 import { OrbitControls } from "./OrbitControls.js";
 import { GLTFLoader } from "./GLTFLoader.js";
+import { DRACOLoader } from "./DRACOLoader.js";
 import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.js";
 
 import gaugeChartDraw from "./DaedongGaugebar.js";
@@ -117,42 +118,84 @@ function init() {
   }
 
   //^ gltf 불러오기
-  const gltfloader = new GLTFLoader();
-  gltfloader.load(
-    // './Machine_AMR.glb',
-    "./machine_008g.glb",  // T2V 올릴때 경로
-    // "./models/machine_008g.glb",
-    (gltf) => {
-      // console.log("gltf : ", gltf)
-      // console.log("gltf : ", gltf.scene)
-      // const mesh = gltf.scene.children[0]
-      const mesh = gltf.scene;
-      console.log("gltf : ", mesh);
+  // const gltfloader = new GLTFLoader();
+  // gltfloader.load(
+  //   // './Machine_AMR.glb',
+    // "./untitled.gltf",  // T2V 올릴때 경로
+    // "./models/machine_008g.gltf",
+  //   (gltf) => {
+  //     // console.log("gltf : ", gltf)
+  //     // console.log("gltf : ", gltf.scene)
+  //     // const mesh = gltf.scene.children[0]
+  //     const mesh = gltf.scene;
+  //     console.log("gltf : ", mesh);
 
-      // console.log(mesh.material)
+  //     // console.log(mesh.material)
+  //     mesh.scale.x = 50;
+  //     mesh.scale.y = 50;
+  //     mesh.scale.z = 50;
+  //     mesh.position.set(0, 0, 0);
+
+  //     // // gltf파일을 티가 안나게 돌리는 부분
+  //     // const animate2 = () => {
+  //     //   const animation = requestAnimationFrame(animate2);
+  //     //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
+  //     //   mesh.rotation.y -= 0.000000000000000000000000000000001;
+  //     //   render()
+
+  //     //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
+  //     //   if (animation >= 100 * 100) {
+  //     //     cancelAnimationFrame(animation);
+  //     //   }
+  //     // }
+  //     // animate2();
+
+  //     scene.add(mesh);
+  //     render(); // gltf 로드시 렌더링을 해줘야 함!
+  //   }
+  // );
+
+
+  // const dracoLoader = new DRACOLoader()
+  // // loader.preload();
+
+  // dracoLoader.setDecoderPath('/');   //? 라이브러리 경로여서 신경 안써도 될거같다.  // 같은 경로면 / 다른 경로면 ex. draco/
+  // dracoLoader.setDecoderConfig({ type: 'js' });   //? 디코더 라이브러리에 대한 구성을 제공한다. 디코딩이 시작된 후에는 구성을 변경할 수 없다.
+  
+  // console.log(dracoLoader)
+
+  let loader = new GLTFLoader();
+  loader.setDRACOLoader( new DRACOLoader() );
+
+  loader.load(
+    './models/machine_008g.gltf',
+    // './machine_008g.gltf',
+    function (gltf) {    //? load의 파라미터는 ('url', 'onLoad함수', 'onProgress함수', 'onError함수' ) 
+      // console.log(geometry)   //? buffer geometry가 출력된다.
+      // geometry.computeVertexNormals();    //? 이것의 역할은?
+      
+      // const material = new THREE.MeshStandardMaterial( { color: 0x606060 } );   //? 물체의 겉색깔
+      // const mesh = new THREE.Mesh( geometry, material );    //? 지오메트리 + 머테리얼 = 메쉬
+      // mesh.castShadow = true;   //? 부드럽게
+      // mesh.receiveShadow = true;    //?
+      
+      const mesh = gltf.scene;
+    
       mesh.scale.x = 50;
       mesh.scale.y = 50;
       mesh.scale.z = 50;
       mesh.position.set(0, 0, 0);
 
-      // // gltf파일을 티가 안나게 돌리는 부분
-      // const animate2 = () => {
-      //   const animation = requestAnimationFrame(animate2);
-      //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
-      //   mesh.rotation.y -= 0.000000000000000000000000000000001;
-      //   render()
+      scene.add( mesh );
 
-      //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
-      //   if (animation >= 100 * 100) {
-      //     cancelAnimationFrame(animation);
-      //   }
-      // }
-      // animate2();
-
-      scene.add(mesh);
-      render(); // gltf 로드시 렌더링을 해줘야 함!
+      // Release decoder resources.
+      // dracoLoader.dispose();
+    
     }
-  );
+  )
+
+  // gltfLoader.setDRACOLoader(dracoLoader)
+
 
   // 참고
   // 1. button1.position.x ~ z를 다른 변수에 할당 가능
