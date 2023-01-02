@@ -298,8 +298,24 @@ function init() {
     button3.css3dObject.element.addEventListener("pointerdown", () => {
       console.log("버튼3 클릭");
       // 새창 띄우기
-      window.open('https://www.google.co.kr/');
+      window.open('http://211.219.71.196/dashboard/live');
     }, false);
+
+
+    // 마커 (ar) 
+    let markerImg = makeElementObject('img', 50, 50);
+    markerImg.position.x = 147;
+    markerImg.position.y = -10;
+    markerImg.position.z = 10.5;
+    markerImg.rotation.y = 1.6;
+    // markerImg.position.x = 105;
+    // markerImg.position.y = -15;
+    // markerImg.position.z = 57.5;
+    console.log(markerImg);
+    markerImg.css3dObject.element.src = './marker.png'    // element.style.src가 아니라, element.src에다가 넣어줘야함
+    // markerImg.css3dObject.element.style.background = new THREE.Color("#333").getStyle();
+    scene.add(markerImg);
+
 
 
     //^ 닫기 버튼 클릭시 차트 안보이게 하기
@@ -404,6 +420,7 @@ function makeElementObject(type, width, height) {
     color: new THREE.Color(/*color*/ 0x000),
     blending: THREE.NoBlending, //* ???
     side: THREE.DoubleSide, //* 더블사이드로 해야 마우스를 돌려도 양면이 다 보임
+
   });
   let geometry = new THREE.BoxGeometry(width, height, 1); //* geometry 만들기 (박스지오메트리)
   let mesh = new THREE.Mesh(geometry, material); //* geometry + material = MESH
