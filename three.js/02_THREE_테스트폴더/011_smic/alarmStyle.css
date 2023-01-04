@@ -4,7 +4,7 @@
     -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
   }
   70% {
-    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    -webkit-box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
   }
   100% {
     -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
@@ -16,8 +16,8 @@
     box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
   }
   70% {
-    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    -moz-box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
   }
   100% {
     -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
@@ -31,7 +31,7 @@
     -webkit-box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.8);
   }
   70% {
-    -webkit-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    -webkit-box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
   }
   100% {
     -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
@@ -43,8 +43,8 @@
     box-shadow: 0 0 0 0 rgba(27, 206, 87, 0.4);
   }
   70% {
-    -moz-box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    -moz-box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0);
   }
   100% {
     -moz-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
@@ -52,8 +52,8 @@
   }
 }
 .alarmDot {
-  width: 10px;
-  height: 10px;
+  width: 1px;
+  height: 1px;
   border-radius: 100%;
   /* opacity: 100%; */
   /* position: absolute;
