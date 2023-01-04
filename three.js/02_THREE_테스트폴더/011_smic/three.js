@@ -22,7 +22,6 @@ import getDataAndDrawChart2 from "./genicosChart.min.js";
 
 
 let scene, camera, renderer, renderer2;
-let light, light2, ambientLight;
 let controls;
 let button1, button2, button3;
 
@@ -41,62 +40,74 @@ function init() {
   // scene.background = new THREE.Color("transparent");
 
   //! 카메라(camera)
-  const fov = 45;
+  const fov = 50;
   const aspect = window.innerWidth / window.innerHeight;
   const near = 0.1;
   const far = 5000;
   //* 원근 카메라
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(900, 900, 900); //* 카메라 포지션 x, y, z
+  camera.position.set(10, 10, 10); //* 카메라 포지션 x, y, z
   scene.add(camera);
 
   //! light(조명)
-  ambientLight = new THREE.AmbientLight("white", 3);
+  const ambientLight = new THREE.AmbientLight("white", 1);
   scene.add(ambientLight);
 
-  light = new THREE.DirectionalLight("white", 2);
-  // light.castShadow = true; // true로 설정하면 다이나믹한 그림자가 드리워짐 (비용이 많이들고, 그림자가 제대로 보이도록 조정해야하는 단점이 있다.)
-  light.position.y = 300;
-  light.position.z = -10;
+  const light = new THREE.DirectionalLight("white", 1);
+  light.position.set(-10,50,10);
+  light.target.position.set(0,0,0);
   scene.add(light);
-  // const lightHelper_d1 = new THREE.DirectionalLightHelper(light);
-  // scene.add(lightHelper_d1)
 
-  light2 = new THREE.DirectionalLight("white", 1);
-  // light2.castShadow = true;
-  light2.position.x = 50;
-  light2.position.y = 0;
+  const light2 = new THREE.PointLight("white", 1);
+  light2.position.set( 8, 0, -2 );
   scene.add(light2);
 
-  // const lightHelper_2 = new THREE.DirectionalLightHelper(light2);
-  // scene.add(lightHelper_2)
 
-  // const light3 = new THREE.PointLight('white', 10, 100, 2 );
-  // light3.position.set( 0, 130, 0 );
-  // scene.add( light3 );
+  const light3 = new THREE.PointLight('white', 1 );
+  // light3.position.set( 0, 1.8, 1 ); // 설비 안쪽위치( 좌우,높이,앞 )
+  light3.position.set( -1, 5, 1 );
+  scene.add(light3);
+  
   // const lightHelper = new THREE.PointLightHelper(light3);
   // scene.add(lightHelper)
 
   // SpotLight
-  const light4 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
-  light4.position.set(10, 400, 0);
+  const light4 = new THREE.SpotLight("white", 5, 10, Math.PI / 4);
+  light4.position.set(-5, 5, 1);
   scene.add(light4);
 
   // const lightHelper3 = new THREE.SpotLightHelper(light4);
   // scene.add(lightHelper3)
 
   // SpotLight2
-  const light5 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
-  light5.position.set(10, -400, 0);
-  scene.add(light5);
+  // const light5 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
+  // light5.position.set(10, -400, 0);
+  // scene.add(light5);
+
+  // const lightHelper5 = new THREE.SpotLightHelper(light5);
+  // scene.add(lightHelper5)
 
   // SpotLight3
-  const light6 = new THREE.SpotLight("white", 10, 500, Math.PI / 4);
-  light6.position.set(10, 300, 400);
-  scene.add(light6);
+  // const light6 = new THREE.SpotLight("white", 5, 300, Math.PI / 4);
+  // light6.position.set(100, 300, 100);
+  // scene.add(light6);
 
   // const lightHelper6 = new THREE.SpotLightHelper(light6);
   // scene.add(lightHelper6)
+
+  // const light7 = new THREE.SpotLight("white", 3, 300, Math.PI / 4);
+  // light7.position.set(300, -100, 0);
+  // scene.add(light7);
+
+  // const lightHelper7 = new THREE.SpotLightHelper(light7);
+  // scene.add(lightHelper7)
+
+  // const light8 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
+  // light8.position.set(-100, 200, 200);
+  // scene.add(light8);
+
+  // const lightHelper8 = new THREE.SpotLightHelper(light8);
+  // scene.add(lightHelper8)
 
   //! 렌더러2
   renderer2 = new CSS3DRenderer();
@@ -130,7 +141,7 @@ function init() {
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
     // controls.enabled = true;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
-    controls.minDistance = 300; // 최소 확대
+    controls.minDistance = 0; // 최소 확대
     controls.maxDistance = 650; // 최대 확대
     // controls.maxPolarAngle = Math.PI / 2; // 축을 기준으로 회전하도록(아래를 볼 수 없음)
     controls.addEventListener("change", render);
@@ -142,34 +153,10 @@ function init() {
     //^ gltf 불러오기
     const gltfloader = new GLTFLoader();
     gltfloader.load(
-      "./machine_010.gltf",
+      "./machine_011_light.gltf",
       (gltf) => {
-        // console.log("gltf : ", gltf)
-        // console.log("gltf : ", gltf.scene)
-        // const mesh = gltf.scene.children[0]
         const mesh = gltf.scene;
         console.log("gltf : ", mesh);
-
-        // console.log(mesh.material)
-        mesh.scale.x = 50;
-        mesh.scale.y = 50;
-        mesh.scale.z = 50;
-        mesh.position.set(0, -50, 0);
-
-        // // gltf파일을 티가 안나게 돌리는 부분
-        // const animate2 = () => {
-        //   const animation = requestAnimationFrame(animate2);
-        //   // console.log(animation) // 콘솔창에 프레임이 출력된다.
-        //   mesh.rotation.y -= 0.000000000000000000000000000000001;
-        //   render()
-
-        //   // 일정시간이 되면 gltf파일이 돌고있는걸 멈추는 부분
-        //   if (animation >= 100 * 100) {
-        //     cancelAnimationFrame(animation);
-        //   }
-        // }
-        // animate2();
-
         scene.add(mesh);
         render(); // gltf 로드시 렌더링을 해줘야 함!
 
@@ -178,7 +165,7 @@ function init() {
     );
   }
 
-  //# drc 파일을 사용하는 경우
+  //################### drc 파일을 사용하는 경우
   // const loader = new DRACOLoader()
   // loader.preload();
 
@@ -186,7 +173,7 @@ function init() {
   // loader.setDecoderConfig({ type: 'js' });   //? 디코더 라이브러리에 대한 구성을 제공한다. 디코딩이 시작된 후에는 구성을 변경할 수 없다.
 
 
-  //# gltf를 drc로 압축하는 경우
+  //################## gltf를 drc로 압축하는 경우
   // let loader = new GLTFLoader();
   // // loader.setDRACOLoader( new DRACOLoader() );
 
@@ -224,12 +211,15 @@ function init() {
   //~ 버튼 만드는 부분
   //^ 버튼 1 (설비정보를 보여주는 버튼)
   const createBtn = () => {
-    button1 = makeElementObject("div", 8, 8);
-    // console.log("버튼1 : ", button1)
+    button1 = makeElementObject("div", 0.2, 0.2);
+    console.log("버튼1 : ", button1)
     button1.css3dObject.element.style.cursor = "pointer";
-    button1.position.x = 37.4;  //* x축
-    button1.position.y = 65; //* y축
-    button1.position.z = 146; //* z축
+    button1.scale.x = 0.05;
+    button1.scale.y = 0.1;
+    button1.scale.z = 0.001;    // 주변 흰색 테두리를 없애기 위함
+    button1.position.x = 0.77; //* x축
+    button1.position.y = 2.2; //* y축
+    button1.position.z = 2.9; //* z축
     button1.rotation.y = 1.6;
     button1.css3dObject.element.className = "alarmDot";
     button1.css3dObject.element.style.background = new THREE.Color("#45349c").getStyle();
@@ -259,19 +249,19 @@ function init() {
         // gaugeChartDraw("A40204")
         jQuery(".bg").show();
       
-      },
-      false
-    );
+      });
 
 
     //^ 버튼 2
-    button2 = makeElementObject("div", 8, 8);
+    button2 = makeElementObject("div", 0.2, 0.2);
     // console.log("버튼 2 : ", button2)
     button2.css3dObject.element.style.cursor = "pointer";
-    button2.position.x = 5; //* x축
-    button2.position.y = -30; //* y축
-    button2.position.z = 174.2; //* z축
-    // button2.rotation.y = 0.6;
+    button2.scale.x = 0.05;
+    button2.scale.y = 0.1;
+    button2.scale.z = 0.001;    // 주변 흰색 테두리를 없애기 위함
+    button2.position.x = 0.3; //* x축
+    button2.position.y = 0.3; //* y축
+    button2.position.z = 3.5; //* z축
     scene.add(button2);
 
     //@ 버튼2 이벤트리스너
@@ -279,15 +269,19 @@ function init() {
       console.log("버튼2 클릭");
       DrawThresholdChart();
       jQuery("#bg2").show();
-    }, false);
+    });
 
 
     //^ 버튼 3
-    button3 = makeElementObject("div", 8, 8);
+    button3 = makeElementObject("div", 0.2, 0.2);
     button3.css3dObject.element.style.cursor = "pointer";
-    button3.position.x = 100;  //* x축
-    button3.position.y = 0; //* y축
-    button3.position.z = 57.5; //* z축
+    button3.scale.x = 0.05;
+    button3.scale.y = 0.1;
+    button3.scale.z = 0.001;    // 주변 흰색 테두리를 없애기 위함
+    button3.position.x = 0.6; //* x축
+    button3.position.y = 0.3; //* y축
+    button3.position.z = 1.1; //* z축
+
     // button3.rotation.y = 1.6;
     button3.css3dObject.element.className = "alarmDot";
     button3.css3dObject.element.id = 'linkMove';
@@ -299,22 +293,22 @@ function init() {
       console.log("버튼3 클릭");
       // 새창 띄우기
       window.open('http://211.219.71.196/dashboard/live');
-    }, false);
+    } );
 
 
     // 마커 (ar) 
-    let markerImg = makeElementObject('img', 50, 50);
-    markerImg.position.x = 147;
-    markerImg.position.y = -10;
-    markerImg.position.z = 10.5;
-    markerImg.rotation.y = 1.6;
-    // markerImg.position.x = 105;
-    // markerImg.position.y = -15;
-    // markerImg.position.z = 57.5;
-    console.log(markerImg);
-    markerImg.css3dObject.element.src = './marker.png'    // element.style.src가 아니라, element.src에다가 넣어줘야함
-    // markerImg.css3dObject.element.style.background = new THREE.Color("#333").getStyle();
-    scene.add(markerImg);
+    // let markerImg = makeElementObject('img', 50, 50);
+    // markerImg.position.x = 147;
+    // markerImg.position.y = -10;
+    // markerImg.position.z = 10.5;
+    // markerImg.rotation.y = 1.6;
+    // // markerImg.position.x = 105;
+    // // markerImg.position.y = -15;
+    // // markerImg.position.z = 57.5;
+    // console.log(markerImg);
+    // markerImg.css3dObject.element.src = './marker.png'    // element.style.src가 아니라, element.src에다가 넣어줘야함
+    // // markerImg.css3dObject.element.style.background = new THREE.Color("#333").getStyle();
+    // scene.add(markerImg);
 
 
 
@@ -402,8 +396,8 @@ function makeElementObject(type, width, height) {
 
   //& 요소를 만들고 스타일을 지정하는 부분
   const element = document.createElement(type); //* 요소를 생성
-  element.style.width = width + "px"; //* 요소의 너비 지정 (파라미터로 전달받음)
-  element.style.height = height + "px"; //* 'div' 요소의 높이 지정 ( "" )
+  element.style.width = width + "%"; //* 요소의 너비 지정 (파라미터로 전달받음)
+  element.style.height = height + "%"; //* 'div' 요소의 높이 지정 ( "" )
   element.style.opacity = 1; //* 투명도 지정
 
   let css3dObject = new CSS3DObject(element); //* 위에서 설정한 요소를 인자로 넣어서 생성
@@ -420,7 +414,6 @@ function makeElementObject(type, width, height) {
     color: new THREE.Color(/*color*/ 0x000),
     blending: THREE.NoBlending, //* ???
     side: THREE.DoubleSide, //* 더블사이드로 해야 마우스를 돌려도 양면이 다 보임
-
   });
   let geometry = new THREE.BoxGeometry(width, height, 1); //* geometry 만들기 (박스지오메트리)
   let mesh = new THREE.Mesh(geometry, material); //* geometry + material = MESH
