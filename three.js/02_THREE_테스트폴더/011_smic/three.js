@@ -13,11 +13,9 @@
 import * as THREE from "./three.module.min.js";
 import { OrbitControls } from "./OrbitControls.min.js";
 import { GLTFLoader } from "./GLTFLoader.min.js";
-import { DRACOLoader } from "./DRACOLoader.min.js";
 import { CSS3DRenderer, CSS3DObject } from "./CSS3DRenderer.min.js";
 
 import gaugeChartDraw from "./DaedongGaugebar.min.js";
-// import getDataAndDrawChart from "./samboChart.js";
 import getDataAndDrawChart2 from "./genicosChart.min.js";
 
 
@@ -76,38 +74,6 @@ function init() {
   light4.position.set(-5, 5, 1);
   scene.add(light4);
 
-  // const lightHelper3 = new THREE.SpotLightHelper(light4);
-  // scene.add(lightHelper3)
-
-  // SpotLight2
-  // const light5 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
-  // light5.position.set(10, -400, 0);
-  // scene.add(light5);
-
-  // const lightHelper5 = new THREE.SpotLightHelper(light5);
-  // scene.add(lightHelper5)
-
-  // SpotLight3
-  // const light6 = new THREE.SpotLight("white", 5, 300, Math.PI / 4);
-  // light6.position.set(100, 300, 100);
-  // scene.add(light6);
-
-  // const lightHelper6 = new THREE.SpotLightHelper(light6);
-  // scene.add(lightHelper6)
-
-  // const light7 = new THREE.SpotLight("white", 3, 300, Math.PI / 4);
-  // light7.position.set(300, -100, 0);
-  // scene.add(light7);
-
-  // const lightHelper7 = new THREE.SpotLightHelper(light7);
-  // scene.add(lightHelper7)
-
-  // const light8 = new THREE.SpotLight("white", 5, 500, Math.PI / 4);
-  // light8.position.set(-100, 200, 200);
-  // scene.add(light8);
-
-  // const lightHelper8 = new THREE.SpotLightHelper(light8);
-  // scene.add(lightHelper8)
 
   //! 렌더러2
   renderer2 = new CSS3DRenderer();
@@ -147,6 +113,7 @@ function init() {
     controls.addEventListener("change", render);
   }
 
+
   loadGLTF();
 
   function loadGLTF() {
@@ -164,48 +131,6 @@ function init() {
       }
     );
   }
-
-  //################### drc 파일을 사용하는 경우
-  // const loader = new DRACOLoader()
-  // loader.preload();
-
-  // loader.setDecoderPath('/');   //? 라이브러리 경로여서 신경 안써도 될거같다.  // 같은 경로면 / 다른 경로면 ex. draco/
-  // loader.setDecoderConfig({ type: 'js' });   //? 디코더 라이브러리에 대한 구성을 제공한다. 디코딩이 시작된 후에는 구성을 변경할 수 없다.
-
-
-  //################## gltf를 drc로 압축하는 경우
-  // let loader = new GLTFLoader();
-  // // loader.setDRACOLoader( new DRACOLoader() );
-
-  // loader.load(
-  //   './machine_010g.gltf',
-  //   // './models/machine_008g.gltf',
-  //   function (gltf) {    //? load의 파라미터는 ('url', 'onLoad함수', 'onProgress함수', 'onError함수' )
-  //     // console.log(geometry)   //? buffer geometry가 출력된다.
-  //     // geometry.computeVertexNormals();    //? 이것의 역할은?
-      
-  //     // const material = new THREE.MeshStandardMaterial( { color: 0x606060 } );   //? 물체의 겉색깔
-  //     // const mesh = new THREE.Mesh( geometry, material );    //? 지오메트리 + 머테리얼 = 메쉬
-  //     // mesh.castShadow = true;   //? 부드럽게
-  //     // mesh.receiveShadow = true;    //?
-      
-  //     const mesh = gltf.scene;
-    
-  //     mesh.scale.x = 50;
-  //     mesh.scale.y = 50;
-  //     mesh.scale.z = 50;
-  //     mesh.position.set(0, 0, 0);
-
-  //     scene.add( mesh );
-
-  //     // Release decoder resources.
-  //     // dracoLoader.dispose();
-    
-  //   }
-  // )
-
-  // gltfLoader.setDRACOLoader(dracoLoader)
-
 
 
   //~ 버튼 만드는 부분
@@ -232,23 +157,13 @@ function init() {
       () => {
         console.log("버튼1 클릭");
         // controls.enabled = false;  // false로 하면 orbitControls를 막을 수 있다!!! / default는 true
-      
-        // 삼보차트
-        // getDataAndDrawChart("myPlot1", 5110, "45773-4C000"); // 눌렀을 때 파라미터에 pcd, icd 전달
-        // getDataAndDrawChart("myPlot2", 5110, "45940-2F200"); // 눌렀을 때 파라미터에 pcd, icd 전달
-        // getDataAndDrawChart('myPlot4', 5110, '45773-4C000'); // 눌렀을 때 파라미터에 pcd, icd 전달
-
         // 제니코스 차트
         getDataAndDrawChart2("myPlot1");
         getDataAndDrawChart2("myPlot2");
-        // getDataAndDrawChart2("myPlot1", "MA05", "homo_rpm");
-        // getDataAndDrawChart2("myPlot2", "MA03", "water_rpm");
 
         // 게이지바 차트(색상을 위해 호출)
         gaugeChartDraw('A40104')
-        // gaugeChartDraw("A40204")
         jQuery(".bg").show();
-      
       });
 
 
@@ -296,27 +211,9 @@ function init() {
     } );
 
 
-    // 마커 (ar) 
-    // let markerImg = makeElementObject('img', 50, 50);
-    // markerImg.position.x = 147;
-    // markerImg.position.y = -10;
-    // markerImg.position.z = 10.5;
-    // markerImg.rotation.y = 1.6;
-    // // markerImg.position.x = 105;
-    // // markerImg.position.y = -15;
-    // // markerImg.position.z = 57.5;
-    // console.log(markerImg);
-    // markerImg.css3dObject.element.src = './marker.png'    // element.style.src가 아니라, element.src에다가 넣어줘야함
-    // // markerImg.css3dObject.element.style.background = new THREE.Color("#333").getStyle();
-    // scene.add(markerImg);
-
-
-
     //^ 닫기 버튼 클릭시 차트 안보이게 하기
     const closeBtn = document.getElementById("closeBtn");
     closeBtn.addEventListener('pointerdown', () => {
-      // document.getElementById('myPlot1').textContent = "";
-      // document.getElementById('myPlot2').textContent = "";
       jQuery('#bg').hide();
     })
 
@@ -369,8 +266,6 @@ function init() {
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  // renderer.setSize(window.innerWidth, window.innerHeight);
-  // renderer2.setSize(window.innerWidth, window.innerHeight);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer2.setSize(window.innerWidth, window.innerHeight);
   render();
@@ -453,7 +348,6 @@ function DrawThresholdChart() {
   // const SENSOR = urlParams.get("sensor");
   const SENSOR = "co2";
 
-  // document.querySelector("title").innerText = SENSOR + "그래프";
 
   let x1 = [];
   let y1 = [];
