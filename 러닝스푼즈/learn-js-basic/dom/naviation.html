@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Naviation</title>
+    <style>
+      * {
+        border: 2px solid #dedede;
+        padding: 15px;
+        margin: 15px;
+      }
+      html {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        max-width: 600px;
+        font-family: sans-serif;
+        color: #333;
+      }
+      .red {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title1">자바스크립트 기초</h1>
+    <p>자바스크립트 기초강의 페이지에 오신것을 환영합니다.</p>
+    <h2>주제</h2>
+    <!-- hello -->
+    <ul id="topics">
+      <li>ES5</li>
+      <li>ES2015</li>
+      <li>JavaScript</li>
+    </ul>
+
+    <div id="div1" class="red">div tag</div>
+    <input id="input1" type="text" value="jay" />
+    <div id="personTag" data-person-name="jay" data-person-age="40"></div>
+    <script>
+      // let div1 = document.querySelector('#div1');
+      // console.log(div1.hasAttribute('id'));
+      // console.log(div1.getAttribute('id'));
+      // console.log(div1.id);
+      // console.log(div1.removeAttribute('id'));
+      // console.log(div1.getAttribute('id'));
+      // console.log(div1.id);
+      // div1.id = 'div2';
+      // console.log(div1.id);
+      // console.log(div1.getAttribute('id'));
+    </script>
+    <script>
+      // let div1 = document.querySelector('#div1');
+      // console.log(div1.getAttribute('class'));
+      // console.log(div1.className);
+      // div1.className = 'blue';
+      // let input1 = document.getElementById('input1');
+      // console.log(input1.getAttribute('value'));
+      // console.log(input1.value);
+      // input1.setAttribute('value', 'jay2');
+      // console.log(input1.value);
+      // input1.value = 'jay3';
+      // console.log(input1.getAttribute('value'));
+    </script>
+    <script>
+      // let person = document.getElementById('personTag');
+      // console.log(person.getAttribute('person'));
+      // console.log(person.dataset);
+    </script>
+    <script>
+      const parcelLiEl = document.createElement('li');
+      parcelLiEl.innerText = 'Parcel';
+      console.log(parcelLiEl);
+
+      // topics.insertBefore(parcelLiEl, topics.children[2]);
+      // topics.replaceChild(parcelLiEl, topics.children[2]);
+      topics.children[2].remove();
+    </script>
+  </body>
+</html>

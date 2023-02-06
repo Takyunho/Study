@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Propagation</title>
+
+    <script>
+      window.addEventListener('load', (e) => {
+        const el = document.querySelector('p');
+        el.addEventListener('contextmenu', (e) => {
+          console.log('p태그 컨텍스트 메뉴 오픈');
+        });
+        document.getElementById('prevent').addEventListener('contextmenu', (e) => {
+          console.log('span의 컨텍스트 메뉴 오픈');
+          e.stopPropagation();
+          e.preventDefault();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p>
+      일반적인 글
+      <br />
+      <span id="prevent">이벤트를 맊은 글</span>
+      <br />
+      일반적인 글 2
+    </p>
+  </body>
+</html>

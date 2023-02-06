@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Demo</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        border: 1px solid #000;
+      }
+      .box2 {
+        color: #fff;
+        background: #000;
+        width: 50px;
+        height: 50px;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>DOM 이벤트 플로우</h1>
+    <div id="element1" class="box">
+      <div id="element2" class="box2"></div>
+    </div>
+    <script>
+      element1.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target);
+
+          console.log('요소1 클릭');
+        },
+        true
+      );
+
+      element2.addEventListener('click', function (e) {
+        console.log('요소2 클릭');
+      });
+    </script>
+  </body>
+</html>
