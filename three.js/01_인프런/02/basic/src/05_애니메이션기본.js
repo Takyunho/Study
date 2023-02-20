@@ -30,9 +30,10 @@ export default function example() {
 	light.position.z = 2;
 	scene.add(light);
 
-		/* DirectionalLight은 태양 빛하고 비슷하다고 보면 된다.
+	/* 
+		DirectionalLight은 태양 빛하고 비슷하다고 보면 된다.
 		mesh, light, camera => position으로 조정
-		*/
+	*/
 
 
 	// Mesh
@@ -49,7 +50,7 @@ export default function example() {
 		// 360도는 2파이 (2 * 파이 = 6.3이므로, 6.3이 360도라고 보면 됨) 
 		mesh.rotation.y += 0.1; 
 
-		mesh.rotation.y += THREE.MathUtils.degToRad(1);		// MathUtils.degToRad(각도) => Radian(라디안)을 우리가 아는 degree(각도)로 변환해주는 three.js 내장함수
+		mesh.rotation.y += THREE.MathUtils.degToRad(1);		// MathUtils.degToRad(각도) => 우리가 아는 degree(각도)를 Radian(라디안)으로 변환해주는 three.js 내장함수
 
 		renderer.render(scene, camera);
 	
