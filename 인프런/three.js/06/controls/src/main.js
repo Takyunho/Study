@@ -3,6 +3,7 @@
 // import example from './ex03_flyControls';
 // import example from './ex04_FirstPersonControls';
 // import example from './ex05_PointerLockControls';
-import example from './ex06_DragControls';
+// import example from './ex06_DragControls';
+import example from './ex07_mineCraftControls';
 
 example();
