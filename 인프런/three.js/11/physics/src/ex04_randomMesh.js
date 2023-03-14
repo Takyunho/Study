@@ -51,12 +51,20 @@ export default function example() {
 	const controls = new OrbitControls(camera, renderer.domElement);
 
 
-	//=> Cannon (물리 엔진)
+	// Cannon (물리 엔진)
 	const cannonWorld = new CANNON.World();
 	cannonWorld.gravity.set(0, -10, 0);
 
+	
+	//^ 성능을 위한 세팅
+	cannonWorld.allowSleep = true;	// cannonBody의 속도가 거의 감소 했을때 테스트 안함
+	cannonWorld.broadphase = new CANNON.SAPBroadphase(cannonWorld);	// 적절한 성능과 적절한 퀄리티 (가장 많이쓴다.)
+	// SAPBroadphase // 가장 좋음
+	// NaiveBroadphase // 기본값
+	// GridBroadphase // 구역을 나누어 테스트
 
-	//=> Contact Material : 여러개의 material을 만들고 어떤 material끼리 부딪힐지 설정해주는 역할
+
+	// Contact Material : 여러개의 material을 만들고 어떤 material끼리 부딪힐지 설정해주는 역할
 	const defaultMaterial = new CANNON.Material('defalut');
 	const rubberMaterial = new CANNON.Material('rubber');
 	const ironMaterial = new CANNON.Material('iron');
@@ -73,8 +81,8 @@ export default function example() {
 	cannonWorld.defaultContactMaterial = defaultContactMaterial;
 
 
-	//=> cannon body
-	//=> floor
+	// cannon body
+	// floor
 	const floorShape = new CANNON.Plane();	
 	const floorBody = new CANNON.Body({		
 		mass: 0,
@@ -127,7 +135,7 @@ export default function example() {
 		cannonWorld.step(cannonStepTime, delta, 3);
 
 		// cannonBody의 위치를 mesh가 따라가도록 해야 떨어진다.(cannonBody가 이동하기 때문)
-		//=> 배열에 저장한 값을 순회해서 위치 조정
+		// 배열에 저장한 값을 순회해서 위치 조정
 		// console.log(spheres)
 		spheres.forEach(item => {
 			// console.log(item)
@@ -152,12 +160,12 @@ export default function example() {
 	// 이벤트
 	window.addEventListener('resize', setSize);
 
-	//=> 클릭시 sphere 랜덤으로 생성하기
+	// 클릭시 sphere 랜덤으로 생성하기
 	canvas.addEventListener('click', () => {
 
 		if (preventDragClick.mouseMoved) { return }
-		
-		spheres.push(new MySphere({		//=> 생성자함수에서 생성된 값들을 배열에 저장
+
+		spheres.push(new MySphere({		// 생성자함수에서 생성된 값들을 배열에 저장
 			scene,	// scene: scene
 			cannonWorld,
 			geometry: sphereGeometry,
