@@ -4,7 +4,7 @@ import { Vector2 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 
-// ----- 주제: 특정 방향의 광선(Ray)에 맞은 Mesh 판별하기
+// ----- 주제: 클릭한 Mesh 선택하기
 
 export default function example() {
 	// Renderer
@@ -43,7 +43,7 @@ export default function example() {
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	
-  // Mesh
+  	// Mesh
 	// 박스 Geometry 만들기
 	const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 	const boxMaterial = new THREE.MeshStandardMaterial({ color: 'plum' });
@@ -67,8 +67,8 @@ export default function example() {
 
 	//! RayCaster
 	const raycaster = new THREE.Raycaster();
-  const mouse = new THREE.Vector2();  //* Vector2는 2차원 / 왜 mouse는 Vector2로 만들었을까? => 마우스는 2차원 x, y축으로 이동하기 때문이다.
-  console.log(mouse)
+	const mouse = new THREE.Vector2();  //* Vector2는 2차원 / 왜 mouse는 Vector2로 만들었을까? => 마우스는 2차원 x, y축으로 이동하기 때문이다.
+	console.log(mouse)
 
 	// 그리기
 	const clock = new THREE.Clock();
@@ -102,7 +102,7 @@ export default function example() {
     // if (intersects[0]) {
     //   console.log(intersects[0].object.name);
     // }
-    //! if문을 걸어서 intersects[0] 처럼 하는 것과 for of 반복문을 돌려서 하는 경우 성능상 차이는 거의 없음.
+    //! if문을 걸어서 intersects[0] 처럼 하는 것과 for of 반복문을 돌려서 하는 경우 메쉬의 수가 적으면 성능상 차이는 거의 없음.
     //! 다만, for of 반복문을 통해서 구현하는 경우, break를 제거하여 여러개의 meshe를 관통해서 클릭할 수 있음
   }
 
@@ -116,16 +116,16 @@ export default function example() {
 
 	//^ 이벤트
 	window.addEventListener('resize', setSize);
-  canvas.addEventListener('click', e => {
-    // console.log(e);
-    // console.log(e.clientX, e.clientY);
+	canvas.addEventListener('click', e => {
+		// console.log(e);
+		// console.log(e.clientX, e.clientY);
 
-    // three.js에 맞게 좌표 변환하기  (raycaster에서 쓰려면 좌표변환이 필요함)  (가운데가 0)
-    mouse.x = e.clientX / canvas.clientWidth * 2 - 1;
-    mouse.Y = -(e.clientY / canvas.clientHeight * 2 - 1);   // 앞에 -를 붙여줘야 함
-    console.log(mouse);
-    
-    checkIntersects();
-  })
+		// three.js에 맞게 좌표 변환하기  (raycaster에서 쓰려면 좌표변환이 필요함)  (가운데가 0)
+		mouse.x = e.clientX / canvas.clientWidth * 2 - 1;
+		mouse.Y = -(e.clientY / canvas.clientHeight * 2 - 1);   // 앞에 -를 붙여줘야 함
+		console.log(mouse);
+		
+		checkIntersects();
+	})
 	draw();
 }
