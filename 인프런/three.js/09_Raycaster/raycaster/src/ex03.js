@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { Vector2 } from 'three';
 // 마우스 컨트롤
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { PreventDragClick } from './PreventDragClick';
 
 
 // ----- 주제: 드래그 클릭 방지 => preventDragClick
@@ -88,7 +89,7 @@ export default function example() {
 
   // 클릭시 실행할 함수
 	function checkIntersects() {
-		if (mouseMoved) return;		//! mouseMoved가 true인 경우 즉, 드래그 된 경우에는 return해서 함수 종료
+		if (preventDragClick.mouseMoved) return;		//! mouseMoved가 true인 경우 즉, 드래그 된 경우에는 return해서 함수 종료
 		raycaster.setFromCamera(mouse, camera);  
 
 		const intersects = raycaster.intersectObjects(meshes);
@@ -117,31 +118,7 @@ export default function example() {
 		checkIntersects();
 	})
 
-	//! 드래그 클릭 방지
-	let mouseMoved;
-	let clickStartX;
-	let clickStartY;
-	let clickStartTime;		// 일정 시간을 구하기 위한 것
-	
-	canvas.addEventListener('mousedown', e => {
-		clickStartX = e.clientX;
-		clickStartY = e.clientY;
-		clickStartTime = Date.now();
-	})
-	canvas.addEventListener('mouseup', e => {
-		const xGap = Math.abs(e.clientX - clickStartX);		// 절대값으로 만들어서 마우스의 이동 거리를 계산
-		const yGap = Math.abs(e.clientY - clickStartY);
-		const timeGap = Date.now() - clickStartTime;
-
-		if (xGap > 5 || yGap > 5 || timeGap > 500) {	// 500ms = 0.5초
-			mouseMoved = true;	// 5보다 크게 움직인거니까 마우스 움직인거임
-		} else {
-			mouseMoved = false;	// 마우스 움직인거 아님
-		}
-		//! mouseMoved 의 boolean 값을 가지고 raycaster를 판단해서 클릭인지 드래그인지 알 수 있음!
-		//! 그러나 마우스를 드래그 했다가 다시 원점으로 되돌아오는 경우에 클릭으로 인식됨
-		//! 따라서 마우스를 클릭한 시점부터 마우스를 뗀 시점까지의 시간을 구해서 일정 시간이 지났다고 판단되면 드래그인것으로 즉, mouseMoved를 true로 지정
-	})
+	const preventDragClick = new PreventDragClick(canvas);
 
 
 
