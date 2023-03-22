@@ -44,6 +44,7 @@ export class Domino {
 
 
                 this.modelMesh = gltf.scene.children[0];
+                this.modelMesh.name = `${info.index}번 도미노`
                 this.modelMesh.castShadow = true;   // mesh니까 castShadow 사용 가능
                 this.modelMesh.position.set(this.x, this.y, this.z);
                 this.scene.add(this.modelMesh);

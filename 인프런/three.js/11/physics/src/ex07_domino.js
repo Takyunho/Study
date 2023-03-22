@@ -101,10 +101,6 @@ export default function example() {
 
 	const preventDragClick = new PreventDragClick(canvas);
 
-	canvas.addEventListener('click', () => {
-
-	})
-	
 
 	// 도미노 생성하기
 	const dominos = [];
@@ -116,6 +112,7 @@ export default function example() {
 			cannonWorld,
 			z: -i * 1,
 			gltfLoader,
+			index: i
 		});
 		dominos.push(domino);
 	}
@@ -131,9 +128,7 @@ export default function example() {
 		// cannonBody 와 Mesh 결합하기
 		let cannonStepTime = 1 / 60;
 
-		if (delta < 0.01) {
-			cannonStepTime = 1 / 120;
-		}
+		if (delta < 0.01) { cannonStepTime = 1 / 120; }
 		cannonWorld.step(cannonStepTime, delta, 3);
 	
 		//^ 도미노와 캐논바디의 위치 맞추기 
@@ -149,6 +144,33 @@ export default function example() {
 		renderer.setAnimationLoop(draw)
 
 	}
+
+
+	// Raycaster
+	const raycaster = new THREE.Raycaster();
+	const mouse = new THREE.Vector2();
+
+	const checkIntersects = () => {
+		raycaster.setFromCamera(mouse, camera);
+
+		const intersects = raycaster.intersectObjects(scene.children);	// 전체 다 검사
+		// console.log(intersects)
+		console.log(intersects[0].object.name)
+	}
+	
+	canvas.addEventListener('click', (e) => {
+		// console.log(e)
+
+		// 클릭한 좌표의 픽셀값 얻기
+		// canvas.clientWidth => 화면의 너비
+		mouse.x = e.clientX / canvas.clientWidth * 2 - 1;	// -1 ~ 1 사이
+		mouse.y = -(e.clientY / canvas.clientHeight * 2 - 1);	// y축은 three.js와 마우스이벤트가 반대이므로, 앞에 -를 붙여야 함 => 그래야 방향이 통일됨
+		// console.log(mouse.x);
+
+		checkIntersects();
+
+	})
+
 
 	// Size
 	function setSize() {
