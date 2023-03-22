@@ -24,6 +24,8 @@ export class Domino {
         // this.rotationZ = info.rotationZ || MathUtils.degToRad(90);
         this.rotationY = info.rotationY || 0;
 
+        this.cannonBody;
+
         //- gltfLoader 사용을 위해 webpack.config.js에서 CopyWebpackPlugin의 pattern 경로 수정필요
         //- 경로 수정 후 서버 종료하고 npm start로 서버 재구동 필요
         info.gltfLoader.load(
@@ -67,6 +69,9 @@ export class Domino {
             new Vec3(0, 1, 0),  // y축
             this.rotationY
         );
+
+        //=> 캐논바디를 모델메쉬의 cannonBody 속성에 넣어주기
+        this.modelMesh.cannonBody = this.cannonBody;    //! 메쉬에서 캐논바디를 접근 가능하도록 해야 force를 사용 가능
         
         this.cannonWorld.addBody(this.cannonBody)
     }

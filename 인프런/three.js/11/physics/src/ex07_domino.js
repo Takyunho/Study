@@ -46,7 +46,7 @@ export default function example() {
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 
-	//^ GLTF Load
+	// GLTF Load
 	const gltfLoader = new GLTFLoader();
 
 
@@ -66,8 +66,8 @@ export default function example() {
 		defaultMaterial,
 		defaultMaterial,
 		{
-			friction: 0.5,
-			restitution: 0.3
+			friction: 0.01,		// 마찰력
+			restitution: 0.9	// 반발력
 		}
 	)
 	cannonWorld.defaultContactMaterial = defaultContactMaterial;
@@ -131,7 +131,7 @@ export default function example() {
 		if (delta < 0.01) { cannonStepTime = 1 / 120; }
 		cannonWorld.step(cannonStepTime, delta, 3);
 	
-		//^ 도미노와 캐논바디의 위치 맞추기 
+		// 도미노와 캐논바디의 위치 맞추기 
 		dominos.forEach(item => {
 			// domino와 캐논바디가 로드 되기 전이므로 오류가난다. 따라서 아래처럼 조건을 걸어줘야 함!
 			if (item.cannonBody) {
@@ -155,11 +155,37 @@ export default function example() {
 
 		const intersects = raycaster.intersectObjects(scene.children);	// 전체 다 검사
 		// console.log(intersects)
-		console.log(intersects[0].object.name)
+		// console.log(intersects[0].object)
+		//^ 도미노 쓰러트리기 (cannonBody의 applyForce() 메소드 사용)
+		//=> 1. intersects[0]의 속성 사용하기
+		if (intersects[0].object.cannonBody) {	// floor 클릭시 나오는 에러를 방지하기 위해 캐논바디가 있는 메쉬인 경우에만 안의 함수 실행하기
+			intersects[0].object.cannonBody.applyForce(
+				// 힘의 크기와 방향을 벡터로 넣기
+				// 화면 안쪽으로 넣어야 하므로 z축의 - 방향으로 값 주기
+				new CANNON.Vec3(0, 0, -100),	// 방향
+				new CANNON.Vec3(0, 0, 0)		// 위치
+			)
+		}
+
+		//=> 2. for of 반복문 사용하기
+		// for (const item of intersects) {
+		// 	if (item.object.cannonBody) {
+		// 		item.object.cannonBody.applyForce(
+		// 			new CANNON.Vec3(0, 0, -100),
+		// 			new CANNON.Vec3(0, 0, 0)
+		// 		);
+		// 		break;	// 광선이 맞은 제일 처음꺼만 실행하고 for문을 종료하기 위해 break 필요 
+		// 	}
+		// }
+		
 	}
 	
 	canvas.addEventListener('click', (e) => {
 		// console.log(e)
+
+		// 드래크 클릭 방지하기
+		if (preventDragClick.mouseMoved) return;
+
 
 		// 클릭한 좌표의 픽셀값 얻기
 		// canvas.clientWidth => 화면의 너비
