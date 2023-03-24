@@ -7,6 +7,7 @@
 // import example from './ex07_로딩 매니저';
 // import example from './ex08_텍스쳐 변환';
 // import example from './ex09_여러개의 텍스쳐';
-import example from './ex10_MeshToonMaterial';
+// import example from './ex10_MeshToonMaterial';
+import example from './ex11_MeshNormalMaterial';
 
 example();
