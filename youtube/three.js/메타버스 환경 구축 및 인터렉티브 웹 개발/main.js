@@ -109,6 +109,23 @@ class App {
                 }
             })
 
+            // 모델에 들어있는 애니메이션 확인하기
+            const animationClips = gltf.animations; // THREE.Animationclip 배열
+            const mixer = new THREE.AnimationMixer(model);
+            const animationMap = {};
+            animationClips.forEach((clip) => {
+                const name = clip.name;
+                console.log(name);
+                animationMap[name] = mixer.clipAction(clip);    // THREE.AnimationAction
+            });
+
+            // idel 이라는 애니메이션 적용하기
+            this._mixer = mixer;
+            this._animationMap = animationMap;
+            this._currentAnimationAction = this._animationMap["Idle"];
+            this._currentAnimationAction.play();
+
+
             // 월드 좌표계의 축 표시
             const axesHelper = new THREE.AxesHelper(1000);
             this._scene.add(axesHelper);
@@ -127,6 +144,7 @@ class App {
 
     _setupControls() {
         const orbitControl = new OrbitControls(this._camera, this._divContainer);
+        orbitControl.target.set(0, 100, 0);
         this.controls = orbitControl;
 
         const stats = new Stats();
@@ -153,6 +171,11 @@ class App {
         }
 
         this._fps.update();
+
+        // mixer를 업데이트 해줘야 애니메이션이 동작한다.
+        if (this._mixer) {
+            this._mixer.update(delta);
+        }
     }
 
     render() {
