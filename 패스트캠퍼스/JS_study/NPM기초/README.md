@@ -44,6 +44,7 @@ package.json 과 package-lock.json은 프로젝트를 관리하면서 절대!!! 
 ---
 ```plaintext
 $ npm install ... -D
+ex. $ npm install parcel-bundler -D
 
 devDependencies는,
 개발용 의존성 패키지를 설치하는 것이다.
@@ -52,6 +53,7 @@ devDependencies는,
 --------------------------------------------------------
 
 $ npm install ...
+ex. $ npm install lodash
 
 dependencies는,
 일반용 의존성 패키지를 설치하는 것이다.
