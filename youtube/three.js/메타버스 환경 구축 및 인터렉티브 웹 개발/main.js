@@ -150,6 +150,23 @@ class App {
         const stats = new Stats();
         this._divContainer.appendChild(stats.dom);
         this._fps = stats;
+
+        this._pressedKeys = {};
+
+        // 키보드가 눌러졌을때 발생할 이벤트
+        document.addEventListener("keydown", (event) => {
+            this._pressedKeys[event.key.toLowerCase()] = true;
+            this._processAnimation();
+        })
+
+        // 키보드가 눌러졌다가 떼졌을 때의 이벤트
+        document.addEventListener("keyup", (event) => {
+            console.log(event)
+            console.log(this._pressedKeys) 
+            this._pressedKeys[event.key.toLowerCase()] = false;
+            this._processAnimation();
+        })
+
     }
 
     _setupEvents() {
