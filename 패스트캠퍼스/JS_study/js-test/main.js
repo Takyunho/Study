@@ -3,6 +3,7 @@
 // import app from './03_비교,논리 연산자';
 // import app from './04_삼항 연산자';
 // import app from './05_조건문';
-import app from './06_반복문';
+// import app from './06_반복문';
+import app from './07_변수의 유효범위';
 
 app();
