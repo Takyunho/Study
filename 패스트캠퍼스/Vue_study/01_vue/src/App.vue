@@ -12,7 +12,7 @@
 </template>
 
 <script>
-
+//! 선언적 렌더링과 입력 핸들링
 import Fruit from './components/Fruit.vue';
 
 export default {
