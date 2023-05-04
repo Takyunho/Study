@@ -6,6 +6,7 @@
 // import app from './06_반복문';
 // import app from './07_변수의 유효범위';
 // import app from './08_형 변환';
-import app from './09_함수';
+// import app from './09_함수';
+import app from './10_화살표함수';
 
 app();
