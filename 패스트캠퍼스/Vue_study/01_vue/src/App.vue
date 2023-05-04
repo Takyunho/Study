@@ -5,14 +5,23 @@
   <p v-if="count > 4">4보다 큽니다!</p>
 
   <ul>
-    <Fruit v-for="fruit in fruits" :key="fruit" :name="fruit">
-      {{ fruit }}
-    </Fruit>
+    <Fruit v-for="fruit in fruits" :key="fruit" :name="fruit"></Fruit>
   </ul>
 </template>
 
 <script>
-//! 선언적 렌더링과 입력 핸들링
+//! 선언적 렌더링과 입력 핸들링 + 조건문,반복문
+
+//^ component는
+// 1. 가져오고 (import)
+// 2. 등록하고 (components: { })
+// 3. 쓴다. (<Fruit></Fruit> 처럼)
+
+//^ props는
+// 1. 부모컴포넌트에서 보내고 (:데이터이름="data안의 데이터")
+// 2. 자식컴포넌트에서 받고 (props: { 데이터이름: String })
+// 3. 쓴다. ({{ 데이터이름 }})
+
 import Fruit from './components/Fruit.vue';
 
 export default {

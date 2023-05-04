@@ -10,10 +10,11 @@ export default {
         }
     },
     props: {
-        name: {
-            type: String,
-            default: ''
-        }
+        name: String    // 이렇게 적으나 아래처럼 상세하게 적으나 똑같다.
+        // name: {
+        //     type: String,
+        //     default: ''
+        // }
     }
 }
 </script>
