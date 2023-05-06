@@ -18,7 +18,7 @@
 
   <!---------------------- v-html 디렉티브 --------------------->
   <!-- 이중 중괄호(Mustaches)는 데이터를 html이 아니라 text 취급한다.
-  따라서 실제 HTML을 출력하려면 v-html 디렉티브를 사용해야한다. -->
+    따라서 실제 HTML을 출력하려면 v-html 디렉티브를 사용해야한다. -->
   <h2 v-html="msg2"></h2>
 
 
@@ -28,9 +28,9 @@
   <h3 :class="active">
     {{ vBindMsg }}
   </h3>
-  
+
   <!-- 데이터에서 가져올 필요없이 작은 따옴표로 감싸면 선택자를 텍스트 취급 가능 -->
-  <h3 :class="'active2'"> 
+  <h3 :class="'active2'">
     {{ vBindMsg }}
   </h3>
 
@@ -39,17 +39,13 @@
   <h3 :[attr]="active">
     {{ msg3 }}
   </h3>
-  
+
   <!-- 속성뿐만 아니라 함수도 가능! -->
-  <h3 
-    :[attr]="active"
-    @[event]="add"
-  >
+  <h3 :[attr]="active" @[event]="add">
     {{ msg4 }}
   </h3>
-
 </template>
-
+  
 <script>
 export default {
   data() {
@@ -76,7 +72,7 @@ export default {
 
 }
 </script>
-
+  
 <style lang="scss" scoped>
 .active {
   color: royalblue;
