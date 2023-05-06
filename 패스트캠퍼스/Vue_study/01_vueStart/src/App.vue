@@ -22,8 +22,10 @@
   <!-- <ComputedCaching></ComputedCaching> -->
 
   <!-- 06 Getter And Setter-->
-  <GetterAndSetter></GetterAndSetter>
+  <!-- <GetterAndSetter></GetterAndSetter> -->
 
+  <!-- 07 Watch -->
+  <WatchComponent></WatchComponent>
 </template>
 
 <script>
@@ -42,7 +44,8 @@
 // import Syntax from './components/03_syntax.vue';
 // import Computed from './components/04_computed.vue';
 // import ComputedCaching from './components/05_computedCaching.vue';
-import GetterAndSetter from './components/06_getter_setter.vue';
+// import GetterAndSetter from './components/06_getter_setter.vue';
+import WatchComponent from './components/07_watch.vue';
 
 export default {
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -63,7 +66,8 @@ export default {
     // Syntax,
     // Computed,
     // ComputedCaching,
-    GetterAndSetter
+    // GetterAndSetter,
+    WatchComponent
   }
 }
 </script>
