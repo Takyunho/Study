@@ -1,33 +1,28 @@
 <template>
   <!-- 01 base -->
-  <section>
+  <!-- <section>
     <h1>{{ count }}</h1>
     <button @click="increase">버튼</button>
     <p v-if="count > 4">4보다 큽니다!</p>
     <ul>
       <Base v-for="fruit in fruits" :key="fruit" :name="fruit"></Base>
     </ul>
-  </section>
+  </section> -->
   
   <!-- 02 lifecycle -->
-  <section>
-    <LifeCycle></LifeCycle>
-  </section>
+  <!-- <LifeCycle></LifeCycle> -->
   
   <!-- 03 template syntax -->
-  <section>
-    <Syntax></Syntax>
-  </section>
+  <!-- <Syntax></Syntax> -->
 
   <!-- 04 computed -->
-  <section>
-    <Computed></Computed>
-  </section>
+  <!-- <Computed></Computed> -->
 
   <!-- 05 ComputedCaching -->
-  <section>
-    <ComputedCaching></ComputedCaching>
-  </section>
+  <!-- <ComputedCaching></ComputedCaching> -->
+
+  <!-- 06 Getter And Setter-->
+  <GetterAndSetter></GetterAndSetter>
 
 </template>
 
@@ -42,11 +37,12 @@
 // 2. 자식컴포넌트에서 받고 (props: { 데이터이름: String })
 // 3. 쓴다. ({{ 데이터이름 }})
 
-import Base from './components/01_base.vue';
-import LifeCycle from './components/02_lifecycle.vue';
-import Syntax from './components/03_syntax.vue';
-import Computed from './components/04_computed.vue';
-import ComputedCaching from './components/05_computedCaching.vue';
+// import Base from './components/01_base.vue';
+// import LifeCycle from './components/02_lifecycle.vue';
+// import Syntax from './components/03_syntax.vue';
+// import Computed from './components/04_computed.vue';
+// import ComputedCaching from './components/05_computedCaching.vue';
+import GetterAndSetter from './components/06_getter_setter.vue';
 
 export default {
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -62,11 +58,12 @@ export default {
     }
   },
   components: {
-    Base,
-    LifeCycle,
-    Syntax,
-    Computed,
-    ComputedCaching,
+    // Base,
+    // LifeCycle,
+    // Syntax,
+    // Computed,
+    // ComputedCaching,
+    GetterAndSetter
   }
 }
 </script>
