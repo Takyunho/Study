@@ -32,6 +32,9 @@
 
   <!-- 09 StyleBinding -->
   <StyleBinding></StyleBinding>
+
+  <!-- 10 조건부 렌더링 (Conditional Rendering) -->
+  <Conditional></Conditional>
 </template>
 
 <script>
@@ -53,7 +56,8 @@
 // import GetterAndSetter from './components/06_getter_setter.vue';
 // import WatchComponent from './components/07_watch.vue';
 // import ClassBinding from './components/08_classBinding.vue';
-import StyleBinding from './components/09_styleBinding.vue';
+// import StyleBinding from './components/09_styleBinding.vue';
+import Conditional from './components/10_conditionalRendering.vue';
 
 export default {
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -77,12 +81,13 @@ export default {
     // GetterAndSetter,
     // WatchComponent,
     // ClassBinding,
-    StyleBinding,
+    // StyleBinding,
+    Conditional
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   h1 {
     font-size: 50px;
     color: rosybrown;
