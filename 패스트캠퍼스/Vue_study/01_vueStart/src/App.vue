@@ -31,10 +31,13 @@
   <!-- <ClassBinding></ClassBinding> -->
 
   <!-- 09 StyleBinding -->
-  <StyleBinding></StyleBinding>
+  <!-- <StyleBinding></StyleBinding> -->
 
   <!-- 10 조건부 렌더링 (Conditional Rendering) -->
-  <Conditional></Conditional>
+  <!-- <Conditional></Conditional> -->
+
+  <!-- 11 리스트 렌더링 (ListRendering) -->
+  <List></List>
 </template>
 
 <script>
@@ -57,7 +60,8 @@
 // import WatchComponent from './components/07_watch.vue';
 // import ClassBinding from './components/08_classBinding.vue';
 // import StyleBinding from './components/09_styleBinding.vue';
-import Conditional from './components/10_conditionalRendering.vue';
+// import Conditional from './components/10_conditionalRendering';
+import List from './components/11_listRendering';
 
 export default {
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -82,7 +86,8 @@ export default {
     // WatchComponent,
     // ClassBinding,
     // StyleBinding,
-    Conditional
+    // Conditional,
+    List
   }
 }
 </script>
