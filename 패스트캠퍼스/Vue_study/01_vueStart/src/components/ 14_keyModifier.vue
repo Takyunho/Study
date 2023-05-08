@@ -7,6 +7,8 @@
     <input type="text" @keydown.a="handler3" />
     <!-- 메소드 체이닝을 통해서 키 + 키 가능 (즉, 키의 조합이 가능하다!) -->
     <input type="text" @keydown.ctrl.a="handler4" />
+
+    <!-- 자세한 사항은 공식문서 참고 -->
 </template>
 
 <script>
