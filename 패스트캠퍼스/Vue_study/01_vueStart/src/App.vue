@@ -40,7 +40,10 @@
   <!-- <List></List> -->
 
   <!-- 12 이벤트 핸들링 (event handling) -->
-  <EventHandling></EventHandling>
+  <!-- <EventHandling></EventHandling> -->
+
+  <!-- 13 이벤트 수식어 (event modifier) -->
+  <EventModifier></EventModifier>
 </template>
 
 <script>
@@ -65,21 +68,10 @@
 // import StyleBinding from './components/09_styleBinding.vue';
 // import Conditional from './components/10_conditionalRendering';
 // import List from './components/11_listRendering';
-import EventHandling from './components/12_eventHandling'
+// import EventHandling from './components/12_eventHandling'
+import EventModifier from './components/13_eventModifier'
 
 export default {
-  // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
-  data() {
-    return {
-      count: 0,
-      fruits: ["Apple", "Banana", "Cherry"],
-    }
-  },
-  methods: {
-    increase() {
-      this.count += 1;
-    }
-  },
   components: {
     // Base,
     // LifeCycle,
@@ -92,8 +84,24 @@ export default {
     // StyleBinding,
     // Conditional,
     // List,
-    EventHandling
-  }
+    // EventHandling,
+    EventModifier,
+  },
+
+  // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
+  data() {
+    return {
+      count: 0,
+      fruits: ["Apple", "Banana", "Cherry"],
+    }
+  },
+  
+  methods: {
+    increase() {
+      this.count += 1;
+    }
+  },
+  
 }
 </script>
 
