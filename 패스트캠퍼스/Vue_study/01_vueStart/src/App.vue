@@ -43,7 +43,10 @@
   <!-- <EventHandling></EventHandling> -->
 
   <!-- 13 이벤트 수식어 (event modifier) -->
-  <EventModifier></EventModifier>
+  <!-- <EventModifier></EventModifier> -->
+
+  <!-- 14 키 수식어 (Key modifier) -->
+  <KeyModifier></KeyModifier>
 </template>
 
 <script>
@@ -69,7 +72,8 @@
 // import Conditional from './components/10_conditionalRendering';
 // import List from './components/11_listRendering';
 // import EventHandling from './components/12_eventHandling'
-import EventModifier from './components/13_eventModifier'
+// import EventModifier from './components/13_eventModifier'
+import KeyModifier from './components/ 14_keyModifier'
 
 export default {
   components: {
@@ -85,7 +89,8 @@ export default {
     // Conditional,
     // List,
     // EventHandling,
-    EventModifier,
+    // EventModifier,
+    KeyModifier,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
