@@ -37,7 +37,10 @@
   <!-- <Conditional></Conditional> -->
 
   <!-- 11 리스트 렌더링 (ListRendering) -->
-  <List></List>
+  <!-- <List></List> -->
+
+  <!-- 12 이벤트 핸들링 (event handling) -->
+  <EventHandling></EventHandling>
 </template>
 
 <script>
@@ -61,7 +64,8 @@
 // import ClassBinding from './components/08_classBinding.vue';
 // import StyleBinding from './components/09_styleBinding.vue';
 // import Conditional from './components/10_conditionalRendering';
-import List from './components/11_listRendering';
+// import List from './components/11_listRendering';
+import EventHandling from './components/12_eventHandling'
 
 export default {
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -87,7 +91,8 @@ export default {
     // ClassBinding,
     // StyleBinding,
     // Conditional,
-    List
+    // List,
+    EventHandling
   }
 }
 </script>
@@ -98,10 +103,10 @@ export default {
     color: rosybrown;
   }
 
-ul {
-  li {
-    font-size: 30px;
+  ul {
+    li {
+      font-size: 30px;
+    }
   }
-}
 
 </style>
