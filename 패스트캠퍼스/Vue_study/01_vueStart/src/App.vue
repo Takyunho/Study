@@ -73,7 +73,7 @@
 // import List from './components/11_listRendering';
 // import EventHandling from './components/12_eventHandling'
 // import EventModifier from './components/13_eventModifier'
-import KeyModifier from './components/ 14_keyModifier'
+import KeyModifier from './components/14_keyModifier'
 
 export default {
   components: {
