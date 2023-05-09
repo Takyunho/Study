@@ -46,7 +46,10 @@
   <!-- <EventModifier></EventModifier> -->
 
   <!-- 14 키 수식어 (Key modifier) -->
-  <KeyModifier></KeyModifier>
+  <!-- <KeyModifier></KeyModifier> -->
+
+  <!-- 15 폼 입력 바인딩 (Form input binding) -->
+  <FormBinding></FormBinding>
 </template>
 
 <script>
@@ -73,7 +76,8 @@
 // import List from './components/11_listRendering';
 // import EventHandling from './components/12_eventHandling'
 // import EventModifier from './components/13_eventModifier'
-import KeyModifier from './components/14_keyModifier'
+// import KeyModifier from './components/14_keyModifier'
+import FormBinding from './components/15_form_input_binding'
 
 export default {
   components: {
@@ -90,7 +94,8 @@ export default {
     // List,
     // EventHandling,
     // EventModifier,
-    KeyModifier,
+    // KeyModifier,
+    FormBinding,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
