@@ -50,6 +50,9 @@
 
   <!-- 15 폼 입력 바인딩 (Form input binding) -->
   <FormBinding></FormBinding>
+
+  <!-- 16 v-model 수식어 -->
+  <Vmodel></Vmodel>
 </template>
 
 <script>
@@ -77,7 +80,8 @@
 // import EventHandling from './components/12_eventHandling'
 // import EventModifier from './components/13_eventModifier'
 // import KeyModifier from './components/14_keyModifier'
-import FormBinding from './components/15_form_input_binding'
+// import FormBinding from './components/15_form_input_binding'
+import Vmodel from './components/16_v-modelModifier'
 
 export default {
   components: {
@@ -95,7 +99,8 @@ export default {
     // EventHandling,
     // EventModifier,
     // KeyModifier,
-    FormBinding,
+    // FormBinding,
+    Vmodel,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
