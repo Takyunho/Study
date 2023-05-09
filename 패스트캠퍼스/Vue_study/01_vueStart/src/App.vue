@@ -8,10 +8,10 @@
       <Base v-for="fruit in fruits" :key="fruit" :name="fruit"></Base>
     </ul>
   </section> -->
-  
+
   <!-- 02 lifecycle -->
   <!-- <LifeCycle></LifeCycle> -->
-  
+
   <!-- 03 template syntax -->
   <!-- <Syntax></Syntax> -->
 
@@ -49,10 +49,54 @@
   <!-- <KeyModifier></KeyModifier> -->
 
   <!-- 15 폼 입력 바인딩 (Form input binding) -->
-  <FormBinding></FormBinding>
+  <!-- <FormBinding></FormBinding> -->
 
   <!-- 16 v-model 수식어 -->
-  <Vmodel></Vmodel>
+  <!-- <Vmodel></Vmodel> -->
+
+  <!-- 17 컴포넌트 기초 -->
+  <!-- memo -->
+  <!-- 컴포넌트이름은 PascalCase를 사용 -->
+  <ComponentBase></ComponentBase>
+
+  <!-- 자식 컴포넌트에서 slot 태그를 사용하면 부모컴포넌트 사이의 내용이 그 태그의 위치로 들어간다. -->
+  <ComponentBase>slot 이용</ComponentBase>
+  <!-- 일반 텍스트뿐만 아니라, 스타일이 들어간 태그도 넣을 수 있다. -->
+  <ComponentBase>
+    <!-- 스타일 동적 바인딩 -->
+    <span :style="{color: red }">태그도 가능하다!</span>
+    <!-- 스타일 정적 바인딩 -->
+    <span style="color: blue">태그도 가능하다!</span>
+  </ComponentBase>
+
+  <!-- 일반 데이터를 보낼때는 "문자열"로 보내고, data안의 데이터를 보낼때는 v-bind(:)를 붙여서 보내야 함 -->
+  <!-- 기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있지만,
+  camelCase로 선언된 props 속성일지라도 관례적으로 HTML 속성 표기법과 동일하게 kebab-case로 표기해서 사용하도록 해야 한다. 
+  예를들어, bgColor로 데이터를 보낼 수 있지만, bg-color로 작성하는 것이 바람직하다. -->
+  <ComponentBase bg-color="#33A06F" :font-color="color"></ComponentBase>
+  <ComponentBase text-msg="안녕!" font-color="#000"></ComponentBase>
+
+  <!-- 숫자 -->
+  <!-- `42`는 정적이지만 Vue에 이것이 문자열이 아닌 JavaScript 표현식임을 알려주려면 v-bind가 필요하다. -->
+  <ComponentBase :likes="42"></ComponentBase>
+
+  <!-- 불리언 -->
+  <!-- 값이 없는 prop은 'true'가 전달된다. -->
+  <ComponentBase large></ComponentBase>
+  <!-- 'false'는 정적이지만 Vue에 이것이 문자열이 아닌     -->
+  <!-- JavaScript 표현식임을 알려주려면 v-bind가 필요하다. -->
+  <ComponentBase :is-published="false"></ComponentBase>
+
+  <!-- 배열 -->
+  <!-- 배열도 정적이더라도 v-bind가 필요하다. -->
+  <ComponentBase :fruit="[111, 'apple', 113]"></ComponentBase>
+
+  <!-- 객체 -->
+  <!-- 객체도 정적이더라도 v-bind가 필요 -->
+  <ComponentBase :author="{ name: 'yun', company: 'idb'}"></ComponentBase>
+
+  <!-- 객체의 모든 속성을 props로 전달하려면 인자 없이 v-bind를 사용하면 된다. -->
+  <!-- 예를 들어서 <BlogPost v-bind="post(data에서 정의된 객체 데이터임)" /> 처럼 사용하면 된다. -->
 </template>
 
 <script>
@@ -62,7 +106,7 @@
 // 3. 쓴다. (<Fruit></Fruit> 처럼)
 
 //^ props는
-// 1. 부모컴포넌트에서 보내고 (:데이터이름="data안의 데이터")
+// 1. 부모컴포넌트에서 보내고 (:데이터이름="data안의 데이터" or 보낼데이터이름="보낼데이터")
 // 2. 자식컴포넌트에서 받고 (props: { 데이터이름: String })
 // 3. 쓴다. ({{ 데이터이름 }})
 
@@ -81,7 +125,8 @@
 // import EventModifier from './components/13_eventModifier'
 // import KeyModifier from './components/14_keyModifier'
 // import FormBinding from './components/15_form_input_binding'
-import Vmodel from './components/16_v-modelModifier'
+// import Vmodel from './components/16_v-modelModifier'
+import ComponentBase from './components/17_componentBase'
 
 export default {
   components: {
@@ -100,7 +145,8 @@ export default {
     // EventModifier,
     // KeyModifier,
     // FormBinding,
-    Vmodel,
+    // Vmodel,
+    ComponentBase,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -108,28 +154,30 @@ export default {
     return {
       count: 0,
       fruits: ["Apple", "Banana", "Cherry"],
+      color: '#fff',  // 자식데이터로 보낼 데이터
+      large: false, // false로 지정해놨어도 컴포넌트에서 그냥 보내면 true가 전달됨
+      red: 'red',
     }
   },
-  
+
   methods: {
     increase() {
       this.count += 1;
     }
   },
-  
+
 }
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    font-size: 50px;
-    color: rosybrown;
-  }
+h1 {
+  font-size: 50px;
+  color: rosybrown;
+}
 
-  ul {
-    li {
-      font-size: 30px;
-    }
+ul {
+  li {
+    font-size: 30px;
   }
-
+}
 </style>
