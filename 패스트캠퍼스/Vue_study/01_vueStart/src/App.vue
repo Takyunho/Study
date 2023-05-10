@@ -9,50 +9,66 @@
     </ul>
   </section> -->
 
+
   <!-- 02 lifecycle -->
   <!-- <LifeCycle></LifeCycle> -->
+
 
   <!-- 03 template syntax -->
   <!-- <Syntax></Syntax> -->
 
+
   <!-- 04 computed -->
   <!-- <Computed></Computed> -->
+
 
   <!-- 05 ComputedCaching -->
   <!-- <ComputedCaching></ComputedCaching> -->
 
+
   <!-- 06 Getter And Setter-->
   <!-- <GetterAndSetter></GetterAndSetter> -->
+
 
   <!-- 07 Watch -->
   <!-- <WatchComponent></WatchComponent> -->
 
+
   <!-- 08 Class And StyleBinding -->
   <!-- <ClassBinding></ClassBinding> -->
+
 
   <!-- 09 StyleBinding -->
   <!-- <StyleBinding></StyleBinding> -->
 
+
   <!-- 10 조건부 렌더링 (Conditional Rendering) -->
   <!-- <Conditional></Conditional> -->
+
 
   <!-- 11 리스트 렌더링 (ListRendering) -->
   <!-- <List></List> -->
 
+
   <!-- 12 이벤트 핸들링 (event handling) -->
   <!-- <EventHandling></EventHandling> -->
+
 
   <!-- 13 이벤트 수식어 (event modifier) -->
   <!-- <EventModifier></EventModifier> -->
 
+
   <!-- 14 키 수식어 (Key modifier) -->
   <!-- <KeyModifier></KeyModifier> -->
+
 
   <!-- 15 폼 입력 바인딩 (Form input binding) -->
   <!-- <FormBinding></FormBinding> -->
 
+
   <!-- 16 v-model 수식어 -->
   <!-- <Vmodel></Vmodel> -->
+
 
   <!-- 17 컴포넌트 기초 -->
   <!-- memo -->
@@ -105,6 +121,7 @@
     Banana
   </ComponentAttributeInheritance> -->
 
+
   <!-- 19. 컴포넌트 emit -->
   <!-- 이벤트도 상속이 되므로 자식 컴포넌트의 루트 요소에 반영된다. -->
   <!-- 이벤트의 이름은 emit으로 넘어가서 사용될 것이기 때문에 아래처럼 굳이 click이라는 이름을 반영하지 않더라도 상관 없다. -->
@@ -117,19 +134,30 @@
 
 
   <!-- 20. 컴포넌트 slot -->
-  <ComponentSlot>
+  <!-- <ComponentSlot>
     <span>Banana</span>
-    <span>(B)</span>
+    <span>(B)</span> -->
     <!-- 이름을 갖는 슬롯(Named Slots) -->
     <!-- named slots을 이용하면 순서를 보장할 수 있다. -->
-    <template v-slot:header>
+    <!-- <template v-slot:header>
       <h1>이것은 헤더입니다.</h1>
-    </template>
+    </template> -->
     <!-- v-slot의 약어 '#'-->
-    <template #footer>
+    <!-- <template #footer>
       <h1>이것은 푸터입니다.</h1>
     </template>
-  </ComponentSlot>
+  </ComponentSlot> -->
+
+
+  <!-- 21. Component Provide와 inject -->
+  <!-- Component Provide는 자식 컴포넌트가 여러개인 경우 props를 여러번 거쳐야하는 번거로움을 방지하기 위해 나온 대안 -->
+  <!-- props로 전달하는 부분을 지워도 된다. -->
+  <!-- <ComponentProvide :msg="message"></ComponentProvide> -->
+  <ComponentProvide></ComponentProvide>
+  <p>App: {{ message }}</p>
+  <button @click="message = 'good?'">click</button>
+
+
 </template>
 
 <script>
@@ -174,7 +202,10 @@
 // import ComponentBase from './components/17_componentBase'
 // import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
 // import ComponentEmit from './components/19_componentEmit.vue'
-import ComponentSlot from './components/20_componentSlot'
+// import ComponentSlot from './components/20_componentSlot'
+import ComponentProvide from './components/21_componentProvide.vue'
+import { computed } from 'vue'
+
 
 export default {
   components: {
@@ -197,7 +228,8 @@ export default {
     // ComponentBase,
     // ComponentAttributeInheritance,
     // ComponentEmit,
-    ComponentSlot
+    // ComponentSlot,
+    ComponentProvide,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -208,6 +240,18 @@ export default {
       color: '#fff',  // 자식데이터로 보낼 데이터
       large: false, // false로 지정해놨어도 컴포넌트에서 그냥 보내면 true가 전달됨
       red: 'red',
+      message: 'provide와 inject'
+    }
+  },
+
+  //^ Provide는 자식 컴포넌트가 여러개인 경우 props를 여러번 거쳐야하는 번거로움을 방지하기 위해 나온 대안(조상 컴포넌트에서 하위 컴포넌트로)
+  //^ provide로 데이터를 전달하면 기본적으로 반응성이 적용되지 않음. 따라서 vue라는 패키지에서 computed를 객체구조분해할당을 통해 import 해오고나서 computed 메소드에서 데이터를 리턴해줘야 함 👇
+  provide() {
+    return {
+      // msg: this.message    //=> 이렇게 하면 반응성이 적용되지 않음
+      msg: computed(() => {   //^ 이렇게 하면 반응성 적용됨!
+        return this.message
+      })
     }
   },
 
@@ -229,6 +273,7 @@ export default {
       console.log(msg)  // 자식 컴포넌트에서 보낸 데이터를 받아서 콘솔에 출력
     }
   },
+  
 
 }
 </script>
