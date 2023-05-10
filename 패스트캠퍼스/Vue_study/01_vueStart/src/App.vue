@@ -101,21 +101,43 @@
 
   <!-- 18. 컴포넌트 속성 상속 -->
   <!-- 컴포넌트에 연결된 특정한 속성(예를 들어 class속성)은 자식 컴포넌트의 최상단 요소(루트 요소)에 반영된다. -->
-  <ComponentAttributeInheritance class="yun" style="color: blue">
+  <!-- <ComponentAttributeInheritance class="yun" style="color: blue">
     Banana
-  </ComponentAttributeInheritance>
+  </ComponentAttributeInheritance> -->
+
+  <!-- 19. 컴포넌트 emit -->
+  <!-- 이벤트도 상속이 되므로 자식 컴포넌트의 루트 요소에 반영된다. -->
+  <!-- 이벤트의 이름은 emit으로 넘어가서 사용될 것이기 때문에 아래처럼 굳이 click이라는 이름을 반영하지 않더라도 상관 없다. -->
+  <!-- <ComponentEmit @click="log"> -->
+  <!-- 다시 말해, 컴포넌트에 연결하는 이벤트는 실제로 쓸 수 있는 이벤트가 아니여도 상관없고, 내가 원하는 이름으로 만들고나서 그걸 해당하는 컴포넌트(자식 컴포넌트)에다가 emits라는 옵션에 등록하고 $emit 메소드로 정의해주면 된다. (자세한 사용법은 아래 script의 emit 설명부분 참고)-->
+  <!-- 참고) 이벤트의 이름은 카멜케이스가 아니라 케밥케이스로 작성해야 함. -->
+  <ComponentEmit @yunho="log" @double-click="log2" @get-event="log3" @changed-msg="logMsg">
+    emit 공부하기
+  </ComponentEmit>
 </template>
 
 <script>
 //^ component는
-// 1. 가져오고 (import)
-// 2. 등록하고 (components: { })
+// 1. 가져오고 (import '등록이름' from '경로')
+// 2. 등록하고 (components: { 컴포넌트이름 }) => 
 // 3. 쓴다. (<Fruit></Fruit> 처럼)
 
 //^ props는
 // 1. 부모컴포넌트에서 보내고 (:데이터이름="data안의 데이터" or 보낼데이터이름="보낼데이터")
-// 2. 자식컴포넌트에서 받고 (props: { 데이터이름: String })
+// 2. 자식컴포넌트에서 받아서 props에 등록하고 (props: { 데이터이름: String, default: '기본값' })
 // 3. 쓴다. ({{ 데이터이름 }})
+
+//^ emit은
+// 1. 자식 컴포넌트에서 this.$emit()에다가 부모 컴포넌트로 보낼 함수명, 보낼 데이터를 명시
+// ex) 사용할 부분(예를 들어 함수나 watch)에 this.$emit('함수명', 보낼 데이터) 작성
+// 2. 자식 컴포넌트에서 emits: [] 옵션에다가 보낼 함수명을 등록
+// ex) emits: ['함수명', '함수명2', ...]
+// 3. 부모 컴포넌트에서 자식 컴포넌트에다가 @함수명="methods에서실행할 함수"으로 받아서 쓴다.
+// ex) <자식컴포넌트 @함수명="log"></자식컴포넌트>
+// 4. 부모 컴포넌트에서 methods: { 작명() { } }으로 함수를 정의해서 쓴다.
+// ex) methods: { log() { console.log('log') } }
+
+
 
 // import Base from './components/01_base.vue';
 // import LifeCycle from './components/02_lifecycle.vue';
@@ -134,7 +156,8 @@
 // import FormBinding from './components/15_form_input_binding'
 // import Vmodel from './components/16_v-modelModifier'
 // import ComponentBase from './components/17_componentBase'
-import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
+// import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
+import ComponentEmit from './components/19_componentEmit.vue'
 
 export default {
   components: {
@@ -155,7 +178,8 @@ export default {
     // FormBinding,
     // Vmodel,
     // ComponentBase,
-    ComponentAttributeInheritance,
+    // ComponentAttributeInheritance,
+    ComponentEmit,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
@@ -172,6 +196,19 @@ export default {
   methods: {
     increase() {
       this.count += 1;
+    },
+    log() {
+      console.log('click!');
+    },
+    log2() {
+      console.log("더블클릭 함수 실행");
+    },
+    log3(event) {
+      console.log("event 객체 받아오기")
+      console.log(event)
+    },
+    logMsg(msg) {
+      console.log(msg)  // 자식 컴포넌트에서 보낸 데이터를 받아서 콘솔에 출력
     }
   },
 
