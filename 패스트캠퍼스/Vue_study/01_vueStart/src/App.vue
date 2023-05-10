@@ -25,7 +25,7 @@
   <!-- <GetterAndSetter></GetterAndSetter> -->
 
   <!-- 07 Watch -->
-  <!-- <WatchComponent></WatchComponent> -->
+  <WatchComponent></WatchComponent>
 
   <!-- 08 Class And StyleBinding -->
   <!-- <ClassBinding></ClassBinding> -->
@@ -123,7 +123,7 @@
 // import Computed from './components/04_computed.vue';
 // import ComputedCaching from './components/05_computedCaching.vue';
 // import GetterAndSetter from './components/06_getter_setter.vue';
-// import WatchComponent from './components/07_watch.vue';
+import WatchComponent from './components/07_watch.vue';
 // import ClassBinding from './components/08_classBinding.vue';
 // import StyleBinding from './components/09_styleBinding.vue';
 // import Conditional from './components/10_conditionalRendering';
@@ -144,7 +144,7 @@ export default {
     // Computed,
     // ComputedCaching,
     // GetterAndSetter,
-    // WatchComponent,
+    WatchComponent,
     // ClassBinding,
     // StyleBinding,
     // Conditional,

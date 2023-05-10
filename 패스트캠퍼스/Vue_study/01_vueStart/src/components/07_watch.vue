@@ -19,6 +19,7 @@ export default {
     watch: {
         msg(newVal, oldVal) {
             console.log(newVal, oldVal);    // 변경된 후의 데이터, 변경되기 전의 데이터
+            //=> 파라미터를 하나만 받으면 변경된 후의 데이터만 받아온다.
             console.log(this.msg)   // 변경되고 난 후의 msg
         },
         
