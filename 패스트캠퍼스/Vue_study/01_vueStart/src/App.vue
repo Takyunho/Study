@@ -153,11 +153,14 @@
   <!-- Component Provide는 자식 컴포넌트가 여러개인 경우 props를 여러번 거쳐야하는 번거로움을 방지하기 위해 나온 대안 -->
   <!-- props로 전달하는 부분을 지워도 된다. -->
   <!-- <ComponentProvide :msg="message"></ComponentProvide> -->
-  <ComponentProvide></ComponentProvide>
+  <!-- <ComponentProvide></ComponentProvide>
   <p>App: {{ message }}</p>
-  <button @click="message = 'good?'">click</button>
+  <button @click="message = 'good?'">click</button> -->
 
 
+    <!-- 22. Component Refs -->
+    <!-- Refs => 특정한 요소나 컴포넌트를 참조할 수 있게 하는 개념 -->
+    <ComponentRefs></ComponentRefs>
 </template>
 
 <script>
@@ -203,8 +206,9 @@
 // import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
 // import ComponentEmit from './components/19_componentEmit.vue'
 // import ComponentSlot from './components/20_componentSlot'
-import ComponentProvide from './components/21_componentProvide.vue'
+// import ComponentProvide from './components/21_componentProvide.vue'
 import { computed } from 'vue'
+import ComponentRefs from './components/22_componentRefs.vue'
 
 
 export default {
@@ -229,7 +233,8 @@ export default {
     // ComponentAttributeInheritance,
     // ComponentEmit,
     // ComponentSlot,
-    ComponentProvide,
+    // ComponentProvide,
+    ComponentRefs
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
