@@ -57,46 +57,53 @@
   <!-- 17 컴포넌트 기초 -->
   <!-- memo -->
   <!-- 컴포넌트이름은 PascalCase를 사용 -->
-  <ComponentBase></ComponentBase>
+  <!-- <ComponentBase></ComponentBase> -->
 
   <!-- 자식 컴포넌트에서 slot 태그를 사용하면 부모컴포넌트 사이의 내용이 그 태그의 위치로 들어간다. -->
-  <ComponentBase>slot 이용</ComponentBase>
+  <!-- <ComponentBase>slot 이용</ComponentBase> -->
   <!-- 일반 텍스트뿐만 아니라, 스타일이 들어간 태그도 넣을 수 있다. -->
-  <ComponentBase>
+  <!-- <ComponentBase> -->
     <!-- 스타일 동적 바인딩 -->
-    <span :style="{color: red }">태그도 가능하다!</span>
+    <!-- <span :style="{color: red }">태그도 가능하다!</span> -->
     <!-- 스타일 정적 바인딩 -->
-    <span style="color: blue">태그도 가능하다!</span>
-  </ComponentBase>
+    <!-- <span style="color: blue">태그도 가능하다!</span> -->
+  <!-- </ComponentBase> -->
 
   <!-- 일반 데이터를 보낼때는 "문자열"로 보내고, data안의 데이터를 보낼때는 v-bind(:)를 붙여서 보내야 함 -->
   <!-- 기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있지만,
   camelCase로 선언된 props 속성일지라도 관례적으로 HTML 속성 표기법과 동일하게 kebab-case로 표기해서 사용하도록 해야 한다. 
   예를들어, bgColor로 데이터를 보낼 수 있지만, bg-color로 작성하는 것이 바람직하다. -->
-  <ComponentBase bg-color="#33A06F" :font-color="color"></ComponentBase>
-  <ComponentBase text-msg="안녕!" font-color="#000"></ComponentBase>
+  <!-- <ComponentBase bg-color="#33A06F" :font-color="color"></ComponentBase> -->
+  <!-- <ComponentBase text-msg="안녕!" font-color="#000"></ComponentBase> -->
 
   <!-- 숫자 -->
   <!-- `42`는 정적이지만 Vue에 이것이 문자열이 아닌 JavaScript 표현식임을 알려주려면 v-bind가 필요하다. -->
-  <ComponentBase :likes="42"></ComponentBase>
+  <!-- <ComponentBase :likes="42"></ComponentBase> -->
 
   <!-- 불리언 -->
   <!-- 값이 없는 prop은 'true'가 전달된다. -->
-  <ComponentBase large></ComponentBase>
+  <!-- <ComponentBase large></ComponentBase> -->
   <!-- 'false'는 정적이지만 Vue에 이것이 문자열이 아닌     -->
   <!-- JavaScript 표현식임을 알려주려면 v-bind가 필요하다. -->
-  <ComponentBase :is-published="false"></ComponentBase>
+  <!-- <ComponentBase :is-published="false"></ComponentBase> -->
 
   <!-- 배열 -->
   <!-- 배열도 정적이더라도 v-bind가 필요하다. -->
-  <ComponentBase :fruit="[111, 'apple', 113]"></ComponentBase>
+  <!-- <ComponentBase :fruit="[111, 'apple', 113]"></ComponentBase> -->
 
   <!-- 객체 -->
   <!-- 객체도 정적이더라도 v-bind가 필요 -->
-  <ComponentBase :author="{ name: 'yun', company: 'idb'}"></ComponentBase>
+  <!-- <ComponentBase :author="{ name: 'yun', company: 'idb'}"></ComponentBase> -->
 
   <!-- 객체의 모든 속성을 props로 전달하려면 인자 없이 v-bind를 사용하면 된다. -->
   <!-- 예를 들어서 <BlogPost v-bind="post(data에서 정의된 객체 데이터임)" /> 처럼 사용하면 된다. -->
+
+
+  <!-- 18. 컴포넌트 속성 상속 -->
+  <!-- 컴포넌트에 연결된 특정한 속성(예를 들어 class속성)은 자식 컴포넌트의 최상단 요소(루트 요소)에 반영된다. -->
+  <ComponentAttributeInheritance class="yun" style="color: blue">
+    Banana
+  </ComponentAttributeInheritance>
 </template>
 
 <script>
@@ -126,7 +133,8 @@
 // import KeyModifier from './components/14_keyModifier'
 // import FormBinding from './components/15_form_input_binding'
 // import Vmodel from './components/16_v-modelModifier'
-import ComponentBase from './components/17_componentBase'
+// import ComponentBase from './components/17_componentBase'
+import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
 
 export default {
   components: {
@@ -146,7 +154,8 @@ export default {
     // KeyModifier,
     // FormBinding,
     // Vmodel,
-    ComponentBase,
+    // ComponentBase,
+    ComponentAttributeInheritance,
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
