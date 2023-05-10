@@ -111,9 +111,25 @@
   <!-- <ComponentEmit @click="log"> -->
   <!-- 다시 말해, 컴포넌트에 연결하는 이벤트는 실제로 쓸 수 있는 이벤트가 아니여도 상관없고, 내가 원하는 이름으로 만들고나서 그걸 해당하는 컴포넌트(자식 컴포넌트)에다가 emits라는 옵션에 등록하고 $emit 메소드로 정의해주면 된다. (자세한 사용법은 아래 script의 emit 설명부분 참고)-->
   <!-- 참고) 이벤트의 이름은 카멜케이스가 아니라 케밥케이스로 작성해야 함. -->
-  <ComponentEmit @yunho="log" @double-click="log2" @get-event="log3" @changed-msg="logMsg">
+  <!-- <ComponentEmit @yunho="log" @double-click="log2" @get-event="log3" @changed-msg="logMsg">
     emit 공부하기
-  </ComponentEmit>
+  </ComponentEmit> -->
+
+
+  <!-- 20. 컴포넌트 slot -->
+  <ComponentSlot>
+    <span>Banana</span>
+    <span>(B)</span>
+    <!-- 이름을 갖는 슬롯(Named Slots) -->
+    <!-- named slots을 이용하면 순서를 보장할 수 있다. -->
+    <template v-slot:header>
+      <h1>이것은 헤더입니다.</h1>
+    </template>
+    <!-- v-slot의 약어 '#'-->
+    <template #footer>
+      <h1>이것은 푸터입니다.</h1>
+    </template>
+  </ComponentSlot>
 </template>
 
 <script>
@@ -157,7 +173,8 @@
 // import Vmodel from './components/16_v-modelModifier'
 // import ComponentBase from './components/17_componentBase'
 // import ComponentAttributeInheritance from './components/18_componentAttributeInheritance.vue'
-import ComponentEmit from './components/19_componentEmit.vue'
+// import ComponentEmit from './components/19_componentEmit.vue'
+import ComponentSlot from './components/20_componentSlot'
 
 export default {
   components: {
@@ -179,7 +196,8 @@ export default {
     // Vmodel,
     // ComponentBase,
     // ComponentAttributeInheritance,
-    ComponentEmit,
+    // ComponentEmit,
+    ComponentSlot
   },
 
   // 데이터를 바꾸면 화면도 바뀐다 => 반응성(Reactivity)
