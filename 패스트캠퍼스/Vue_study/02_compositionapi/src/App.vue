@@ -9,9 +9,11 @@
 </template>
 
 <script>
-import OptionApi from './components/01_optionAPI.vue'
-import CompositionApi from './components/01_compositionAPI.vue'
+// import OptionApi from './components/01_optionAPI.vue'
+// import CompositionApi from './components/01_compositionAPI.vue'
 import Responsive from './components/02_반응형데이터.vue'
+import OptionApi from './components/03_optionAPI.vue'
+import CompositionApi from './components/03_compositionAPI.vue'
 
 export default {
   name: 'App',
