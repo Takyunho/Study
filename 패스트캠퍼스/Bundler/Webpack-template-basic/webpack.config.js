@@ -4,7 +4,7 @@
 //^ import
 const path = require('path')    // node js의 path 모듈을 가져온다.
 const HtmlPlugin = require('html-webpack-plugin')   // 최초 실행될 HTML 파일(템플릿)을 연결
-
+const CopyPlugin = require('copy-webpack-plugin')   // 정적 파일을 연결
 
 //^ export
 module.exports = {
@@ -26,6 +26,12 @@ module.exports = {
     plugins: [
         new HtmlPlugin({
             template: './index.html'   // 최초 실행될 HTML 파일(템플릿)을 연결
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'static' },  // static 폴더에 있는 파일들을 dist 폴더로 복사한다.
+                // { from: '경로'}
+            ]
         })
     ],
 
