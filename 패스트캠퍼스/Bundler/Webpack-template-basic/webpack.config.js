@@ -40,11 +40,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,    // .css로 끝나는 파일을 찾는 정규식
+                test: /\.s?css$/,    // .css 또는 .scss로 끝나는 파일을 찾는 정규식
                 use: [
                     'style-loader', // html에 스타일을 적용할 수 있도록 해준다.
-                    'css-loader'    // 자바스크립트에서 css를 읽을 수 있도록 해준다.
+                    'css-loader',    // 자바스크립트에서 css를 읽을 수 있도록 해준다.
                     // 순서가 중요하다. 뒤에서부터 실행된다.
+                    'sass-loader',   // scss를 파일을 읽을 수 있도록 해준다.
+                    // 'sass',         // scss를 읽을때 문법을 해석해줄 수 있도록 하는 역할의 모듈
                 ]
             }
         ]
