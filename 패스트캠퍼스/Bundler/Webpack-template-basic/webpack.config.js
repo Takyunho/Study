@@ -48,6 +48,12 @@ module.exports = {
                     'sass-loader',   // scss를 파일을 읽을 수 있도록 해준다.
                     // 'sass',         // scss를 읽을때 문법을 해석해줄 수 있도록 하는 역할의 모듈
                 ]
+            },
+            {
+                test: /\.js$/,  // .js로 끝나는 파일을 찾는 정규식
+                use: [
+                    'babel-loader'  // babel이 동작할 수 있도록 해준다.
+                ]
             }
         ]
     }
