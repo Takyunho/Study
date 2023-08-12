@@ -20,3 +20,32 @@ body {
   line-height: 1.5;
   font-size: 1rem;
 }
+
+.btn {
+  text-decoration: none;
+  color: var(--mainWhite);
+  background-color: var(--secondColor);
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  outline: 0;
+  border: none;
+  border-radius: 3px;
+  display: block;
+  height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: .3s;
+  display: flex;
+  align-items: center;
+}
+
+.btn:hover {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 5px rgba(0, 0, 0, 0.1) ;
+}
+
+.btn-icon {
+  margin-left: 5px;
+  font-size: 1.2rem;
+}

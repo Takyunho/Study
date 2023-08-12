@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import "./ExpenseList.css"
 import ExpenseItem from "./ExpenseItem"
+import { MdDelete } from 'react-icons/md'
 
 export class ExpenseList extends Component {
   render() {
@@ -12,9 +13,13 @@ export class ExpenseList extends Component {
           {/* Expense Item */}
           <ExpenseItem />
         </ul>
-        <button className='btn'>
-          목록 지우기
-        </button>
+        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+          <button className='btn'>
+            목록 지우기
+            <MdDelete className='btn-icon'></MdDelete>
+          </button>
+        </div>
+
       </React.Fragment>
 
     )
