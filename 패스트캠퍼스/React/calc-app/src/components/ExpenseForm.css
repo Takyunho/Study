@@ -1,0 +1,31 @@
+.form-center {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.form-group {
+  padding: 1rem 0.75rem;
+  /*^ flex: 1;을 하게되면 전체를 채워주게 됨!! */
+  flex: 1;
+}
+
+label {
+  display: block;
+  color: var(--mainBlack);
+  font-size: 1rem;
+  text-transform: capitalize;  /*^ 영어인 경우 대문자로 바꿔주기!! */
+}
+
+/* input style */
+.form-control {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mainBlack);
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 8px 0;
+}

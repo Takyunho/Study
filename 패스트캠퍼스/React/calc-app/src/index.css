@@ -1,0 +1,22 @@
+:root {
+  --primaryColor: royalblue; 
+  --secondColor: rgb(169, 227, 251);
+  --bgColor: #ccc;
+  --contentColor: aliceblue;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainPurple: #af2de7;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--bgColor);
+  color: var(--mainBlack);
+  line-height: 1.5;
+  font-size: 1rem;
+}
