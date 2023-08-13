@@ -4,6 +4,13 @@ import ExpenseForm from './components/ExpenseForm';  // ExpenseForm 컴포넌트
 import ExpenseList from './components/ExpenseList';  // ExpenseList 컴포넌트를 import 한다.
 
 class App extends Component {
+
+  initialExpense = [
+    { id: 1, charge: '렌트비', amount: 1010 },
+    { id: 2, charge: '교통비', amount: 2400 },
+    { id: 3, charge: '식비', amount: 3600 },
+  ]
+
   render() {
     return (
       <main className='main-container'>
@@ -16,7 +23,8 @@ class App extends Component {
 
         <div style={{ width: '100%', background: 'white', padding: '1rem' }}>
           {/* Expense List */}
-          <ExpenseList />
+          {/* props로 데이터 전달하기 */}
+          <ExpenseList initialExpense={this.initialExpense} />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>
