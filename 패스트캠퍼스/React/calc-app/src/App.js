@@ -11,6 +11,11 @@ class App extends Component {
     { id: 3, charge: '식비', amount: 3600 },
   ]
 
+  handleDelete = (id) => {
+    const newExpenses = this.initialExpense.filter(expense => expense.id !== id)
+    console.log(newExpenses);
+  }
+
   render() {
     return (
       <main className='main-container'>
@@ -24,7 +29,11 @@ class App extends Component {
         <div style={{ width: '100%', background: 'white', padding: '1rem' }}>
           {/* Expense List */}
           {/* props로 데이터 전달하기 */}
-          <ExpenseList initialExpense={this.initialExpense} />
+          <ExpenseList
+            initialExpense={this.initialExpense}
+            //* 함수도 props로 전달할 수 있다.
+            handleDelete={this.handleDelete}
+          />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }}>

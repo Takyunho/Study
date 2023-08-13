@@ -12,7 +12,7 @@ export class ExpenseList extends Component {
         <ul className='list'>
           {/* map 메소드를 이용해 자식 컴포넌트에 각각의 요소 전달하기 */}
           {this.props.initialExpense.map(expense => {
-            return <ExpenseItem expense={expense} key={expense.id}></ExpenseItem>
+            return <ExpenseItem expense={expense} key={expense.id} handleDelete={this.props.handleDelete}></ExpenseItem>
           })}
         </ul>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>

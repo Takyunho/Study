@@ -15,7 +15,10 @@ export class ExpenseItem extends Component {
             <button className='edit-btn'>
               <MdEdit></MdEdit>
             </button>
-            <button className='clear-btn'>
+            {/* filter 메소드를 이용하여 해당하는 요소 지우기 */}
+            <button className='clear-btn' onClick={() => {
+              this.props.handleDelete(this.props.expense.id)
+            }}>
               <MdDelete></MdDelete>
             </button>
           </div>
