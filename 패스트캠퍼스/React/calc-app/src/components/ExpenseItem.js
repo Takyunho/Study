@@ -8,8 +8,8 @@ export class ExpenseItem extends Component {
       <>
         <li className='item'>
           <div className='info'>
-            <span className='expense'>asd</span>
-            <span className='amount'> 원</span>
+            <span className='expense'>{this.props.expense.charge}</span>
+            <span className='amount'> {this.props.expense.amount}</span>
           </div>
           <div>
             <button className='edit-btn'>
