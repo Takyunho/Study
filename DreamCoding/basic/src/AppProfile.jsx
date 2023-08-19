@@ -3,8 +3,16 @@ import Avatar from './components/Avatar';
 import Profile from "./components/Profile";
 
 export default function AppProfile() {
+
+  const handleClick = (event) => {
+    console.log(event)
+    // console.log(event.target.value)
+    console.log(event.target.textContent)
+  }
+
   return (
     <div>
+      <button onClick={handleClick}>버튼</button>
       <Avatar
         image="https://images.unsplash.com/photo-1602033350291-a9ab8d800269?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fCVFQyU5NiVCQyVFQSVCNSVCNHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
         isNew={true}
