@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 
-export default function Counter({ totalCount, setTotalCount, setEmoji }) {
+export default function Counter({ totalCount, onClick }) {
   const [count, setCount] = useState(0);
 
   const addNumber = () => {
+    // 각각의 count 1씩 증가시키기
     setCount((prevCount) => prevCount + 1);
-    console.log(count);
-    setTotalCount((prevTotalCount) => prevTotalCount + 1);
-
-    if(totalCount > 9) {
-      // replace를 쓰나 그냥 이전값을 바꾸나 같은 결과가 나온다.
-      setEmoji((prevEmoji) => "🔥")
-      // setEmoji((prevEmoji) => prevEmoji.replace("😎", "😡"))
-    }
+    // 받아온 onClick 함수 실행하여 totalCount 증가시키기
+    onClick();  
   };
 
   return (
