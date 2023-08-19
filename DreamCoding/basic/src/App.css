@@ -8,6 +8,7 @@
   -moz-box-shadow: 4px 3px 11px -1px rgba(0,0,0,0.86);
   border-radius: 5px;
   margin: 10px;
+  position: relative;
 }
 
 .photo {
@@ -16,4 +17,17 @@
   border-radius: 100%;
   /* background-size: contain;
   background-position: center; */
+}
+
+.new-tag {
+  background-color: rgba(0, 255, 255, 0.777);
+  color: #333;
+  border-radius: 5px;
+  border: none;
+  position: absolute;
+  top: 10%;
+  right: 50px;
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
