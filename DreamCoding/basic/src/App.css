@@ -7,10 +7,13 @@
   -webkit-box-shadow: 4px 3px 11px -1px rgba(0,0,0,0.86);
   -moz-box-shadow: 4px 3px 11px -1px rgba(0,0,0,0.86);
   border-radius: 5px;
+  margin: 10px;
 }
 
 .photo {
   width: 200px;
   height: 200px;
   border-radius: 100%;
+  /* background-size: contain;
+  background-position: center; */
 }
