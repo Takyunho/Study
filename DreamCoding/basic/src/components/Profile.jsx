@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "./Avatar";
 
-export default function Profile({ image, /* newTag */ name, title, isNew }) {
+export default function Profile({ image, name, title, isNew }) {
   return (
     <div className="profile">
       <Avatar image={image} isNew={isNew}></Avatar>

@@ -12,8 +12,7 @@ export default function AppProfile() {
       <Profile
         image="https://images.unsplash.com/photo-1602033350291-a9ab8d800269?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fCVFQyU5NiVCQyVFQSVCNSVCNHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
         name="rina"
-        // newTag="new"
-        isNew={true}  // Boolean값은 {}로 묶어서 보낸다.
+        isNew={true}
         title="프론트엔드 고수"
       ></Profile>
       <Profile
