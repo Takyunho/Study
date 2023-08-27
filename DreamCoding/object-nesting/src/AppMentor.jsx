@@ -25,9 +25,11 @@ export default function AppMentor() {
           setPerson((prev) => ({ 
             ...prev,
             mentor: {
-              name: name,
-              title: prev.mentor.title
-              // title: person.mentor.title // 같음
+              ...prev.mentor,   // 나머지 값들을 전개 연산자를 통해 전부 가져오기
+              name: name        // key와 value가 같기 때문에 name으로 축약 가능 
+
+              // title: prev.mentor.title
+              // title: person.mentor.title
             }
           }));
           console.log(person)
@@ -39,13 +41,13 @@ export default function AppMentor() {
       <button
         onClick={() => {
           const title = prompt("타이틀을 입력하세요");
-          setPerson((prev) => ({
+          setPerson(prev => ({
             ...prev,
             mentor: {
-              name: prev.mentor.name,
-              title: title
+              ...prev.mentor,
+              title: title    // title로 축약 가능
             }
-          }))
+          }));
           console.log(person)
         }}
       >
