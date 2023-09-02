@@ -1,51 +1,30 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
+import personReducer from "./reducer/person-reducer";
 
-// 배열과 객체를 이용한 CRUD
+//------------- useReducer 사용하기
+
 export default function AppMentors() {
-  const [person, setPerson] = useState(initialPerson);
+  // const [person, setPerson] = useState(initialPerson);
+  const [person, dispatch] = useReducer(personReducer, initialPerson);
 
+  //~ dispatch로 action을 보내서 reducer를 통해 state를 변경할 수 있다.
   const handleUpdate = () => {
     const prevName = prompt("누구의 이름을 바꾸고 싶은가요?");
     const current = prompt("이름을 무엇으로 바꾸고 싶은가요?");
-    setPerson((prev) => ({
-      ...prev,
-      mentors: prev.mentors.map((mentor, index) => {
-        if (mentor.name === prevName) {
-          return {
-            ...mentor,
-            name: current,
-          };
-        }
-        return mentor;        
-      }),
-    }));
+    dispatch({type: 'updated', prevName, current})
     console.log(person);
   };
 
   const handleAdd = () => {
     const newName = prompt("추가할 멘토의 이름을 적어주세요.");
     const newTitle = prompt("멘토의 직업을 적어주세요.");
-    const newMentor = {
-      name: newName,
-      title: newTitle,
-    };
-    setPerson((person) => ({
-      ...person,
-      //^ 1. concat을 사용한 방법
-      // mentors: person.mentors.concat(newMentor)
-      //^ 2. spread operator를 사용한 방법
-      mentors: [...person.mentors, newMentor],
-    }));
+    dispatch({type: 'added', newName, newTitle})
     console.log(person);
   };
 
   const handleDelete = () => {
     const removeName = prompt("삭제할 이름을 적어주세요");
-    setPerson((person) => ({
-      ...person,
-      mentors: person.mentors.filter((mentor) => mentor.name !== removeName),
-      // filter메소드를 이용해서 mentors배열에서 removeName과 같은 이름을 가진 멘토를 제외한 배열을 반환한다.
-    }));
+    dispatch({type: 'deleted', removeName})
   };
 
   return (
