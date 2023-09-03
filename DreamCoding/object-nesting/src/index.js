@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import AppMentor from './AppMentor';
+// import AppMentor from './AppMentor';
 import AppMentors from './AppMentors';
 import reportWebVitals from './reportWebVitals';
 

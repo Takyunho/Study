@@ -1,4 +1,4 @@
-import Reac from "react";
+import React from "react";
 import { useImmer } from 'use-immer';
 
 //------------- immer 라이브러리를 사용해서 상태관리하기
