@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Avatar from "./components/Avatar";
+import Card from "./components/Card";
 
 export default function AppWrap() {
   return (
@@ -18,6 +19,15 @@ export default function AppWrap() {
         ></Avatar>
         <p>children을 이용하여 컴포넌트 재사용하기</p>
       </Navbar>
+
+      <Card>
+        <p>Card 1</p>
+      </Card>
+      <Card>
+        <h1>Card 2</h1>
+        <p>무조건 children으로 전달받아야댐</p>
+      </Card>
+      <Card></Card>
     </div>
   );
 }
