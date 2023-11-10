@@ -14,29 +14,30 @@
 <body>
 
   <!-- 모달창은 보통 맨 위에다가 작성 -->
-  <!-- 모달창처럼 모든 요소를 투과하여 맨 앞에 존재하는 요소는 
-  일단 HTML 자체는 <body>태그 바로 다음에 오는게 좋습니다. 
-  그리고 요소를 붕 띄우기 위해서는 position : fixed 후 z-iondex라는 속성을 사용합니다. -->
+  <!-- 모달창처럼 모든 요소를 투과하여 맨 앞에 존재하는 요소는 <body>태그 바로 다음에 오는게 좋습니다. 
+  그리고 요소를 붕 띄우기 위해서는 position : fixed 후 z-index라는 속성을 사용합니다. -->
   <!-- z-index는 position 속성이 들어간 요소들에 쓸 수 있는 속성이며
     값이 클 수록 맨 앞으로 가져옵니다. (= 워드나 피피티의 맨 앞으로보내기/뒤로보내기 기능) -->
+    <!-- 모달창 부분 -->
   <div class="black-background">
     <div class="white-background">
       <p>로그인하세요</p>
+      <button id="close-btn">닫기</button>
     </div>
   </div>
 
-
-  <div class="jumbotron main-background">
+  <!-- 화면 내용 -->
+  <main class="jumbotron main-background">
     <h1 class="display-4">Shirts Studio</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
       featured content or information.</p>
     <hr class="my-4">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg logIn-btn" href="#" role="button">Log In</a>
-  </div>
+  </main>
 
 
-  <!-- 제이쿼리 -->
+  <!-- 제이쿼리 cdn -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -50,6 +51,14 @@
     // document.getElementsByClassName('logIn-btn')[0].addEventListener('click', function () {
     //   document.getElementsByClassName('black-background')[0].style.display = 'block';
     // })
+
+
+    // 취소버튼 클릭시 모달창 닫기
+    const closeBtnEl = document.querySelector("#close-btn");
+    closeBtnEl.addEventListener('click', function () {
+      document.querySelector('.black-background').style.display = 'none';
+    })
+
   </script>
 
   <!-- 부트스트랩 -->
