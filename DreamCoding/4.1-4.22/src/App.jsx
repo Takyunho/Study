@@ -16,13 +16,22 @@ export default function App() {
     backgroundColor: "yellow",
   }
 
+  const list = ['우유', '딸기', '바나나', '요거트'];
+
   return (
     <>
       <div>
-        <p>{name}</p>
+        {/* 문자열과 변수를 사용할 떄 똑같이 템플릿 리터럴 이용 */}
+        <p>{`Hello ${name}`}</p>
         <h1 style={style}>안녕하세요</h1>
         <h2 style={{ width: "200px", height: "100px" }}>반갑습니다.</h2>
       </div>
+      <ul>
+        {/* map함수를 이용해 배열을 반환 */}
+        {list.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
     </>
   );
 }
