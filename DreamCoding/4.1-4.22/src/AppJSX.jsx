@@ -1,8 +1,7 @@
-import logo from "./logo.svg";
 import "./App.css";
 
-export default function App() {
-  //@ JSX에서 주의 사항
+export default function AppJSX() {
+  //@ 4.4 ~ 4.5 JSX에서 주의 사항
   // 1. 꼭 하나의 태그로 반환해야 한다.
   // <></> : Fragment
   // 2. class는 className으로 작성한다.
