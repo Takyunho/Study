@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-//@ 4.20 useEffect 제대로 사용하기
+//@ 4.21 고유한 key
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -37,6 +37,7 @@ export default function Products() {
       <label htmlFor="checkbox">show only Sale 😆</label>
       <ul>
         {products.map((product) => (
+          //@ 고유한 key 값을 기준으로 렌더링할지 판단하기 때문에 key값을 넣어줘야 한다.
           <li key={product.id}>
             <article>
               <h3>{product.name}</h3>
