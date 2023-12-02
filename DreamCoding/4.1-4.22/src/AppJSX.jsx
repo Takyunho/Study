@@ -27,9 +27,22 @@ export default function AppJSX() {
       </div>
       <ul>
         {/* map함수를 이용해 배열을 반환 */}
-        {list.map((item) => (
-          <li>{item}</li>
-        ))}
+        {
+          // 1.
+          list.map((item) => <li>{item}</li>)
+          // 2.
+          // list.map(item => (
+          //   <li>{item}</li>
+          // ))
+          // 3.
+          // list.map((item) => {
+          //   return <li>{item}</li>;
+          // })
+          // 4.
+          // list.map(function (item) {
+          //   return <li>{item}</li>;
+          // })
+        }
       </ul>
     </>
   );
