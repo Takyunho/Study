@@ -5,13 +5,36 @@
   background-color: #ebebeb;
   margin: 10px;
   box-shadow: 13px 9px 27px 5px rgba(0,0,0,0.71);
--webkit-box-shadow: 13px 9px 27px 5px rgba(0,0,0,0.71);
--moz-box-shadow: 13px 9px 27px 5px rgba(0,0,0,0.71);
-border-radius: 20px;
+  -webkit-box-shadow: 13px 9px 27px 5px rgba(0,0,0,0.71);
+  -moz-box-shadow: 13px 9px 27px 5px rgba(0,0,0,0.71);
+  border-radius: 20px;
+}
+
+
+.avatar-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: auto;
 }
 
 .photo {
   width: 200px;
   height: 200px;
   border-radius: 100%;
+}
+
+.new {
+  position: absolute;
+  top: 10%;
+  left: 70%;
+  border: none;
+  border-radius: 5px;
+  background-color: aqua;
+  padding: 0.2rem 0.5rem; 
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;  /* 대문자 */
+  font-size: 0.9rem;
+  font-weight: 500;
 }
