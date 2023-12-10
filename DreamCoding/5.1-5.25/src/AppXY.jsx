@@ -9,7 +9,7 @@ export default function AppXY() {
 
   const handleMouseMove = (e) => {
     // console.log(e)
-    //@ set함수는 콜백에서 한번만 호출 하는 것이 좋다. (여러가지의 set 함수를 호출하더라도 리액트에서 알아서 가상 DOM을 만들지만, 100% 보장되는 것은 아니기 때문)
+    //@ set함수는 콜백에서 한번에 호출 하는 것이 좋다. (여러가지의 set 함수를 호출하더라도 리액트에서 알아서 가상 DOM을 만들지만, 100% 보장되는 것은 아니기 때문)
     // setPosition({ x: e.clientX, y: e.clientY });
     
     //? 만약 수평으로만 이동이 가능하게 하려면?
