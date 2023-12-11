@@ -5,7 +5,8 @@ import reportWebVitals from './reportWebVitals';
 // import AppXY from './AppXY';
 // import AppMentor from './AppMentor';
 // import AppMentors from './AppMentors';
-import AppMentorsImmer from './AppMentorsImmer';
+// import AppMentorsImmer from './AppMentorsImmer';
+import AppForm from './AppForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +23,10 @@ root.render(
     {/* <AppMentors /> */}
 
     {/* 5.13 immer 라이브러리 사용 */}
-    <AppMentorsImmer></AppMentorsImmer>
+    {/* <AppMentorsImmer></AppMentorsImmer> */}
+
+    {/* 5.16  */}
+    <AppForm></AppForm>
   </>
 );
 
