@@ -24,6 +24,13 @@ export default function AppWrap() {
         <h2>내용이 달라져요</h2>
         <span>각각 다른 내용</span>
       </Navbar>
+      <Card>
+        <h1>Card1</h1>
+        <p>Card1 내용</p>
+      </Card>
+      <Card>
+        <h1>Card2</h1>
+      </Card>
     </div>
   );
 }
@@ -43,6 +50,25 @@ function Avatar({ image, name, size }) {
         height={size}
         style={{ borderRadius: "50%" }}
       />
+    </div>
+  );
+}
+
+function Card({ children }) {
+  return (
+    <div
+      style={{
+        backgroundColor: "black",
+        borderRadius: "20px",
+        color: "white",
+        minHeight: "200px",
+        maxWidth: "200px",
+        margin: "1rem",
+        padding: "1rem",
+        textAlign: "center",
+      }}
+    >
+      {children}
     </div>
   );
 }
