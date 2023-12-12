@@ -7,7 +7,8 @@ import reportWebVitals from './reportWebVitals';
 // import AppMentors from './AppMentors';
 // import AppMentorsImmer from './AppMentorsImmer';
 // import AppForm from './AppForm';
-import AppWrap from './AppWrap';
+// import AppWrap from './AppWrap';
+import AppTheme from './AppTheme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,7 +31,10 @@ root.render(
     {/* <AppForm></AppForm> */}
 
     {/* 5.15 */}
-    <AppWrap></AppWrap>
+    {/* <AppWrap></AppWrap> */}
+
+    {/* 5.18 */}
+    <AppTheme></AppTheme>
   </>
 );
 
