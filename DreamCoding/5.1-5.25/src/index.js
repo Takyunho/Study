@@ -9,7 +9,8 @@ import reportWebVitals from './reportWebVitals';
 // import AppForm from './AppForm';
 // import AppWrap from './AppWrap';
 // import AppTheme from './AppTheme';
-import AppMentorsButton from "./AppMentorsButton";
+// import AppMentorsButton from "./AppMentorsButton";
+import AppLoading from './AppLoading';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -45,7 +46,10 @@ root.render(
 
     {/* 5.19 성능 개선에 대한 단상 */}
     {/* 5.20 성능 개선 해보기 (useMemo, useCallback, React.memo) */}
-    <AppMentorsButton></AppMentorsButton>
+    {/* <AppMentorsButton></AppMentorsButton> */}
+
+    {/* 5.21 ~ 5.22 로딩, 에러 상태 추가 */}
+    <AppLoading></AppLoading>
   </>
 );
 
