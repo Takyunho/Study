@@ -49,6 +49,7 @@ root.render(
     {/* <AppMentorsButton></AppMentorsButton> */}
 
     {/* 5.21 ~ 5.22 로딩, 에러 상태 추가 */}
+    {/* 5.23 커스텀 훅 만들기 */}
     <AppLoading></AppLoading>
   </>
 );
