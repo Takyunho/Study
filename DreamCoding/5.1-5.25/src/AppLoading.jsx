@@ -6,32 +6,32 @@ export default function AppLoading() {
   const [products, setProducts] = useState([]);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [error, setError] = useState(); //@ 빈 상태면 undefined로 초기화 됨
 
   const handleCheck = () => {
     setChecked((prev) => !prev);
   };
 
   useEffect(() => {
-    // 1. 로딩중 상태 변경하기 + 에러상태 초기화
+    //* 1. 로딩중 상태 변경하기 + 에러상태 초기화
     setLoading(true);
-    setFailed(false);
+    setError(undefined);
 
-    fetch(`data/${checked ? "sale_" : ""}products.json`)
+    fetch(`data/${checked ? "sale_" : ""}productss.json`)
       .then((res) => res.json())
       .then((data) => {
         console.log("데이터 가져오기 성공!");
         console.log(checked);
         setProducts(data);
-        // 2. 로딩중 안보이도록 상태 변경하기
-        setLoading(false);
       })
       .catch((e) => {
-        console.log("데이터 가져오기 실패!");
-        // 3. 로딩중 안보이도록 상태 변경 + 에러 상태 변경하기
-        setLoading(false);
-        setFailed(true);
-      });
+        //* 2. 에러 상태 변경하기
+        setError("에러가 발생했음!");
+      })
+      .finally(() =>
+        //* 3. 로딩중 상태 초기화하기 (성공하든 실패하든 호출)
+        setLoading(false)
+      );
 
     return () => {
       console.log(
@@ -39,6 +39,11 @@ export default function AppLoading() {
       );
     };
   }, [checked]); // checked가 변경될 때마다 호출
+
+  // * if문으로 각각의 다른 내용을 return
+  if (loading) return <h1>loading...</h1>
+  
+  if (error) return <h1>{error}</h1>
 
   return (
     <div>
@@ -49,24 +54,17 @@ export default function AppLoading() {
         onChange={handleCheck}
       />
       <label htmlFor="checkbox">show only Sale 😆</label>
-
-      {loading && !failed ? (
-        <h1>Loading...</h1>
-      ) : !loading && failed ? (
-        <h1>데이터 불러오기 실패</h1>
-      ) : (
-        <ul>
-          {products.map((product) => (
-            //@ 고유한 key 값을 기준으로 렌더링할지 판단하기 때문에 key값을 넣어줘야 한다.
-            <li key={product.id}>
-              <article>
-                <h3>{product.name}</h3>
-                <p>{product.price}</p>
-              </article>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {products.map((product) => (
+          //@ 고유한 key 값을 기준으로 렌더링할지 판단하기 때문에 key값을 넣어줘야 한다.
+          <li key={product.id}>
+            <article>
+              <h3>{product.name}</h3>
+              <p>{product.price}</p>
+            </article>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
