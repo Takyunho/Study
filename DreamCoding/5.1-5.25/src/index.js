@@ -10,7 +10,8 @@ import reportWebVitals from './reportWebVitals';
 // import AppWrap from './AppWrap';
 // import AppTheme from './AppTheme';
 // import AppMentorsButton from "./AppMentorsButton";
-import AppLoading from './AppLoading';
+// import AppLoading from './AppLoading';
+import AppClass from './AppClass';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -50,7 +51,10 @@ root.render(
 
     {/* 5.21 ~ 5.22 로딩, 에러 상태 추가 */}
     {/* 5.23 커스텀 훅 만들기 */}
-    <AppLoading></AppLoading>
+    {/* <AppLoading></AppLoading> */}
+
+    {/* 5.24 클래스 컴포넌트 */}
+    <AppClass></AppClass>
   </>
 );
 
