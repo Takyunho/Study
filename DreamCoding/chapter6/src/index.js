@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import AppWrap from './AppWrap'
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppWrap />
+    {/* 6.3 PostCSS */}
+    {/* 6.4 Styled-components */}
+    {/* 6.5 Tailwind CSS */}
+    {/* 6.6 장단점 비교 */}
+    <App />
   </React.StrictMode>
 );
 
