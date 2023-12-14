@@ -8,6 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* 6.3 PostCSS */}
+    {/* 6.4 Styled-components */}
     <App />
   </React.StrictMode>
 );
