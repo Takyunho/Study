@@ -7,6 +7,10 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* 6.3 PostCSS */}
+    {/* 6.4 Styled-components */}
+    {/* 6.5 Tailwind CSS */}
+    {/* 6.6 장단점 비교 */}
     <App />
   </React.StrictMode>
 );
