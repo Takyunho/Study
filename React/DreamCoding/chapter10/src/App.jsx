@@ -1,22 +1,17 @@
 import './App.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AppProducts from './pages/AppProducts';
+
+// Create a client
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Provide the client to your App
+    <QueryClientProvider client={queryClient}>
+      <AppProducts />
+      <AppProducts />
+    </QueryClientProvider>
   );
 }
 
