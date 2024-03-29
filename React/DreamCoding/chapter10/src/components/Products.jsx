@@ -11,13 +11,17 @@ export default function Products() {
     error,
     data: products,
   } = useQuery({
-    queryKey: ["products",checked],
+    queryKey: ["products", checked],
     queryFn: async () => {
       console.log("fetching..");
-      return fetch(`data/${checked ? 'sale_' : ""}products.json`).then((res) =>
-        res.json()
-      );
+      // return fetch(`data/${checked ? 'sale_' : ""}products.json`).then((res) =>
+      //   res.json()
+      // );
+      const res = await fetch(`data/${checked ? "sale_" : ""}products.json`);
+      const data = await res.json();
+      return data
     },
+    staleTime: 5000,
   });
   const handleChange = () => setChecked((prev) => !prev);
 
