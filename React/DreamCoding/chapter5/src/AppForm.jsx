@@ -34,7 +34,7 @@ export default function AppForm() {
   };
 
   return (
-    <div onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="name">이름:</label>
       <input
         type="text"
@@ -52,6 +52,6 @@ export default function AppForm() {
         onChange={handleChange}
       />
       <button>Submit</button>
-    </div>
+    </form>
   );
 }
