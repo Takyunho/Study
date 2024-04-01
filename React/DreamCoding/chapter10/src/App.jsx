@@ -11,7 +11,7 @@ function App() {
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
       <AppProducts />
-      <AppProducts />
+      {/* <AppProducts /> */}
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );

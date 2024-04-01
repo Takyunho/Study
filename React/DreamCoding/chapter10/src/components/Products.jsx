@@ -21,7 +21,7 @@ export default function Products() {
       const data = await res.json();
       return data
     },
-    staleTime: 5000,
+    staleTime: 1000 * 60 * 5,   // 5분
   });
   const handleChange = () => setChecked((prev) => !prev);
 
